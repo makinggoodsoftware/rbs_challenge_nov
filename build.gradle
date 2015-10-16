@@ -11,7 +11,8 @@ repositories {
 }
 
 dependencies {
-    compile 'org.springframework:spring-core:4.1.6.RELEASE',
+    compile 'com.google.guava:guava:18.0',
+            'org.springframework:spring-core:4.1.6.RELEASE',
             'org.springframework:spring-context:4.1.6.RELEASE',
             'org.springframework:spring-beans:4.1.6.RELEASE'
     testCompile 'cglib:cglib:2.2.2',
