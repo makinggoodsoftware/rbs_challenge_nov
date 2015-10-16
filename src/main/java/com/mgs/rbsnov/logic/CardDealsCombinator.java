@@ -1,4 +1,7 @@
-package com.mgs.rbsnov;
+package com.mgs.rbsnov.logic;
+
+import com.mgs.rbsnov.domain.Deal;
+import com.mgs.rbsnov.domain.Hand;
 
 import java.util.HashSet;
 import java.util.Set;

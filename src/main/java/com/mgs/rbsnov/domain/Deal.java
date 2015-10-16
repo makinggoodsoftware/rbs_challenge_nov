@@ -1,4 +1,4 @@
-package com.mgs.rbsnov;
+package com.mgs.rbsnov.domain;
 
 import com.google.common.base.Objects;
 
@@ -15,6 +15,22 @@ public class Deal {
         this.card2 = card2;
         this.card3 = card3;
         this.card4 = card4;
+    }
+
+    public Card getCard1() {
+        return card1;
+    }
+
+    public Card getCard2() {
+        return card2;
+    }
+
+    public Card getCard3() {
+        return card3;
+    }
+
+    public Card getCard4() {
+        return card4;
     }
 
     @Override

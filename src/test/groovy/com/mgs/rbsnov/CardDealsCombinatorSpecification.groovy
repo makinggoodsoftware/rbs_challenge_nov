@@ -1,5 +1,11 @@
 package com.mgs.rbsnov
 
+import com.mgs.rbsnov.domain.Card
+import com.mgs.rbsnov.domain.Deal
+import com.mgs.rbsnov.domain.Hand
+import com.mgs.rbsnov.domain.Numeration
+import com.mgs.rbsnov.domain.Suit
+import com.mgs.rbsnov.logic.CardDealsCombinator
 import spock.lang.Specification
 
 class CardDealsCombinatorSpecification extends Specification{

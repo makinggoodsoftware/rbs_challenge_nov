@@ -1,4 +1,4 @@
-package com.mgs.rbsnov;
+package com.mgs.rbsnov.domain;
 
 import java.util.Set;
 

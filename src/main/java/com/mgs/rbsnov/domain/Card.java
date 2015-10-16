@@ -1,4 +1,4 @@
-package com.mgs.rbsnov;
+package com.mgs.rbsnov.domain;
 
 import com.google.common.base.Objects;
 
@@ -9,6 +9,14 @@ public class Card {
     public Card(Suit suit, Numeration numeration) {
         this.numeration = numeration;
         this.suit = suit;
+    }
+
+    public Numeration getNumeration() {
+        return numeration;
+    }
+
+    public Suit getSuit() {
+        return suit;
     }
 
     @Override
@@ -31,5 +39,9 @@ public class Card {
                 "numeration=" + numeration +
                 ", suit=" + suit +
                 '}';
+    }
+
+    public boolean kills(Card other) {
+        return (getSuit() == other.getSuit()) && numeration.higherThan(other.getNumeration());
     }
 }
