@@ -17,24 +17,61 @@ class DealScorerSpecification extends Specification{
 
     def "setup" (){
         dealScorer = new DealScorer(cardScorer)
-        cardScorer.score (new Card(Suit.SPADES, Numeration.EIGHT)) >> EIGHT_SPADES_SCORE
-        cardScorer.score (new Card(Suit.SPADES, Numeration.ACE)) >> ACE_SPADES_SCORE
+        cardScorer.score (Card.from(Suit.SPADES, Numeration.EIGHT)) >> EIGHT_SPADES_SCORE
+        cardScorer.score (Card.from(Suit.SPADES, Numeration.ACE)) >> ACE_SPADES_SCORE
     }
 
-    def "should score the deal when using different suits" (){
+    def "should score the deal when using all the same suits" (){
         given:
         Deal deal = new Deal(
-                new Card(Suit.SPADES, Numeration.EIGHT),
-                new Card(Suit.SPADES, Numeration.FOUR),
-                new Card(Suit.SPADES, Numeration.ACE),
-                new Card(Suit.SPADES, Numeration.KING),
+                Card.from(Suit.SPADES, Numeration.EIGHT),
+                Card.from(Suit.SPADES, Numeration.FOUR),
+                Card.from(Suit.SPADES, Numeration.ACE),
+                Card.from(Suit.SPADES, Numeration.KING),
         )
 
         when:
         DealScore dealScore = dealScorer.score (deal)
 
         then:
-        dealScore.winner == new Card(Suit.SPADES, Numeration.ACE)
+        dealScore.winner == Card.from(Suit.SPADES, Numeration.ACE)
         dealScore.points == EIGHT_SPADES_SCORE + ACE_SPADES_SCORE
     }
+
+
+    def "should score the deal when using all different suits" (){
+        given:
+        Deal deal = new Deal(
+                Card.from(Suit.SPADES, Numeration.EIGHT),
+                Card.from(Suit.CLUBS, Numeration.FOUR),
+                Card.from(Suit.HEARTS, Numeration.ACE),
+                Card.from(Suit.DIAMONDS, Numeration.KING),
+        )
+
+        when:
+        DealScore dealScore = dealScorer.score (deal)
+
+        then:
+        dealScore.winner == Card.from(Suit.SPADES, Numeration.EIGHT)
+        dealScore.points == EIGHT_SPADES_SCORE
+    }
+
+    def "should score the deal when combining different suits" (){
+        given:
+        Deal deal = new Deal(
+                Card.from(Suit.SPADES, Numeration.KING),
+                Card.from(Suit.CLUBS, Numeration.FOUR),
+                Card.from(Suit.SPADES, Numeration.ACE),
+                Card.from(Suit.DIAMONDS, Numeration.KING),
+        )
+
+        when:
+        DealScore dealScore = dealScorer.score (deal)
+
+        then:
+        dealScore.winner == Card.from(Suit.SPADES, Numeration.ACE)
+        dealScore.points == ACE_SPADES_SCORE
+    }
+
+
 }

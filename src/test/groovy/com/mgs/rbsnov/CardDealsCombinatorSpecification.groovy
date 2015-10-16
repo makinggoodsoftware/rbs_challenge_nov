@@ -17,10 +17,10 @@ class CardDealsCombinatorSpecification extends Specification{
 
     def "should explode one card combinations" (){
         given:
-        Hand hand1 = new Hand ([new Card(Suit.CLUBS, Numeration.ACE)] as Set);
-        Hand hand2 = new Hand ([new Card(Suit.DIAMONDS, Numeration.ACE)] as Set);
-        Hand hand3 = new Hand ([new Card(Suit.HEARTS, Numeration.ACE)] as Set);
-        Hand hand4 = new Hand ([new Card(Suit.SPADES, Numeration.ACE)] as Set);
+        Hand hand1 = new Hand ([Card.from(Suit.CLUBS, Numeration.ACE)] as Set);
+        Hand hand2 = new Hand ([Card.from(Suit.DIAMONDS, Numeration.ACE)] as Set);
+        Hand hand3 = new Hand ([Card.from(Suit.HEARTS, Numeration.ACE)] as Set);
+        Hand hand4 = new Hand ([Card.from(Suit.SPADES, Numeration.ACE)] as Set);
 
         when:
         Set<Deal> deals = cardDealsCombinator.combine (hand1, hand2, hand3, hand4);
@@ -29,10 +29,10 @@ class CardDealsCombinatorSpecification extends Specification{
         deals.size() == 1;
         deals == [
                 new Deal(
-                    new Card(Suit.CLUBS, Numeration.ACE),
-                    new Card(Suit.DIAMONDS, Numeration.ACE),
-                    new Card(Suit.HEARTS, Numeration.ACE),
-                    new Card(Suit.SPADES, Numeration.ACE)
+                    Card.from(Suit.CLUBS, Numeration.ACE),
+                    Card.from(Suit.DIAMONDS, Numeration.ACE),
+                    Card.from(Suit.HEARTS, Numeration.ACE),
+                    Card.from(Suit.SPADES, Numeration.ACE)
                 ),
         ] as Set
     }
@@ -40,23 +40,23 @@ class CardDealsCombinatorSpecification extends Specification{
     def "should explode two cards combinations" (){
         given:
         Hand hand1 = new Hand ([
-                new Card(Suit.CLUBS, Numeration.ACE),
-                new Card(Suit.CLUBS, Numeration.TWO),
+                Card.from(Suit.CLUBS, Numeration.ACE),
+                Card.from(Suit.CLUBS, Numeration.TWO),
         ] as Set);
 
         Hand hand2 = new Hand ([
-                new Card(Suit.DIAMONDS, Numeration.ACE),
-                new Card(Suit.DIAMONDS, Numeration.TWO),
+                Card.from(Suit.DIAMONDS, Numeration.ACE),
+                Card.from(Suit.DIAMONDS, Numeration.TWO),
         ] as Set);
 
         Hand hand3 = new Hand ([
-                new Card(Suit.HEARTS, Numeration.ACE),
-                new Card(Suit.HEARTS, Numeration.TWO),
+                Card.from(Suit.HEARTS, Numeration.ACE),
+                Card.from(Suit.HEARTS, Numeration.TWO),
         ] as Set);
 
         Hand hand4 = new Hand ([
-                new Card(Suit.SPADES, Numeration.ACE),
-                new Card(Suit.SPADES, Numeration.TWO),
+                Card.from(Suit.SPADES, Numeration.ACE),
+                Card.from(Suit.SPADES, Numeration.TWO),
         ] as Set);
 
         when:
@@ -69,31 +69,31 @@ class CardDealsCombinatorSpecification extends Specification{
     def "should explode four cards combinations" (){
         given:
         Hand hand1 = new Hand ([
-                new Card(Suit.CLUBS, Numeration.ACE),
-                new Card(Suit.CLUBS, Numeration.TWO),
-                new Card(Suit.CLUBS, Numeration.THREE),
-                new Card(Suit.CLUBS, Numeration.FOUR),
+                Card.from(Suit.CLUBS, Numeration.ACE),
+                Card.from(Suit.CLUBS, Numeration.TWO),
+                Card.from(Suit.CLUBS, Numeration.THREE),
+                Card.from(Suit.CLUBS, Numeration.FOUR),
         ] as Set);
 
         Hand hand2 = new Hand ([
-                new Card(Suit.DIAMONDS, Numeration.ACE),
-                new Card(Suit.DIAMONDS, Numeration.TWO),
-                new Card(Suit.DIAMONDS, Numeration.THREE),
-                new Card(Suit.DIAMONDS, Numeration.FOUR),
+                Card.from(Suit.DIAMONDS, Numeration.ACE),
+                Card.from(Suit.DIAMONDS, Numeration.TWO),
+                Card.from(Suit.DIAMONDS, Numeration.THREE),
+                Card.from(Suit.DIAMONDS, Numeration.FOUR),
         ] as Set);
 
         Hand hand3 = new Hand ([
-                new Card(Suit.HEARTS, Numeration.ACE),
-                new Card(Suit.HEARTS, Numeration.TWO),
-                new Card(Suit.HEARTS, Numeration.THREE),
-                new Card(Suit.HEARTS, Numeration.FOUR),
+                Card.from(Suit.HEARTS, Numeration.ACE),
+                Card.from(Suit.HEARTS, Numeration.TWO),
+                Card.from(Suit.HEARTS, Numeration.THREE),
+                Card.from(Suit.HEARTS, Numeration.FOUR),
         ] as Set);
 
         Hand hand4 = new Hand ([
-                new Card(Suit.SPADES, Numeration.ACE),
-                new Card(Suit.SPADES, Numeration.TWO),
-                new Card(Suit.SPADES, Numeration.THREE),
-                new Card(Suit.SPADES, Numeration.FOUR),
+                Card.from(Suit.SPADES, Numeration.ACE),
+                Card.from(Suit.SPADES, Numeration.TWO),
+                Card.from(Suit.SPADES, Numeration.THREE),
+                Card.from(Suit.SPADES, Numeration.FOUR),
         ] as Set);
 
         when:
@@ -106,47 +106,47 @@ class CardDealsCombinatorSpecification extends Specification{
     def "should explode eight cards combinations" (){
         given:
         Hand hand1 = new Hand ([
-                new Card(Suit.CLUBS, Numeration.ACE),
-                new Card(Suit.CLUBS, Numeration.TWO),
-                new Card(Suit.CLUBS, Numeration.THREE),
-                new Card(Suit.CLUBS, Numeration.FOUR),
-                new Card(Suit.CLUBS, Numeration.FIVE),
-                new Card(Suit.CLUBS, Numeration.SIX),
-                new Card(Suit.CLUBS, Numeration.SEVEN),
-                new Card(Suit.CLUBS, Numeration.EIGHT),
+                Card.from(Suit.CLUBS, Numeration.ACE),
+                Card.from(Suit.CLUBS, Numeration.TWO),
+                Card.from(Suit.CLUBS, Numeration.THREE),
+                Card.from(Suit.CLUBS, Numeration.FOUR),
+                Card.from(Suit.CLUBS, Numeration.FIVE),
+                Card.from(Suit.CLUBS, Numeration.SIX),
+                Card.from(Suit.CLUBS, Numeration.SEVEN),
+                Card.from(Suit.CLUBS, Numeration.EIGHT),
         ] as Set);
 
         Hand hand2 = new Hand ([
-                new Card(Suit.DIAMONDS, Numeration.ACE),
-                new Card(Suit.DIAMONDS, Numeration.TWO),
-                new Card(Suit.DIAMONDS, Numeration.THREE),
-                new Card(Suit.DIAMONDS, Numeration.FOUR),
-                new Card(Suit.DIAMONDS, Numeration.FIVE),
-                new Card(Suit.DIAMONDS, Numeration.SIX),
-                new Card(Suit.DIAMONDS, Numeration.SEVEN),
-                new Card(Suit.DIAMONDS, Numeration.EIGHT),
+                Card.from(Suit.DIAMONDS, Numeration.ACE),
+                Card.from(Suit.DIAMONDS, Numeration.TWO),
+                Card.from(Suit.DIAMONDS, Numeration.THREE),
+                Card.from(Suit.DIAMONDS, Numeration.FOUR),
+                Card.from(Suit.DIAMONDS, Numeration.FIVE),
+                Card.from(Suit.DIAMONDS, Numeration.SIX),
+                Card.from(Suit.DIAMONDS, Numeration.SEVEN),
+                Card.from(Suit.DIAMONDS, Numeration.EIGHT),
         ] as Set);
 
         Hand hand3 = new Hand ([
-                new Card(Suit.HEARTS, Numeration.ACE),
-                new Card(Suit.HEARTS, Numeration.TWO),
-                new Card(Suit.HEARTS, Numeration.THREE),
-                new Card(Suit.HEARTS, Numeration.FOUR),
-                new Card(Suit.HEARTS, Numeration.FIVE),
-                new Card(Suit.HEARTS, Numeration.SIX),
-                new Card(Suit.HEARTS, Numeration.SEVEN),
-                new Card(Suit.HEARTS, Numeration.EIGHT),
+                Card.from(Suit.HEARTS, Numeration.ACE),
+                Card.from(Suit.HEARTS, Numeration.TWO),
+                Card.from(Suit.HEARTS, Numeration.THREE),
+                Card.from(Suit.HEARTS, Numeration.FOUR),
+                Card.from(Suit.HEARTS, Numeration.FIVE),
+                Card.from(Suit.HEARTS, Numeration.SIX),
+                Card.from(Suit.HEARTS, Numeration.SEVEN),
+                Card.from(Suit.HEARTS, Numeration.EIGHT),
         ] as Set);
 
         Hand hand4 = new Hand ([
-                new Card(Suit.SPADES, Numeration.ACE),
-                new Card(Suit.SPADES, Numeration.TWO),
-                new Card(Suit.SPADES, Numeration.THREE),
-                new Card(Suit.SPADES, Numeration.FOUR),
-                new Card(Suit.SPADES, Numeration.FIVE),
-                new Card(Suit.SPADES, Numeration.SIX),
-                new Card(Suit.SPADES, Numeration.SEVEN),
-                new Card(Suit.SPADES, Numeration.EIGHT),
+                Card.from(Suit.SPADES, Numeration.ACE),
+                Card.from(Suit.SPADES, Numeration.TWO),
+                Card.from(Suit.SPADES, Numeration.THREE),
+                Card.from(Suit.SPADES, Numeration.FOUR),
+                Card.from(Suit.SPADES, Numeration.FIVE),
+                Card.from(Suit.SPADES, Numeration.SIX),
+                Card.from(Suit.SPADES, Numeration.SEVEN),
+                Card.from(Suit.SPADES, Numeration.EIGHT),
         ] as Set);
 
         when:
@@ -159,67 +159,67 @@ class CardDealsCombinatorSpecification extends Specification{
     def "should explode all cards combinations" (){
         given:
         Hand hand1 = new Hand ([
-                new Card(Suit.CLUBS, Numeration.ACE),
-                new Card(Suit.CLUBS, Numeration.TWO),
-                new Card(Suit.CLUBS, Numeration.THREE),
-                new Card(Suit.CLUBS, Numeration.FOUR),
-                new Card(Suit.CLUBS, Numeration.FIVE),
-                new Card(Suit.CLUBS, Numeration.SIX),
-                new Card(Suit.CLUBS, Numeration.SEVEN),
-                new Card(Suit.CLUBS, Numeration.EIGHT),
-                new Card(Suit.CLUBS, Numeration.NINE),
-                new Card(Suit.CLUBS, Numeration.TEN),
-                new Card(Suit.CLUBS, Numeration.JACK),
-                new Card(Suit.CLUBS, Numeration.QUEEN),
-                new Card(Suit.CLUBS, Numeration.KING),
+                Card.from(Suit.CLUBS, Numeration.ACE),
+                Card.from(Suit.CLUBS, Numeration.TWO),
+                Card.from(Suit.CLUBS, Numeration.THREE),
+                Card.from(Suit.CLUBS, Numeration.FOUR),
+                Card.from(Suit.CLUBS, Numeration.FIVE),
+                Card.from(Suit.CLUBS, Numeration.SIX),
+                Card.from(Suit.CLUBS, Numeration.SEVEN),
+                Card.from(Suit.CLUBS, Numeration.EIGHT),
+                Card.from(Suit.CLUBS, Numeration.NINE),
+                Card.from(Suit.CLUBS, Numeration.TEN),
+                Card.from(Suit.CLUBS, Numeration.JACK),
+                Card.from(Suit.CLUBS, Numeration.QUEEN),
+                Card.from(Suit.CLUBS, Numeration.KING),
         ] as Set);
 
         Hand hand2 = new Hand ([
-                new Card(Suit.DIAMONDS, Numeration.ACE),
-                new Card(Suit.DIAMONDS, Numeration.TWO),
-                new Card(Suit.DIAMONDS, Numeration.THREE),
-                new Card(Suit.DIAMONDS, Numeration.FOUR),
-                new Card(Suit.DIAMONDS, Numeration.FIVE),
-                new Card(Suit.DIAMONDS, Numeration.SIX),
-                new Card(Suit.DIAMONDS, Numeration.SEVEN),
-                new Card(Suit.DIAMONDS, Numeration.EIGHT),
-                new Card(Suit.DIAMONDS, Numeration.NINE),
-                new Card(Suit.DIAMONDS, Numeration.TEN),
-                new Card(Suit.DIAMONDS, Numeration.JACK),
-                new Card(Suit.DIAMONDS, Numeration.QUEEN),
-                new Card(Suit.DIAMONDS, Numeration.KING),
+                Card.from(Suit.DIAMONDS, Numeration.ACE),
+                Card.from(Suit.DIAMONDS, Numeration.TWO),
+                Card.from(Suit.DIAMONDS, Numeration.THREE),
+                Card.from(Suit.DIAMONDS, Numeration.FOUR),
+                Card.from(Suit.DIAMONDS, Numeration.FIVE),
+                Card.from(Suit.DIAMONDS, Numeration.SIX),
+                Card.from(Suit.DIAMONDS, Numeration.SEVEN),
+                Card.from(Suit.DIAMONDS, Numeration.EIGHT),
+                Card.from(Suit.DIAMONDS, Numeration.NINE),
+                Card.from(Suit.DIAMONDS, Numeration.TEN),
+                Card.from(Suit.DIAMONDS, Numeration.JACK),
+                Card.from(Suit.DIAMONDS, Numeration.QUEEN),
+                Card.from(Suit.DIAMONDS, Numeration.KING),
         ] as Set);
 
         Hand hand3 = new Hand ([
-                new Card(Suit.HEARTS, Numeration.ACE),
-                new Card(Suit.HEARTS, Numeration.TWO),
-                new Card(Suit.HEARTS, Numeration.THREE),
-                new Card(Suit.HEARTS, Numeration.FOUR),
-                new Card(Suit.HEARTS, Numeration.FIVE),
-                new Card(Suit.HEARTS, Numeration.SIX),
-                new Card(Suit.HEARTS, Numeration.SEVEN),
-                new Card(Suit.HEARTS, Numeration.EIGHT),
-                new Card(Suit.HEARTS, Numeration.NINE),
-                new Card(Suit.HEARTS, Numeration.TEN),
-                new Card(Suit.HEARTS, Numeration.JACK),
-                new Card(Suit.HEARTS, Numeration.QUEEN),
-                new Card(Suit.HEARTS, Numeration.KING),
+                Card.from(Suit.HEARTS, Numeration.ACE),
+                Card.from(Suit.HEARTS, Numeration.TWO),
+                Card.from(Suit.HEARTS, Numeration.THREE),
+                Card.from(Suit.HEARTS, Numeration.FOUR),
+                Card.from(Suit.HEARTS, Numeration.FIVE),
+                Card.from(Suit.HEARTS, Numeration.SIX),
+                Card.from(Suit.HEARTS, Numeration.SEVEN),
+                Card.from(Suit.HEARTS, Numeration.EIGHT),
+                Card.from(Suit.HEARTS, Numeration.NINE),
+                Card.from(Suit.HEARTS, Numeration.TEN),
+                Card.from(Suit.HEARTS, Numeration.JACK),
+                Card.from(Suit.HEARTS, Numeration.QUEEN),
+                Card.from(Suit.HEARTS, Numeration.KING),
         ] as Set);
 
         Hand hand4 = new Hand ([
-                new Card(Suit.SPADES, Numeration.ACE),
-                new Card(Suit.SPADES, Numeration.TWO),
-                new Card(Suit.SPADES, Numeration.THREE),
-                new Card(Suit.SPADES, Numeration.FOUR),
-                new Card(Suit.SPADES, Numeration.FIVE),
-                new Card(Suit.SPADES, Numeration.SIX),
-                new Card(Suit.SPADES, Numeration.SEVEN),
-                new Card(Suit.SPADES, Numeration.EIGHT),
-                new Card(Suit.SPADES, Numeration.NINE),
-                new Card(Suit.SPADES, Numeration.TEN),
-                new Card(Suit.SPADES, Numeration.JACK),
-                new Card(Suit.SPADES, Numeration.QUEEN),
-                new Card(Suit.SPADES, Numeration.KING),
+                Card.from(Suit.SPADES, Numeration.ACE),
+                Card.from(Suit.SPADES, Numeration.TWO),
+                Card.from(Suit.SPADES, Numeration.THREE),
+                Card.from(Suit.SPADES, Numeration.FOUR),
+                Card.from(Suit.SPADES, Numeration.FIVE),
+                Card.from(Suit.SPADES, Numeration.SIX),
+                Card.from(Suit.SPADES, Numeration.SEVEN),
+                Card.from(Suit.SPADES, Numeration.EIGHT),
+                Card.from(Suit.SPADES, Numeration.NINE),
+                Card.from(Suit.SPADES, Numeration.TEN),
+                Card.from(Suit.SPADES, Numeration.JACK),
+                Card.from(Suit.SPADES, Numeration.QUEEN),
+                Card.from(Suit.SPADES, Numeration.KING),
         ] as Set);
 
         when:
