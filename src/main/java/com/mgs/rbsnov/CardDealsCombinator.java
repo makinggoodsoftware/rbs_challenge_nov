@@ -1,19 +1,16 @@
 package com.mgs.rbsnov;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 public class CardDealsCombinator {
-    public List<Deal> combine(Set<Card> fromCards) {
+    public List<Deal> combine(Hand firstHand, Hand secondHand, Hand thirdHand, Hand fourthHand) {
         List<Deal> deals = new ArrayList<>();
-        Iterator<Card> iterator = fromCards.iterator();
         deals.add(new Deal(
-                iterator.next(),
-                iterator.next(),
-                iterator.next(),
-                iterator.next()
+                firstHand.getCards().iterator().next(),
+                secondHand.getCards().iterator().next(),
+                thirdHand.getCards().iterator().next(),
+                fourthHand.getCards().iterator().next()
         ));
         return deals;
     }
