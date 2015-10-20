@@ -3,16 +3,16 @@ package com.mgs.rbsnov
 import com.mgs.rbsnov.domain.Card
 import com.mgs.rbsnov.domain.Numeration
 import com.mgs.rbsnov.domain.Suit
-import com.mgs.rbsnov.logic.BestPlayDeveloper
+import com.mgs.rbsnov.logic.GameAnalyser
 import spock.lang.Specification
 
 import static com.mgs.rbsnov.domain.Card.from
 
-class BestPlayDeveloperSpecification extends Specification{
-    BestPlayDeveloper bestPlayDeveloper
+class GameAnalyserSpecification extends Specification{
+    GameAnalyser bestPlayDeveloper
 
     def "setup" (){
-        bestPlayDeveloper = new BestPlayDeveloper()
+        bestPlayDeveloper = new GameAnalyser(personsSscorer, cards, cardsDealer, cardDealsCombinator, dealScorer)
     }
 
     def "should develop plays" () {
@@ -34,7 +34,7 @@ class BestPlayDeveloperSpecification extends Specification{
         ] as Set
 
         when:
-        def stats = bestPlayDeveloper.develop (thisHand, inPlayCards)
+        def stats = bestPlayDeveloper.analyse (thisHand, inPlayCards)
 
         then:
         stats.size() == 2

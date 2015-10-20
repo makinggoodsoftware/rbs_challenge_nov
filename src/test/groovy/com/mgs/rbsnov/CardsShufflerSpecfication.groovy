@@ -25,14 +25,14 @@ class CardsShufflerSpecfication extends Specification{
         ] as Set
 
         when:
-        Set<Card> shuffled1 = cardsShuffler.shuffle (original)
-        Set<Card> shuffled2 = cardsShuffler.shuffle (original)
-        Set<Card> shuffled3 = cardsShuffler.shuffle (original)
-        Set<Card> shuffled4 = cardsShuffler.shuffle (original)
-        Set<Card> shuffled5 = cardsShuffler.shuffle (original)
-        Set<Card> shuffled6 = cardsShuffler.shuffle (original)
-        Set<Card> shuffled7 = cardsShuffler.shuffle (original)
-        Set<Card> shuffled8 = cardsShuffler.shuffle (original)
+        List<Card> shuffled1 = cardsShuffler.shuffle (original)
+        List<Card> shuffled2 = cardsShuffler.shuffle (original)
+        List<Card> shuffled3 = cardsShuffler.shuffle (original)
+        List<Card> shuffled4 = cardsShuffler.shuffle (original)
+        List<Card> shuffled5 = cardsShuffler.shuffle (original)
+        List<Card> shuffled6 = cardsShuffler.shuffle (original)
+        List<Card> shuffled7 = cardsShuffler.shuffle (original)
+        List<Card> shuffled8 = cardsShuffler.shuffle (original)
 
         then:
         shuffled1.size() == 8

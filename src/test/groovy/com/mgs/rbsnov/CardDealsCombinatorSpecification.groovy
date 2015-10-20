@@ -2,7 +2,6 @@ package com.mgs.rbsnov
 
 import com.mgs.rbsnov.domain.Card
 import com.mgs.rbsnov.domain.Deal
-import com.mgs.rbsnov.domain.Hand
 import com.mgs.rbsnov.domain.Numeration
 import com.mgs.rbsnov.domain.Suit
 import com.mgs.rbsnov.logic.CardDealsCombinator
@@ -12,18 +11,18 @@ class CardDealsCombinatorSpecification extends Specification{
     CardDealsCombinator cardDealsCombinator
 
     def "setup" (){
-        cardDealsCombinator = new CardDealsCombinator();
+        cardDealsCombinator = new CardDealsCombinator()
     }
 
     def "should explode one card combinations" (){
         given:
-        Hand hand1 = new Hand ([Card.from(Suit.CLUBS, Numeration.ACE)] as Set);
-        Hand hand2 = new Hand ([Card.from(Suit.DIAMONDS, Numeration.ACE)] as Set);
-        Hand hand3 = new Hand ([Card.from(Suit.HEARTS, Numeration.ACE)] as Set);
-        Hand hand4 = new Hand ([Card.from(Suit.SPADES, Numeration.ACE)] as Set);
+        Set<Card> hand1 = [Card.from(Suit.CLUBS, Numeration.ACE)] as Set
+        Set<Card> hand2 = [Card.from(Suit.DIAMONDS, Numeration.ACE)] as Set
+        Set<Card> hand3 = [Card.from(Suit.HEARTS, Numeration.ACE)] as Set
+        Set<Card> hand4 = [Card.from(Suit.SPADES, Numeration.ACE)] as Set
 
         when:
-        Set<Deal> deals = cardDealsCombinator.combine (hand1, hand2, hand3, hand4);
+        Set<Deal> deals = cardDealsCombinator.combine (hand1, hand2, hand3, hand4)
 
         then:
         deals.size() == 1;
@@ -39,73 +38,73 @@ class CardDealsCombinatorSpecification extends Specification{
 
     def "should explode two cards combinations" (){
         given:
-        Hand hand1 = new Hand ([
+        Set<Card> hand1 = [
                 Card.from(Suit.CLUBS, Numeration.ACE),
                 Card.from(Suit.CLUBS, Numeration.TWO),
-        ] as Set);
+        ] as Set
 
-        Hand hand2 = new Hand ([
+        Set<Card> hand2 = [
                 Card.from(Suit.DIAMONDS, Numeration.ACE),
                 Card.from(Suit.DIAMONDS, Numeration.TWO),
-        ] as Set);
+        ] as Set
 
-        Hand hand3 = new Hand ([
+        Set<Card> hand3 = [
                 Card.from(Suit.HEARTS, Numeration.ACE),
                 Card.from(Suit.HEARTS, Numeration.TWO),
-        ] as Set);
+        ] as Set
 
-        Hand hand4 = new Hand ([
+        Set<Card> hand4 = [
                 Card.from(Suit.SPADES, Numeration.ACE),
                 Card.from(Suit.SPADES, Numeration.TWO),
-        ] as Set);
+        ] as Set
 
         when:
         Set<Deal> deals = cardDealsCombinator.combine (hand1, hand2, hand3, hand4);
 
         then:
-        deals.size() == Math.pow(2, 4);
+        deals.size() == Math.pow(2, 4)
     }
 
     def "should explode four cards combinations" (){
         given:
-        Hand hand1 = new Hand ([
+        Set<Card> hand1 = [
                 Card.from(Suit.CLUBS, Numeration.ACE),
                 Card.from(Suit.CLUBS, Numeration.TWO),
                 Card.from(Suit.CLUBS, Numeration.THREE),
                 Card.from(Suit.CLUBS, Numeration.FOUR),
-        ] as Set);
+        ] as Set
 
-        Hand hand2 = new Hand ([
+        Set<Card> hand2 = [
                 Card.from(Suit.DIAMONDS, Numeration.ACE),
                 Card.from(Suit.DIAMONDS, Numeration.TWO),
                 Card.from(Suit.DIAMONDS, Numeration.THREE),
                 Card.from(Suit.DIAMONDS, Numeration.FOUR),
-        ] as Set);
+        ] as Set
 
-        Hand hand3 = new Hand ([
+        Set<Card> hand3 = [
                 Card.from(Suit.HEARTS, Numeration.ACE),
                 Card.from(Suit.HEARTS, Numeration.TWO),
                 Card.from(Suit.HEARTS, Numeration.THREE),
                 Card.from(Suit.HEARTS, Numeration.FOUR),
-        ] as Set);
+        ] as Set
 
-        Hand hand4 = new Hand ([
+        Set<Card> hand4 = [
                 Card.from(Suit.SPADES, Numeration.ACE),
                 Card.from(Suit.SPADES, Numeration.TWO),
                 Card.from(Suit.SPADES, Numeration.THREE),
                 Card.from(Suit.SPADES, Numeration.FOUR),
-        ] as Set);
+        ] as Set
 
         when:
-        Set<Deal> deals = cardDealsCombinator.combine (hand1, hand2, hand3, hand4);
+        Set<Deal> deals = cardDealsCombinator.combine (hand1, hand2, hand3, hand4)
 
         then:
-        deals.size() == Math.pow(4, 4);
+        deals.size() == Math.pow(4, 4)
     }
 
     def "should explode eight cards combinations" (){
         given:
-        Hand hand1 = new Hand ([
+        Set<Card> hand1 = [
                 Card.from(Suit.CLUBS, Numeration.ACE),
                 Card.from(Suit.CLUBS, Numeration.TWO),
                 Card.from(Suit.CLUBS, Numeration.THREE),
@@ -114,9 +113,9 @@ class CardDealsCombinatorSpecification extends Specification{
                 Card.from(Suit.CLUBS, Numeration.SIX),
                 Card.from(Suit.CLUBS, Numeration.SEVEN),
                 Card.from(Suit.CLUBS, Numeration.EIGHT),
-        ] as Set);
+        ] as Set
 
-        Hand hand2 = new Hand ([
+        Set<Card> hand2 = [
                 Card.from(Suit.DIAMONDS, Numeration.ACE),
                 Card.from(Suit.DIAMONDS, Numeration.TWO),
                 Card.from(Suit.DIAMONDS, Numeration.THREE),
@@ -125,9 +124,9 @@ class CardDealsCombinatorSpecification extends Specification{
                 Card.from(Suit.DIAMONDS, Numeration.SIX),
                 Card.from(Suit.DIAMONDS, Numeration.SEVEN),
                 Card.from(Suit.DIAMONDS, Numeration.EIGHT),
-        ] as Set);
+        ] as Set
 
-        Hand hand3 = new Hand ([
+        Set<Card> hand3 = [
                 Card.from(Suit.HEARTS, Numeration.ACE),
                 Card.from(Suit.HEARTS, Numeration.TWO),
                 Card.from(Suit.HEARTS, Numeration.THREE),
@@ -136,9 +135,9 @@ class CardDealsCombinatorSpecification extends Specification{
                 Card.from(Suit.HEARTS, Numeration.SIX),
                 Card.from(Suit.HEARTS, Numeration.SEVEN),
                 Card.from(Suit.HEARTS, Numeration.EIGHT),
-        ] as Set);
+        ] as Set
 
-        Hand hand4 = new Hand ([
+        Set<Card> hand4 = [
                 Card.from(Suit.SPADES, Numeration.ACE),
                 Card.from(Suit.SPADES, Numeration.TWO),
                 Card.from(Suit.SPADES, Numeration.THREE),
@@ -147,18 +146,18 @@ class CardDealsCombinatorSpecification extends Specification{
                 Card.from(Suit.SPADES, Numeration.SIX),
                 Card.from(Suit.SPADES, Numeration.SEVEN),
                 Card.from(Suit.SPADES, Numeration.EIGHT),
-        ] as Set);
+        ] as Set
 
         when:
-        Set<Deal> deals = cardDealsCombinator.combine (hand1, hand2, hand3, hand4);
+        Set<Deal> deals = cardDealsCombinator.combine (hand1, hand2, hand3, hand4)
 
         then:
-        deals.size() == Math.pow(8, 4);
+        deals.size() == Math.pow(8, 4)
     }
 
     def "should explode all cards combinations" (){
         given:
-        Hand hand1 = new Hand ([
+        Set<Card> hand1 = [
                 Card.from(Suit.CLUBS, Numeration.ACE),
                 Card.from(Suit.CLUBS, Numeration.TWO),
                 Card.from(Suit.CLUBS, Numeration.THREE),
@@ -172,9 +171,9 @@ class CardDealsCombinatorSpecification extends Specification{
                 Card.from(Suit.CLUBS, Numeration.JACK),
                 Card.from(Suit.CLUBS, Numeration.QUEEN),
                 Card.from(Suit.CLUBS, Numeration.KING),
-        ] as Set);
+        ] as Set
 
-        Hand hand2 = new Hand ([
+        Set<Card> hand2 = [
                 Card.from(Suit.DIAMONDS, Numeration.ACE),
                 Card.from(Suit.DIAMONDS, Numeration.TWO),
                 Card.from(Suit.DIAMONDS, Numeration.THREE),
@@ -188,9 +187,9 @@ class CardDealsCombinatorSpecification extends Specification{
                 Card.from(Suit.DIAMONDS, Numeration.JACK),
                 Card.from(Suit.DIAMONDS, Numeration.QUEEN),
                 Card.from(Suit.DIAMONDS, Numeration.KING),
-        ] as Set);
+        ] as Set
 
-        Hand hand3 = new Hand ([
+        Set<Card> hand3 = [
                 Card.from(Suit.HEARTS, Numeration.ACE),
                 Card.from(Suit.HEARTS, Numeration.TWO),
                 Card.from(Suit.HEARTS, Numeration.THREE),
@@ -204,9 +203,9 @@ class CardDealsCombinatorSpecification extends Specification{
                 Card.from(Suit.HEARTS, Numeration.JACK),
                 Card.from(Suit.HEARTS, Numeration.QUEEN),
                 Card.from(Suit.HEARTS, Numeration.KING),
-        ] as Set);
+        ] as Set
 
-        Hand hand4 = new Hand ([
+        Set<Card> hand4 = [
                 Card.from(Suit.SPADES, Numeration.ACE),
                 Card.from(Suit.SPADES, Numeration.TWO),
                 Card.from(Suit.SPADES, Numeration.THREE),
@@ -220,13 +219,13 @@ class CardDealsCombinatorSpecification extends Specification{
                 Card.from(Suit.SPADES, Numeration.JACK),
                 Card.from(Suit.SPADES, Numeration.QUEEN),
                 Card.from(Suit.SPADES, Numeration.KING),
-        ] as Set);
+        ] as Set
 
         when:
-        Set<Deal> deals = cardDealsCombinator.combine (hand1, hand2, hand3, hand4);
+        Set<Deal> deals = cardDealsCombinator.combine (hand1, hand2, hand3, hand4)
 
         then:
-        deals.size() == Math.pow(13, 4);
+        deals.size() == Math.pow(13, 4)
     }
 
 
