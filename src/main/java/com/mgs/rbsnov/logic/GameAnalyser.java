@@ -2,59 +2,50 @@ package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.domain.*;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class GameAnalyser {
-    private final PlayersScorer playersScorer;
+    private final PredictedScorer predictedScorer;
     private final CardsSetBuilder cardsSetBuilder;
     private final CardsDealer cardsDealer;
     private final CardDealsCombinator cardDealsCombinator;
-    private final DealScorer dealScorer;
 
-    public GameAnalyser(PlayersScorer playersScorer, CardsSetBuilder cardsSetBuilder, CardsDealer cardsDealer, CardDealsCombinator cardDealsCombinator, DealScorer dealScorer) {
-        this.playersScorer = playersScorer;
+    public GameAnalyser(PredictedScorer predictedScorer, CardsSetBuilder cardsSetBuilder, CardsDealer cardsDealer, CardDealsCombinator cardDealsCombinator) {
+        this.predictedScorer = predictedScorer;
         this.cardsSetBuilder = cardsSetBuilder;
         this.cardsDealer = cardsDealer;
         this.cardDealsCombinator = cardDealsCombinator;
-        this.dealScorer = dealScorer;
     }
 
-    public Map<Card, List<DealAnalysis>> analyse(GameState gameState) {
+    public Map<Card, PredictedScore> analyse(GameState gameState) {
         Set<Card> myHand = gameState.getMyHand();
         Set<Card> cardsToPlay = gameState.getCardsToPlay();
 
-        List<Set<Card>> cardSets = cardsDealer.deal(3, cardsToPlay);
-        Set<Deal> deals = cardDealsCombinator.combine(myHand, cardSets.get(0), cardSets.get(1), cardSets.get(2));
-        Map<Card, List<DealAnalysis>> analysers = intialize(myHand);
+        List<Set<Card>> otherPlayerCards = cardsDealer.deal(3, cardsToPlay);
+        Map<Card, Set<Deal>> dealsByCard = cardDealsCombinator.combine(myHand, otherPlayerCards.get(0), otherPlayerCards.get(1), otherPlayerCards.get(2));
+        Map<Card, PredictedScore> cardScores = new HashMap<>();
 
-        for (Deal deal : deals) {
-            Card sourceCard = deal.getCard1();
-            DealScore dealScore = dealScorer.score(deal);
-            PlayersScore thisScore = playersScorer.score(dealScore);
-            PlayersScore accumulatedScore;
-            if (! gameState.isLastDeal()){
-                Set<Card> newHand = cardsSetBuilder.newSet(myHand).remove(sourceCard).build();
-                Set<Card> newCardsToPlay = cardsSetBuilder.newSet(cardsToPlay).remove(deal.getCard2(), deal.getCard3(), deal.getCard4()).build();
+        for (Map.Entry<Card, Set<Deal>> dealsByCardEntry : dealsByCard.entrySet()) {
+            Card thisCard = dealsByCardEntry.getKey();
+            PredictedScorer.PredictedScoring cardScoring = predictedScorer.newScoring();
+            for (Deal deal : dealsByCardEntry.getValue()) {
+                if (! gameState.isLastDeal()){
+                    Set<Card> newHand = cardsSetBuilder.newSet(myHand).remove(thisCard).build();
+                    Set<Card> newCardsToPlay = cardsSetBuilder.newSet(cardsToPlay).remove(deal.getCard2(), deal.getCard3(), deal.getCard4()).build();
 
-                GameState newGameState = new GameState(newHand, newCardsToPlay);
-                accumulatedScore = accumulate (analyse(newGameState));
-            } else {
-                accumulatedScore = new PlayersScore(0, 0, 0, 0);
+                    GameState newGameState = new GameState(newHand, newCardsToPlay);
+                    cardScoring.addIntermediateDealScore(deal, analyse(newGameState));
+                } else {
+                    cardScoring.addFinalDealScore(deal);
+                }
+
             }
-
-            DealAnalysis dealAnalysis = new DealAnalysis(deal, thisScore, accumulatedScore);
-            analysers.get(sourceCard).add(dealAnalysis);
+            cardScores.put(thisCard, cardScoring.build());
         }
-        return analysers;
+        return cardScores;
     }
 
-    private PlayersScore accumulate(Map<Card, List<DealAnalysis>> analyse) {
-        return null;
-    }
-
-    private Map<Card, List<DealAnalysis>> intialize(Set<Card> thisHand) {
-        Map<Card, List<DealScore>> analysers = new HashMap<>();
-        thisHand.forEach((thisCard)->analysers.put(thisCard, new ArrayList<>()));
-        return analysers;
-    }
 }

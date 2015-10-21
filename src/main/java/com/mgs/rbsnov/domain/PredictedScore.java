@@ -1,4 +1,4 @@
 package com.mgs.rbsnov.domain;
 
-public class GameAnalysis {
+public class PredictedScore {
 }
