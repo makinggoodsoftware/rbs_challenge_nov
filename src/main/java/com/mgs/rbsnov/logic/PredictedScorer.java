@@ -12,12 +12,12 @@ public class PredictedScorer {
     }
 
     class PredictedScoring {
-        public void addIntermediateDealScore(Deal deal, Map<Card, PredictedScore> childDealsScore) {
-
+        public PredictedScoring addIntermediateDealScore(Deal deal, Map<Card, PredictedScore> childDealsScore) {
+            return this;
         }
 
-        public void addFinalDealScore(Deal deal) {
-
+        public PredictedScoring addFinalDealScore(Deal deal) {
+            return this;
         }
 
         public PredictedScore build() {
