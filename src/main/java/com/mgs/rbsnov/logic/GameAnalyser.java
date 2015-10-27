@@ -12,12 +12,14 @@ public class GameAnalyser {
     private final CardsSetBuilder cardsSetBuilder;
     private final CardsDealer cardsDealer;
     private final CardDealsCombinator cardDealsCombinator;
+    private final PlayersScorer playersScorer;
 
-    public GameAnalyser(PredictedScorer predictedScorer, CardsSetBuilder cardsSetBuilder, CardsDealer cardsDealer, CardDealsCombinator cardDealsCombinator) {
+    public GameAnalyser(PredictedScorer predictedScorer, CardsSetBuilder cardsSetBuilder, CardsDealer cardsDealer, CardDealsCombinator cardDealsCombinator, PlayersScorer playersScorer) {
         this.predictedScorer = predictedScorer;
         this.cardsSetBuilder = cardsSetBuilder;
         this.cardsDealer = cardsDealer;
         this.cardDealsCombinator = cardDealsCombinator;
+        this.playersScorer = playersScorer;
     }
 
     public Map<Card, PredictedScore> analyse(GameState gameState) {
@@ -30,19 +32,21 @@ public class GameAnalyser {
 
         for (Map.Entry<Card, Set<Deal>> dealsByCardEntry : dealsByCard.entrySet()) {
             Card thisCard = dealsByCardEntry.getKey();
+            Set<Deal> possibleDeals = dealsByCardEntry.getValue();
             PredictedScorer.PredictedScoring cardScoring = predictedScorer.newScoring();
-            for (Deal deal : dealsByCardEntry.getValue()) {
-                if (! gameState.isLastDeal()){
+
+            for (Deal deal : possibleDeals) {
+                cardScoring.addScore(playersScorer.score(Player.SOUTH, deal));
+                if (!gameState.isLastDeal()) {
                     Set<Card> newHand = cardsSetBuilder.newSet(myHand).remove(thisCard).build();
                     Set<Card> newCardsToPlay = cardsSetBuilder.newSet(cardsToPlay).remove(deal.getCard2(), deal.getCard3(), deal.getCard4()).build();
 
                     GameState newGameState = new GameState(newHand, newCardsToPlay);
-                    cardScoring.addIntermediateDealScore(deal, analyse(newGameState));
-                } else {
-                    cardScoring.addFinalDealScore(deal);
+                    Map<Card, PredictedScore> childScores = analyse(newGameState);
+                    cardScoring.addPredictedScores(childScores.values());
                 }
-
             }
+
             cardScores.put(thisCard, cardScoring.build());
         }
         return cardScores;

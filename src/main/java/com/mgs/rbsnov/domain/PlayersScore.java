@@ -12,4 +12,20 @@ public class PlayersScore {
         this.northScore = northScore;
         this.westScore = westScore;
     }
+
+    public int getMyScore() {
+        return myScore;
+    }
+
+    public int getEastScore() {
+        return eastScore;
+    }
+
+    public int getNorthScore() {
+        return northScore;
+    }
+
+    public int getWestScore() {
+        return westScore;
+    }
 }

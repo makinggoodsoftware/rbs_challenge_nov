@@ -12,7 +12,7 @@ class GameAnalyserSpecification extends Specification{
     GameAnalyser bestPlayDeveloper
 
     def "setup" (){
-        bestPlayDeveloper = new GameAnalyser(predictedScorer, cards, cardsDealer, cardDealsCombinator)
+        bestPlayDeveloper = new GameAnalyser(predictedScorer, cards, cardsDealer, cardDealsCombinator, playersScorer)
     }
 
     def "should develop plays" () {

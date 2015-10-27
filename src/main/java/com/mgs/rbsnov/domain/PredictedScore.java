@@ -1,31 +1,26 @@
 package com.mgs.rbsnov.domain;
 
 public class PredictedScore {
-    private final int myScore;
-    private final int eastScore;
-    private final int northScore;
-    private final int westScore;
 
-    public PredictedScore(int myScore, int eastScore, int northScore, int westScore) {
-        this.myScore = myScore;
-        this.eastScore = eastScore;
-        this.northScore = northScore;
-        this.westScore = westScore;
+    private final PlayersScore playersScore;
+
+    public PredictedScore(PlayersScore playersScore) {
+        this.playersScore = playersScore;
     }
 
     public int getMyScore() {
-        return myScore;
+        return playersScore.getMyScore();
     }
 
     public int getEastScore() {
-        return eastScore;
+        return playersScore.getEastScore();
     }
 
     public int getNorthScore() {
-        return northScore;
+        return playersScore.getNorthScore();
     }
 
     public int getWestScore() {
-        return westScore;
+        return playersScore.getWestScore();
     }
 }

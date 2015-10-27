@@ -1,27 +1,35 @@
 package com.mgs.rbsnov.logic;
 
-import com.mgs.rbsnov.domain.Card;
-import com.mgs.rbsnov.domain.Deal;
-import com.mgs.rbsnov.domain.PredictedScore;
+import com.mgs.rbsnov.domain.*;
 
+import java.util.Collection;
 import java.util.Map;
 
 public class PredictedScorer {
+    private final PlayersScorer playersScorer;
+
+    public PredictedScorer(PlayersScorer playersScorer) {
+        this.playersScorer = playersScorer;
+    }
+
     public PredictedScoring newScoring() {
-        return null;
+        return new PredictedScoring();
     }
 
     class PredictedScoring {
-        public PredictedScoring addIntermediateDealScore(Deal deal, Map<Card, PredictedScore> childDealsScore) {
+        private PlayersScore playersScore = new PlayersScore(0, 0, 0, 0);
+
+        public PredictedScoring addPredictedScores(Collection<PredictedScore> scores) {
             return this;
         }
 
-        public PredictedScoring addFinalDealScore(Deal deal) {
+        public PredictedScoring addScore(PlayersScore score) {
+            playersScorer.add(score);
             return this;
         }
 
         public PredictedScore build() {
-            return null;
+            return new PredictedScore(playersScore);
         }
     }
 }

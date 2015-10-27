@@ -10,13 +10,12 @@ class PredictedScorerSpecification extends Specification{
     PredictedScorer predictedScorer
 
     def "setup" () {
-        predictedScorer = new PredictedScorer()
+        predictedScorer = new PredictedScorer(playersScorer)
     }
-
 
     def "should add final node score" () {
         when:
-        PredictedScore predictedScore = predictedScorer.newScoring().addFinalDealScore(new Deal(
+        PredictedScore predictedScore = predictedScorer.newScoring().addScore(new Deal(
                 Card.ACE_OF_CLUBS,
                 Card.FIVE_OF_HEARTS,
                 Card.EIGHT_OF_CLUBS,
