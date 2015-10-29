@@ -1,7 +1,6 @@
 package com.mgs.rbsnov
 
-import com.mgs.rbsnov.domain.Card
-import com.mgs.rbsnov.domain.Deal
+import com.mgs.rbsnov.domain.PlayersScore
 import com.mgs.rbsnov.domain.PredictedScore
 import com.mgs.rbsnov.logic.PredictedScorer
 import spock.lang.Specification
@@ -15,17 +14,17 @@ class PredictedScorerSpecification extends Specification{
 
     def "should add final node score" () {
         when:
-        PredictedScore predictedScore = predictedScorer.newScoring().addScore(new Deal(
-                Card.ACE_OF_CLUBS,
-                Card.FIVE_OF_HEARTS,
-                Card.EIGHT_OF_CLUBS,
-                Card.FOUR_OF_CLUBS
-        )).build();
+        PredictedScore predictedScore = predictedScorer.newScoring().
+                addScore(new PlayersScore(1, 0, 0, 1)).
+                addScore(new PlayersScore(0, 0, 0, 2)).
+                addScore(new PlayersScore(0, 1, 0, 1)).
+                addScore(new PlayersScore(0, 2, 0, 0)).
+                build()
 
         then:
-        predictedScore.myScore == 1
-        predictedScore.eastScore == 0
-        predictedScore.northScore == 0
-        predictedScore.westScore == 0
+        predictedScore.averagedScore.southScore == 0.25f
+        predictedScore.averagedScore.eastScore == 0.75f
+        predictedScore.averagedScore.northScore == 0f
+        predictedScore.averagedScore.westScore == 1.0f
     }
 }

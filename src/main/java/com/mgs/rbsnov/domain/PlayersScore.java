@@ -1,31 +1,31 @@
 package com.mgs.rbsnov.domain;
 
 public class PlayersScore {
-    private final int myScore;
-    private final int eastScore;
-    private final int northScore;
-    private final int westScore;
+    private final float southScore;
+    private final float eastScore;
+    private final float northScore;
+    private final float westScore;
 
-    public PlayersScore(int myScore, int eastScore, int northScore, int westScore) {
-        this.myScore = myScore;
+    public PlayersScore(float southScore, float eastScore, float northScore, float westScore) {
+        this.southScore = southScore;
         this.eastScore = eastScore;
         this.northScore = northScore;
         this.westScore = westScore;
     }
 
-    public int getMyScore() {
-        return myScore;
+    public float getSouthScore() {
+        return southScore;
     }
 
-    public int getEastScore() {
+    public float getEastScore() {
         return eastScore;
     }
 
-    public int getNorthScore() {
+    public float getNorthScore() {
         return northScore;
     }
 
-    public int getWestScore() {
+    public float getWestScore() {
         return westScore;
     }
 }

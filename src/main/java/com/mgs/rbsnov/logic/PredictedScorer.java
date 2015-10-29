@@ -2,8 +2,9 @@ package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.domain.*;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Map;
+import java.util.List;
 
 public class PredictedScorer {
     private final PlayersScorer playersScorer;
@@ -17,19 +18,20 @@ public class PredictedScorer {
     }
 
     class PredictedScoring {
-        private PlayersScore playersScore = new PlayersScore(0, 0, 0, 0);
+        private List<PlayersScore> scores = new ArrayList<>();
 
         public PredictedScoring addPredictedScores(Collection<PredictedScore> scores) {
             return this;
         }
 
         public PredictedScoring addScore(PlayersScore score) {
-            playersScorer.add(score);
+            scores.add(score);
             return this;
         }
 
         public PredictedScore build() {
-            return new PredictedScore(playersScore);
+            PlayersScore averagedScored = playersScorer.average(this.scores);
+            return new PredictedScore(averagedScored);
         }
     }
 }
