@@ -1,6 +1,5 @@
 package com.mgs.rbsnov.logic
 
-import com.mgs.rbsnov.domain.Card
 import com.mgs.rbsnov.domain.Deal
 import com.mgs.rbsnov.domain.DealScore
 import com.mgs.rbsnov.domain.Player
@@ -19,6 +18,7 @@ class PlayersScorerSpecification extends Specification {
 
         dealScorerMock.score(dealMock) >> dealScoreMock
         dealScoreMock.points >> 1
+        dealScoreMock.winningCardIndex >> 1
     }
 
     @Unroll ("should score correctly when the starting player is #startingPlayer")
@@ -36,5 +36,7 @@ class PlayersScorerSpecification extends Specification {
         startingPlayer  | expectedEast  | expectedSouth | expectedWest  | expectedNorth
         Player.NORTH    | 1             | 0             | 0             | 0
         Player.EAST     | 0             | 1             | 0             | 0
+        Player.SOUTH    | 0             | 0             | 1             | 0
+        Player.WEST     | 0             | 0             | 0             | 1
     }
 }

@@ -37,6 +37,7 @@ class DealScorerSpecification extends Specification{
         then:
         dealScore.winner == from(Suit.SPADES, Numeration.ACE)
         dealScore.points == EIGHT_SPADES_SCORE + ACE_SPADES_SCORE
+        dealScore.winningCardIndex == 2
     }
 
 
@@ -55,6 +56,7 @@ class DealScorerSpecification extends Specification{
         then:
         dealScore.winner == from(Suit.SPADES, Numeration.EIGHT)
         dealScore.points == EIGHT_SPADES_SCORE
+        dealScore.winningCardIndex == 0
     }
 
     def "should score the deal when combining different suits" (){
@@ -62,8 +64,8 @@ class DealScorerSpecification extends Specification{
         Deal deal = new Deal(
                 from(Suit.SPADES, Numeration.KING),
                 from(Suit.CLUBS, Numeration.FOUR),
-                from(Suit.SPADES, Numeration.ACE),
                 from(Suit.DIAMONDS, Numeration.KING),
+                from(Suit.SPADES, Numeration.ACE),
         )
 
         when:
@@ -72,6 +74,7 @@ class DealScorerSpecification extends Specification{
         then:
         dealScore.winner == from(Suit.SPADES, Numeration.ACE)
         dealScore.points == ACE_SPADES_SCORE
+        dealScore.winningCardIndex == 3
     }
 
 

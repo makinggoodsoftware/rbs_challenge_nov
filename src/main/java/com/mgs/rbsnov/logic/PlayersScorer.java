@@ -13,9 +13,8 @@ public class PlayersScorer {
 
     public PlayersScore score(Player startingPlayer, Deal deal) {
         DealScore dealScore = dealScorer.score(deal);
-        Card winningCard = dealScore.getWinner();
-        Integer winningCardIndexInDeal = deal.getCardPosition(winningCard).orElseThrow(IllegalStateException::new);
-        Player winningPlayer = startingPlayer.moveClockWise(winningCardIndexInDeal);
+        int winningCardIndex = dealScore.getWinningCardIndex();
+        Player winningPlayer = startingPlayer.moveClockWise(winningCardIndex);
         return score (winningPlayer, dealScore.getPoints());
     }
 

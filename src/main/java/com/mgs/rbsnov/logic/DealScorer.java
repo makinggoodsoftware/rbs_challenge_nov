@@ -16,6 +16,7 @@ public class DealScorer {
     public DealScore score(Deal toScore) {
         DealScoreInProgress dealScoreInProgress = new DealScoreInProgress(
                 toScore.getCard1(),
+                0,
                 cardScorer.score(toScore.getCard1())
         );
 
@@ -30,15 +31,19 @@ public class DealScorer {
 
     private class DealScoreInProgress {
         private Card currentWinner;
+        private int winningCardIndex;
         private int currentScore;
+        private int currentIndex = 0;
 
-        public DealScoreInProgress(Card startingWinner, int startingScore) {
+        public DealScoreInProgress(Card startingWinner, int winningCardIndex, int startingScore) {
             this.currentWinner = startingWinner;
+            this.winningCardIndex = winningCardIndex;
             currentScore = startingScore;
         }
 
         public void addScore(int toAdd) {
             currentScore += toAdd;
+            currentIndex ++;
         }
 
         public Card getCurrentWinner() {
@@ -46,12 +51,13 @@ public class DealScorer {
         }
 
         public void changeWinner(Card newWinner, int addingScore) {
-            currentWinner = newWinner;
             addScore(addingScore);
+            currentWinner = newWinner;
+            winningCardIndex = currentIndex;
         }
 
         public DealScore score() {
-            return new DealScore(currentWinner, currentScore);
+            return new DealScore(currentWinner, winningCardIndex, currentScore);
         }
 
         private void apply(Card followingCard) {
