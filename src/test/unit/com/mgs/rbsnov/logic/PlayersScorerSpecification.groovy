@@ -22,7 +22,7 @@ class PlayersScorerSpecification extends Specification {
     }
 
     @Unroll ("should score correctly when the starting player is #startingPlayer")
-    def "should score correctly  a deal"() {
+    def "should score correctly a deal"() {
         when:
         PlayersScore score = playersScorer.score(startingPlayer, dealMock)
 
@@ -38,5 +38,21 @@ class PlayersScorerSpecification extends Specification {
         Player.EAST     | 0             | 1             | 0             | 0
         Player.SOUTH    | 0             | 0             | 1             | 0
         Player.WEST     | 0             | 0             | 0             | 1
+    }
+
+    def "should average players scores" (){
+        when:
+        PlayersScore averaged = playersScorer.average([
+                new PlayersScore(0, 1, 0, 0),
+                new PlayersScore(1, 0, 0, 0),
+                new PlayersScore(0, 0, 1, 0),
+                new PlayersScore(0, 0, 0, 1),
+        ])
+
+        then:
+        averaged.southScore == 0.25f
+        averaged.eastScore == 0.25f
+        averaged.northScore == 0.25f
+        averaged.westScore == 0.25f
     }
 }

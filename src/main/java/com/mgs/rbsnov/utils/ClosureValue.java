@@ -1,4 +1,4 @@
-package com.mgs.rbsnov;
+package com.mgs.rbsnov.utils;
 
 import java.util.function.Function;
 

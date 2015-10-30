@@ -1,9 +1,8 @@
-package com.mgs.rbsnov
+package com.mgs.rbsnov.logic
 
 import com.mgs.rbsnov.domain.Card
 import com.mgs.rbsnov.domain.Numeration
 import com.mgs.rbsnov.domain.Suit
-import com.mgs.rbsnov.logic.GameAnalyser
 import spock.lang.Specification
 
 import static com.mgs.rbsnov.domain.Card.from
@@ -12,7 +11,7 @@ class GameAnalyserSpecification extends Specification{
     GameAnalyser bestPlayDeveloper
 
     def "setup" (){
-        bestPlayDeveloper = new GameAnalyser(predictedScorer, cards, cardsDealer, cardDealsCombinator, playersScorer)
+        bestPlayDeveloper = new GameAnalyser(predictedScorer, cards, cardDealsCombinator, playersScorer)
     }
 
     def "should develop plays" () {

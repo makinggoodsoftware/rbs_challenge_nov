@@ -1,6 +1,6 @@
 package com.mgs.rbsnov.domain;
 
-import com.mgs.rbsnov.ClosureValue;
+import com.mgs.rbsnov.utils.ClosureValue;
 
 import java.util.stream.IntStream;
 

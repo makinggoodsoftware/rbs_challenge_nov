@@ -1,7 +1,9 @@
 package com.mgs.rbsnov.logic;
 
+import com.mgs.rbsnov.utils.ClosureValue;
 import com.mgs.rbsnov.domain.*;
 
+import java.util.Collection;
 import java.util.List;
 
 public class PlayersScorer {
@@ -34,7 +36,32 @@ public class PlayersScorer {
     }
 
 
-    public PlayersScore average(List<PlayersScore> scores) {
-        return null;
+    public PlayersScore average(Collection<PlayersScore> scores) {
+        ClosureValue<Float> southTotal = new ClosureValue<>(0.0f);
+        ClosureValue<Float> eastTotal = new ClosureValue<>(0.0f);
+        ClosureValue<Float> northTotal = new ClosureValue<>(0.0f);
+        ClosureValue<Float> westTotal = new ClosureValue<>(0.0f);
+        scores.forEach((score)->{
+            southTotal.update((current)-> current+=score.getSouthScore());
+            eastTotal.update((current)-> current+=score.getEastScore());
+            northTotal.update((current)-> current+=score.getNorthScore());
+            westTotal.update((current)-> current+=score.getWestScore());
+        });
+
+        return new PlayersScore(
+                southTotal.get() / scores.size(),
+                eastTotal.get() / scores.size(),
+                northTotal.get() / scores.size(),
+                westTotal.get() / scores.size()
+        );
+    }
+
+    public PlayersScore add(PlayersScore left, PlayersScore right) {
+        return new PlayersScore(
+                left.getSouthScore() + right.getSouthScore(),
+                left.getEastScore() + right.getEastScore(),
+                left.getNorthScore() + right.getNorthScore(),
+                left.getWestScore() + right.getWestScore()
+        );
     }
 }

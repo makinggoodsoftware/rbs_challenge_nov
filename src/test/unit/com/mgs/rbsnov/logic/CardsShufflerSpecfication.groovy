@@ -1,4 +1,4 @@
-package com.mgs.rbsnov
+package com.mgs.rbsnov.logic
 
 import com.mgs.rbsnov.domain.Card
 import com.mgs.rbsnov.logic.CardsShuffler

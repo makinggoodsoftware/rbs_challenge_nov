@@ -37,4 +37,10 @@ sourceSets {
             srcDir "src/test/unit"
         }
     }
+    test {
+        apply plugin: 'groovy'
+        groovy {
+            srcDir "src/test/integration"
+        }
+    }
 }
