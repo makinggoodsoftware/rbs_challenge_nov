@@ -55,7 +55,12 @@ public class Config {
 
     @Bean
     public CardDealsCombinator cardDealsCombinator() {
-        return new CardDealsCombinator();
+        return new CardDealsCombinator(dealRules(), cardsSetBuilder());
+    }
+
+    @Bean
+    public DealRules dealRules() {
+        return new DealRules();
     }
 
     @Bean

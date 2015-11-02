@@ -4,7 +4,6 @@ import com.mgs.rbsnov.domain.Card
 import com.mgs.rbsnov.domain.Deal
 import com.mgs.rbsnov.domain.Numeration
 import com.mgs.rbsnov.domain.Suit
-import com.mgs.rbsnov.logic.CardDealsCombinator
 import spock.lang.Specification
 
 import static com.mgs.rbsnov.domain.Card.ACE_OF_CLUBS
@@ -23,9 +22,17 @@ import static com.mgs.rbsnov.domain.Card.TWO_OF_CLUBS
 
 class CardDealsCombinatorSpecification extends Specification{
     CardDealsCombinator cardDealsCombinator
+    DealRules dealRulesMock = Mock()
+    CardsSetBuilder cardsSetBuilderMock = Mock()
+    CardsSetBuilder.CardsSetBuilderWip cardsSetBuilderWipMock = Mock()
+    Set<Card> cardSetMock = Mock()
 
     def "setup" (){
-        cardDealsCombinator = new CardDealsCombinator()
+        cardDealsCombinator = new CardDealsCombinator(dealRulesMock, cardsSetBuilderMock)
+        cardsSetBuilderMock.newSet(_) >> cardsSetBuilderWipMock
+        cardsSetBuilderWipMock.build() >> cardSetMock
+        cardsSetBuilderWipMock.remove(_) >> cardsSetBuilderWipMock
+        dealRulesMock.canFollow(_, _, cardSetMock) >> true
     }
 
     def "should explode one card combinations" (){
