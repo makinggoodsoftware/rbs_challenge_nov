@@ -14,7 +14,7 @@ public class DealInProgressFactory {
                 startingPlayer,
                 Optional.empty(),
                 new ArrayList<>(),
-                Optional.of(startingPlayer.nextClockwise())
+                Optional.of(startingPlayer)
         );
     }
 
