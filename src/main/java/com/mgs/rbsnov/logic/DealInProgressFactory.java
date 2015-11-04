@@ -41,7 +41,7 @@ public class DealInProgressFactory {
                 startingPlayer,
                 Optional.of(firstCard),
                 Arrays.asList(secondCard, thirdCard),
-                Optional.of(startingPlayer.nextClockwise().nextClockwise())
+                Optional.of(startingPlayer.nextClockwise().nextClockwise().nextClockwise())
         );
     }
 

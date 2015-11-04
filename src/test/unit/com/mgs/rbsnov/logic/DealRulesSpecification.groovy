@@ -1,8 +1,6 @@
 package com.mgs.rbsnov.logic
 
 import com.mgs.rbsnov.domain.Card
-import com.mgs.rbsnov.domain.DealInProgress
-import com.mgs.rbsnov.domain.Player
 import spock.lang.Specification
 
 class DealRulesSpecification extends Specification {

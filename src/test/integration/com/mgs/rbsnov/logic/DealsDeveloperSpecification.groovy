@@ -41,13 +41,13 @@ class DealsDeveloperSpecification extends Specification {
         when:
         Set<FinishedDeal> finishedDeals = dealsDeveloper.develop(
                 dealInProgressFactory.threeCardsDeal(Player.NORTH, Card.TEN_OF_CLUBS, Card.TWO_OF_CLUBS, Card.FIVE_OF_HEARTS),
-                new Hands ([] as Set, [] as Set, [] as Set, [] as Set)
+                new Hands ([] as Set, [Card.EIGHT_OF_CLUBS] as Set, [] as Set, [] as Set)
         )
 
         then:
         finishedDeals == [
                 new FinishedDeal(
-                        new Deal(Card.ACE_OF_CLUBS, Card.TWO_OF_CLUBS, Card.FIVE_OF_HEARTS, Card.EIGHT_OF_CLUBS),
+                        new Deal(Card.TEN_OF_CLUBS, Card.TWO_OF_CLUBS, Card.FIVE_OF_HEARTS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 1, 0),
                         Player.NORTH
                 )
