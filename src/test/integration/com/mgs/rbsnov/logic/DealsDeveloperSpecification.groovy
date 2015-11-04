@@ -26,7 +26,7 @@ class DealsDeveloperSpecification extends Specification {
                 new FinishedDeal(
                         new Deal(Card.ACE_OF_CLUBS, Card.TWO_OF_CLUBS, Card.FIVE_OF_HEARTS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 1, 0),
-                        Player.NORTH
+                        Player.NORTH, startingPlayer
                 )
         ] as Set
     }
@@ -43,7 +43,7 @@ class DealsDeveloperSpecification extends Specification {
                 new FinishedDeal(
                         new Deal(Card.TEN_OF_CLUBS, Card.TWO_OF_CLUBS, Card.FIVE_OF_HEARTS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 1, 0),
-                        Player.NORTH
+                        Player.NORTH, startingPlayer
                 )
         ] as Set
     }
@@ -66,7 +66,7 @@ class DealsDeveloperSpecification extends Specification {
                 new FinishedDeal(
                         new Deal(Card.TEN_OF_CLUBS, Card.TWO_OF_CLUBS, Card.FIVE_OF_HEARTS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 1, 0),
-                        Player.NORTH
+                        Player.NORTH, startingPlayer
                 )
         ] as Set
     }
@@ -88,12 +88,12 @@ class DealsDeveloperSpecification extends Specification {
                 new FinishedDeal(
                         new Deal(Card.TEN_OF_CLUBS, Card.TWO_OF_CLUBS, Card.THREE_OF_CLUBS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 0, 0),
-                        Player.NORTH
+                        Player.NORTH, startingPlayer
                 ),
                 new FinishedDeal(
                         new Deal(Card.TEN_OF_CLUBS, Card.TWO_OF_CLUBS, Card.ACE_OF_CLUBS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 0, 0),
-                        Player.SOUTH
+                        Player.SOUTH, startingPlayer
                 )
         ] as Set
     }
@@ -114,22 +114,22 @@ class DealsDeveloperSpecification extends Specification {
                 new FinishedDeal(
                         new Deal(Card.TEN_OF_CLUBS, Card.TWO_OF_CLUBS, Card.THREE_OF_CLUBS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 0, 0),
-                        Player.NORTH
+                        Player.NORTH, startingPlayer
                 ),
                 new FinishedDeal(
                         new Deal(Card.TEN_OF_CLUBS, Card.TWO_OF_CLUBS, Card.ACE_OF_CLUBS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 0, 0),
-                        Player.SOUTH
+                        Player.SOUTH, startingPlayer
                 ),
                 new FinishedDeal(
                         new Deal(Card.TEN_OF_CLUBS, Card.FOUR_OF_CLUBS, Card.THREE_OF_CLUBS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 0, 0),
-                        Player.NORTH
+                        Player.NORTH, startingPlayer
                 ),
                 new FinishedDeal(
                         new Deal(Card.TEN_OF_CLUBS, Card.FOUR_OF_CLUBS, Card.ACE_OF_CLUBS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 0, 0),
-                        Player.SOUTH
+                        Player.SOUTH, startingPlayer
                 ),
         ] as Set
     }
@@ -151,22 +151,22 @@ class DealsDeveloperSpecification extends Specification {
                 new FinishedDeal(
                         new Deal(Card.TEN_OF_CLUBS, Card.TWO_OF_CLUBS, Card.THREE_OF_CLUBS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 0, 0),
-                        Player.NORTH
+                        Player.NORTH, startingPlayer
                 ),
                 new FinishedDeal(
                         new Deal(Card.TEN_OF_CLUBS, Card.TWO_OF_CLUBS, Card.ACE_OF_CLUBS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 0, 0),
-                        Player.SOUTH
+                        Player.SOUTH, startingPlayer
                 ),
                 new FinishedDeal(
                         new Deal(Card.TEN_OF_CLUBS, Card.FOUR_OF_CLUBS, Card.THREE_OF_CLUBS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 0, 0),
-                        Player.NORTH
+                        Player.NORTH, startingPlayer
                 ),
                 new FinishedDeal(
                         new Deal(Card.TEN_OF_CLUBS, Card.FOUR_OF_CLUBS, Card.ACE_OF_CLUBS, Card.EIGHT_OF_CLUBS),
                         new PlayersScore(0, 0, 0, 0),
-                        Player.SOUTH
+                        Player.SOUTH, startingPlayer
                 ),
         ] as Set
     }

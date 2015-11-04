@@ -76,8 +76,8 @@ public class Config {
         return new GameAnalyserII(
                 gameDeveloper(),
                 predictedScorer(),
-                gameStateFactory()
-        );
+                dealInProgressFactory(),
+                cardsSetBuilder());
     }
 
     @Bean

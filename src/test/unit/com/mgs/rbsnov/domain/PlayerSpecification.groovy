@@ -15,6 +15,10 @@ class PlayerSpecification extends Specification {
         Player.SOUTH.moveClockWise(5) == Player.SOUTH.moveClockWise(1)
         Player.SOUTH.moveClockWise(6) == Player.SOUTH.moveClockWise(2)
         Player.SOUTH.moveClockWise(7) == Player.SOUTH.moveClockWise(3)
+    }
 
+    def "should calculate the distance" (){
+        expect:
+        Player.WEST.distanceTo(Player.SOUTH) == 3
     }
 }

@@ -6,11 +6,13 @@ public class FinishedDeal {
     private final Deal deal;
     private final PlayersScore score;
     private final Player winningPlayer;
+    private final Player startingPlayer;
 
-    public FinishedDeal(Deal deal, PlayersScore score, Player winningPlayer) {
+    public FinishedDeal(Deal deal, PlayersScore score, Player winningPlayer, Player startingPlayer) {
         this.deal = deal;
         this.score = score;
         this.winningPlayer = winningPlayer;
+        this.startingPlayer = startingPlayer;
     }
 
     public PlayersScore getScore() {
@@ -23,6 +25,11 @@ public class FinishedDeal {
 
     public Player getWinningPlayer() {
         return winningPlayer;
+    }
+
+    public Card getCard(Player target) {
+        int distance = startingPlayer.distanceTo(target);
+        return deal.getCard(distance);
     }
 
     @Override

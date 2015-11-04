@@ -17,7 +17,7 @@ public class PlayersScorer {
         int winningCardIndex = dealScore.getWinningCardIndex();
         Player winningPlayer = startingPlayer.moveClockWise(winningCardIndex);
         PlayersScore score = score(winningPlayer, dealScore.getPoints());
-        return new FinishedDeal(deal, score, winningPlayer);
+        return new FinishedDeal(deal, score, winningPlayer, startingPlayer);
     }
 
     public FinishedDeal score(DealInProgress dealInProgress) {

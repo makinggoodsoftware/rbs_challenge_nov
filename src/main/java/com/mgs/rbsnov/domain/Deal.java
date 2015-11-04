@@ -2,8 +2,6 @@ package com.mgs.rbsnov.domain;
 
 import com.google.common.base.Objects;
 
-import java.util.Optional;
-
 import static com.google.common.base.Objects.*;
 
 public class Deal {
@@ -35,8 +33,19 @@ public class Deal {
         return card4;
     }
 
-    public Optional<Integer> getCardPosition(Card winningCard) {
-        return null;
+    public Card getCard(int cardIndex) {
+        switch (cardIndex){
+            case 0:
+                return getCard1();
+            case 1:
+                return getCard2();
+            case 2:
+                return getCard3();
+            case 3:
+                return getCard4();
+            default:
+                throw new IllegalStateException();
+        }
     }
 
     @Override
