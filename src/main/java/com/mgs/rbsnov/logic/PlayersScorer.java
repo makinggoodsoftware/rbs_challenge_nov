@@ -4,7 +4,6 @@ import com.mgs.rbsnov.utils.ClosureValue;
 import com.mgs.rbsnov.domain.*;
 
 import java.util.Collection;
-import java.util.List;
 
 public class PlayersScorer {
     private final DealScorer dealScorer;
@@ -13,12 +12,27 @@ public class PlayersScorer {
         this.dealScorer = dealScorer;
     }
 
-    public PlayersScore score(Player startingPlayer, Deal deal) {
+    public FinishedDeal score(Player startingPlayer, Deal deal) {
         DealScore dealScore = dealScorer.score(deal);
         int winningCardIndex = dealScore.getWinningCardIndex();
         Player winningPlayer = startingPlayer.moveClockWise(winningCardIndex);
-        return score (winningPlayer, dealScore.getPoints());
+        PlayersScore score = score(winningPlayer, dealScore.getPoints());
+        return new FinishedDeal(deal, score, winningPlayer);
     }
+
+    public FinishedDeal score(DealInProgress dealInProgress) {
+        if (!dealInProgress.isCompleted()) throw new IllegalStateException();
+
+        Deal deal = new Deal(
+                dealInProgress.getLeadingCard().get(),
+                dealInProgress.getFollowingCards().get(0),
+                dealInProgress.getFollowingCards().get(1),
+                dealInProgress.getFollowingCards().get(2)
+        );
+
+        return score(dealInProgress.getStartingPlayer(), deal);
+    }
+
 
     public PlayersScore score(Player toPlayer, int points) {
         switch (toPlayer){
@@ -34,7 +48,6 @@ public class PlayersScorer {
 
         throw new IllegalStateException();
     }
-
 
     public PlayersScore average(Collection<PlayersScore> scores) {
         ClosureValue<Float> southTotal = new ClosureValue<>(0.0f);

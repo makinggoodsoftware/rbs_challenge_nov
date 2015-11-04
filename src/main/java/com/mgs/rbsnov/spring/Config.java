@@ -72,6 +72,30 @@ public class Config {
     }
 
     @Bean
+    public GameAnalyserII gameAnalyserII(){
+        return new GameAnalyserII(
+                gameDeveloper(),
+                predictedScorer(),
+                gameStateFactory()
+        );
+    }
+
+    @Bean
+    public GameStateFactory gameStateFactory() {
+        return new GameStateFactory();
+    }
+
+    @Bean
+    public DealsDeveloper gameDeveloper() {
+        return new DealsDeveloper(dealRules(), playersScorer(), dealInProgressFactory());
+    }
+
+    @Bean
+    public DealInProgressFactory dealInProgressFactory() {
+        return new DealInProgressFactory();
+    }
+
+    @Bean
     public SetRotatorFactory setRotationFactory() {
         return new SetRotatorFactory();
     }

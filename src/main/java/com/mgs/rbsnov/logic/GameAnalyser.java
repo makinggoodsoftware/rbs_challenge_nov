@@ -34,15 +34,12 @@ public class GameAnalyser {
             PredictedScorer.PredictedScoring cardScoring = predictedScorer.newScoring();
 
             for (Deal deal : possibleDeals) {
-                cardScoring.addScore(playersScorer.score(Player.SOUTH, deal));
+                cardScoring.addScore(playersScorer.score(Player.SOUTH, deal).getScore());
                 if (!gameState.isLastDeal()) {
 
                     GameState newGameState = new GameState(
-                            cardsSetBuilder.newSet(gameState.getSouthHand()).remove(thisCard).build(),
-                            cardsSetBuilder.newSet(gameState.getWestHand()).remove(deal.getCard2()).build(),
-                            cardsSetBuilder.newSet(gameState.getNorthHand()).remove(deal.getCard3()).build(),
-                            cardsSetBuilder.newSet(gameState.getEastHand()).remove(deal.getCard4()).build()
-                    );
+                            null,
+                            null);
                     Map<Card, PredictedScore> childScores = analyse(newGameState);
                     cardScoring.addCombinedChildrenDealScores(childScores.values());
                 }

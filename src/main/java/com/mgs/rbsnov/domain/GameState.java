@@ -3,45 +3,40 @@ package com.mgs.rbsnov.domain;
 import java.util.Set;
 
 public class GameState {
-    private final Set<Card> southHand;
-    private final Set<Card> westHand;
-    private final Set<Card> northHand;
-    private final Set<Card> eastHand;
+    private final Hands hands;
+    private final DealInProgress dealInProgress;
 
-    public GameState(Set<Card> southHand, Set<Card> westHand, Set<Card> northHand, Set<Card> eastHand) {
-        this.southHand = southHand;
-        this.westHand = westHand;
-        this.northHand = northHand;
-        this.eastHand = eastHand;
-
-        if (
-                southHand.size() != eastHand.size() ||
-                eastHand.size() != northHand.size() ||
-                northHand.size() != westHand.size() ||
-                westHand.size() != southHand.size()
-        ) {
-            throw new IllegalStateException();
-        }
+    public GameState(Hands hands, DealInProgress dealInProgress) {
+        this.hands = hands;
+        this.dealInProgress = dealInProgress;
     }
 
 
     public Set<Card> getWestHand() {
-        return westHand;
+        return hands.getWestHand();
     }
 
     public Set<Card> getNorthHand() {
-        return northHand;
+        return hands.getNorthHand();
     }
 
     public Set<Card> getEastHand() {
-        return eastHand;
+        return hands.getEastHand();
     }
 
     public Set<Card> getSouthHand() {
-        return southHand;
+        return hands.getSouthHand();
     }
 
     public boolean isLastDeal() {
-        return southHand.size() == 1;
+        return hands.getSouthHand().size() == 1;
+    }
+
+    public DealInProgress getDealInProgress() {
+        return dealInProgress;
+    }
+
+    public Hands getAllHands() {
+        return hands;
     }
 }

@@ -1,7 +1,6 @@
 package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.domain.Card;
-import com.mgs.rbsnov.domain.Deal;
 import com.mgs.rbsnov.domain.GameState;
 import com.mgs.rbsnov.domain.PredictedScore;
 
@@ -22,11 +21,8 @@ public class CardSelector {
     public Card bestCard(Set<Card> inPlay, Set<Card> myCards) {
         List<Set<Card>> otherPlayerCards = cardsDealer.deal(3, inPlay);
         GameState gameState = new GameState(
-                myCards,
-                otherPlayerCards.get(0),
-                otherPlayerCards.get(1),
-                otherPlayerCards.get(2)
-        );
+                null,
+                null);
         Map<Card, PredictedScore> predictedScores = gameAnalyser.analyse(gameState);
         return null;
     }
