@@ -1,5 +1,7 @@
 package com.mgs.rbsnov.domain;
 
+import com.google.common.base.Objects;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -34,4 +36,23 @@ public class Hands {
         return hands.get(toGet);
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Hands)) return false;
+        Hands hands1 = (Hands) o;
+        return Objects.equal(hands, hands1.hands);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(hands);
+    }
+
+    @Override
+    public String toString() {
+        return "Hands{" +
+                "hands=" + hands +
+                '}';
+    }
 }

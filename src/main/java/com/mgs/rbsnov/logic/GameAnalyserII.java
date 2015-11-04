@@ -2,10 +2,7 @@ package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.domain.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class GameAnalyserII {
     private final DealsDeveloper dealsDeveloper;
@@ -48,15 +45,25 @@ public class GameAnalyserII {
     }
 
     private GameState childGameState(GameState gameState, FinishedDeal possibleDeal) {
-        return new GameState(
+        int distanceToSouth = possibleDeal.getStartingPlayer().distanceTo(Player.SOUTH);
+        GameState newGameState = new GameState(
                 cardsSetBuilder.removeCards(gameState.getAllHands(),
-                    possibleDeal.getDeal().getCard1(),
-                    possibleDeal.getDeal().getCard2(),
-                    possibleDeal.getDeal().getCard3(),
-                    possibleDeal.getDeal().getCard4()
+                        possibleDeal.getDeal().getCard(relativeDistance(distanceToSouth, 0)),
+                        possibleDeal.getDeal().getCard(relativeDistance(distanceToSouth, 1)),
+                        possibleDeal.getDeal().getCard(relativeDistance(distanceToSouth, 2)),
+                        possibleDeal.getDeal().getCard(relativeDistance(distanceToSouth, 3))
                 ),
                 dealInProgressFactory.newJustStartedDeal(possibleDeal.getWinningPlayer())
         );
+        if (newGameState.getAllHands().getNorthHand().size() == gameState.getAllHands().getNorthHand().size()){
+            throw new IllegalStateException();
+        }
+        return newGameState;
+    }
+
+    private int relativeDistance(int distanceToSouth, int position) {
+        int rawValue = distanceToSouth + position;
+        return rawValue > 3 ? rawValue - 4 : rawValue;
     }
 
     private Map<Card, Set<FinishedDeal>> asMap(Set<FinishedDeal> finishedDeals, Player target) {

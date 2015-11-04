@@ -1,5 +1,7 @@
 package com.mgs.rbsnov.domain;
 
+import com.google.common.base.Objects;
+
 import java.util.Set;
 
 public class GameState {
@@ -38,5 +40,27 @@ public class GameState {
 
     public Hands getAllHands() {
         return hands;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof GameState)) return false;
+        GameState gameState = (GameState) o;
+        return Objects.equal(hands, gameState.hands) &&
+                Objects.equal(dealInProgress, gameState.dealInProgress);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(hands, dealInProgress);
+    }
+
+    @Override
+    public String toString() {
+        return "GameState{" +
+                "hands=" + hands +
+                ", dealInProgress=" + dealInProgress +
+                '}';
     }
 }

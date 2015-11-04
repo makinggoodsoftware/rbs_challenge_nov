@@ -1,5 +1,7 @@
 package com.mgs.rbsnov.domain;
 
+import com.google.common.base.Objects;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -39,5 +41,31 @@ public class DealInProgress {
 
     public Player getStartingPlayer() {
         return startingPlayer;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DealInProgress)) return false;
+        DealInProgress that = (DealInProgress) o;
+        return startingPlayer == that.startingPlayer &&
+                Objects.equal(leadingCard, that.leadingCard) &&
+                Objects.equal(followingCards, that.followingCards) &&
+                Objects.equal(waitingForPlayer, that.waitingForPlayer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(startingPlayer, leadingCard, followingCards, waitingForPlayer);
+    }
+
+    @Override
+    public String toString() {
+        return "DealInProgress{" +
+                "startingPlayer=" + startingPlayer +
+                ", leadingCard=" + leadingCard +
+                ", followingCards=" + followingCards +
+                ", waitingForPlayer=" + waitingForPlayer +
+                '}';
     }
 }

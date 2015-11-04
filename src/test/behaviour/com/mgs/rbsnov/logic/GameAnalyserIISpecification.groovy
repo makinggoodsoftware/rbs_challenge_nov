@@ -14,7 +14,7 @@ class GameAnalyserIISpecification extends Specification {
     @Resource
     DealInProgressFactory dealInProgressFactory
 
-    def "should score cards" (){
+    def "should score 2 cards hands" (){
         when:
         Map<Card, PredictedScore> predictedScore = gameAnalyserII.analyse(new GameState(
                 new Hands(
@@ -27,6 +27,24 @@ class GameAnalyserIISpecification extends Specification {
         ), Player.SOUTH)
 
         then:
-        predictedScore.size() == 2
+        predictedScore[Card.ACE_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
+    }
+
+    def "should score 3 cards hands" (){
+        when:
+        Map<Card, PredictedScore> predictedScore = gameAnalyserII.analyse(new GameState(
+                new Hands(
+                        [Card.ACE_OF_HEARTS, Card.TWO_OF_HEARTS, Card.ACE_OF_SPADES] as Set,
+                        [Card.QUEEN_OF_HEARTS, Card.FIVE_OF_HEARTS, Card.FIVE_OF_CLUBS] as Set,
+                        [Card.JACK_OF_HEARTS, Card.FOUR_OF_CLUBS, Card.FOUR_OF_DIAMONDS] as Set,
+                        [Card.TWO_OF_SPADES, Card.TWO_OF_DIAMONDS, Card.SIX_OF_HEARTS] as Set
+                ),
+                dealInProgressFactory.newJustStartedDeal(Player.SOUTH)
+        ), Player.SOUTH)
+
+        then:
+        predictedScore[Card.ACE_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
+        predictedScore[Card.ACE_OF_SPADES].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
+        predictedScore[Card.ACE_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.ACE_OF_SPADES].averagedScore.getSouthScore()
     }
 }

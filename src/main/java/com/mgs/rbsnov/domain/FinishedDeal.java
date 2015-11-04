@@ -32,6 +32,10 @@ public class FinishedDeal {
         return deal.getCard(distance);
     }
 
+    public Player getStartingPlayer() {
+        return startingPlayer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,12 +43,13 @@ public class FinishedDeal {
         FinishedDeal that = (FinishedDeal) o;
         return Objects.equal(deal, that.deal) &&
                 Objects.equal(score, that.score) &&
-                winningPlayer == that.winningPlayer;
+                winningPlayer == that.winningPlayer &&
+                startingPlayer == that.startingPlayer;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(deal, score, winningPlayer);
+        return Objects.hashCode(deal, score, winningPlayer, startingPlayer);
     }
 
     @Override
@@ -53,6 +58,7 @@ public class FinishedDeal {
                 "deal=" + deal +
                 ", score=" + score +
                 ", winningPlayer=" + winningPlayer +
+                ", startingPlayer=" + startingPlayer +
                 '}';
     }
 }
