@@ -9,6 +9,7 @@ public class GameAnalyserII {
     private final PredictedScorer predictedScorer;
     private final DealInProgressFactory dealInProgressFactory;
     private final CardsSetBuilder cardsSetBuilder;
+    private final Map<GameState, Map<Card, PredictedScore>> alreadyProcessedStates = new HashMap<>();
 
     public GameAnalyserII(DealsDeveloper dealsDeveloper, PredictedScorer predictedScorer, DealInProgressFactory dealInProgressFactory, CardsSetBuilder cardsSetBuilder) {
         this.dealsDeveloper = dealsDeveloper;
@@ -18,6 +19,9 @@ public class GameAnalyserII {
     }
 
     public Map<Card, PredictedScore> analyse(GameState gameState, Player target){
+        if (alreadyProcessedStates.containsKey(gameState)){
+            return alreadyProcessedStates.get(gameState);
+        }
         Map<Card, PredictedScore> analysis = new HashMap<>();
         DealInProgress dealInProgress = gameState.getDealInProgress();
         Set<FinishedDeal> possibleDeals = dealsDeveloper.develop(dealInProgress, gameState.getAllHands());
@@ -28,6 +32,7 @@ public class GameAnalyserII {
             PredictedScorer.PredictedScoring predictedScoring = getPredictedScoring(gameState, thisPossibleDeals, target);
             analysis.put(card, predictedScoring.build());
         }
+        alreadyProcessedStates.put(gameState, analysis);
         return analysis;
     }
 

@@ -87,7 +87,12 @@ public class Config {
 
     @Bean
     public DealsDeveloper gameDeveloper() {
-        return new DealsDeveloper(dealRules(), playersScorer(), dealInProgressFactory());
+        return new DealsDeveloper(dealRules(), playersScorer(), dealInProgressFactory(), cardsFilter ());
+    }
+
+    @Bean
+    public CardsFilter cardsFilter(){
+        return new CardsFilter(cardScorer());
     }
 
     @Bean

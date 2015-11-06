@@ -8,11 +8,13 @@ public class DealsDeveloper {
     private final DealRules dealRules;
     private final PlayersScorer playersScorer;
     private final DealInProgressFactory dealInProgressFactory;
+    private final CardsFilter cardsFilter;
 
-    public DealsDeveloper(DealRules dealRules, PlayersScorer playersScorer, DealInProgressFactory dealInProgressFactory) {
+    public DealsDeveloper(DealRules dealRules, PlayersScorer playersScorer, DealInProgressFactory dealInProgressFactory, CardsFilter cardsFilter) {
         this.dealRules = dealRules;
         this.playersScorer = playersScorer;
         this.dealInProgressFactory = dealInProgressFactory;
+        this.cardsFilter = cardsFilter;
     }
 
 
@@ -27,6 +29,7 @@ public class DealsDeveloper {
         Player waitingForPlayer = dealInProgress.getWaitingForPlayer().get();
         Set<Card> allCards = hands.get(waitingForPlayer);
         Set<Card> playableCards = playableCards(dealInProgress, allCards);
+        Set<Card> filteredCards = cardsFilter.bestCards (dealInProgress, playableCards);
         for (Card playableCard : playableCards) {
             DealInProgress nextDeal = dealInProgressFactory.next(dealInProgress, playableCard);
             allDeals.addAll(develop(nextDeal, hands));

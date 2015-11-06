@@ -8,7 +8,7 @@ import com.mgs.rbsnov.domain.Player
 import spock.lang.Specification
 
 class GameDeveloperSpecification extends Specification {
-    DealsDeveloper gameDeveloper = new DealsDeveloper(dealRules, finishedDealScorer, dealInProgressFactory)
+    DealsDeveloper gameDeveloper = new DealsDeveloper(dealRules, finishedDealScorer, dealInProgressFactory, cardsFilter)
 
     def "should develop game" (){
         when:

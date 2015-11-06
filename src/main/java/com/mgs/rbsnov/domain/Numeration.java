@@ -13,4 +13,5 @@ public enum  Numeration {
     public boolean higherThan(Numeration numeration) {
         return value > numeration.value;
     }
+
 }
