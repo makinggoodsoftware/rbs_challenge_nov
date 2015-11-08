@@ -22,14 +22,76 @@ public class CardsFilter {
     }
 
     private Set<Card> startingDeal(Map<Suit, List<Card>> playableCards) {
-        return null;
+        return all(playableCards);
     }
 
     private Set<Card> followingDeal(DealInProgress dealInProgress, Map<Suit, List<Card>> playableCardsBySuit) {
-        if (playableCardsBySuit.containsKey(dealInProgress.getLeadingCard().get().getSuit())){
-            return followingSuit(dealInProgress, playableCardsBySuit);
+        Suit leadingSuit = dealInProgress.getLeadingCard().get().getSuit();
+        if (playableCardsBySuit.containsKey(leadingSuit)){
+            return followingSuit(dealInProgress, playableCardsBySuit.get(leadingSuit));
         }
         return discarding (dealInProgress, playableCardsBySuit);
+    }
+
+    private Set<Card> followingSuit(DealInProgress dealInProgress, List<Card> playableCards) {
+        Card leadingCard = dealInProgress.getLeadingCard().get();
+        List<Card> sortedSuitCards = sortAsc(playableCards);
+        if (cantKill(leadingCard, sortedSuitCards)) {
+            return singletonSet(sortedSuitCards.get(0));
+        }
+        return canKillFollowingSuit(leadingCard, sortedSuitCards);
+    }
+
+    private Set<Card> canKillFollowingSuit(Card leadingCard, List<Card> sortedSuitCards) {
+        if (leadingCard.getSuit() == Suit.HEARTS) {
+            return highestNonKillingOrLowest (leadingCard, sortedSuitCards);
+        }
+        Set<Card> maxJustBeforeAndAfter = new HashSet<>();
+        Card maxValue = sortedSuitCards.get(0);
+        maxJustBeforeAndAfter.add(maxValue);
+        Card thisCard;
+        Card previousCard = maxValue;
+        for (int i=1; i<sortedSuitCards.size(); i++) {
+            thisCard = sortedSuitCards.get(i);
+            if (! thisCard.getNumeration().higherThan(leadingCard.getNumeration())){
+                maxJustBeforeAndAfter.add(previousCard);
+                maxJustBeforeAndAfter.add(thisCard);
+                return maxJustBeforeAndAfter;
+            }
+            previousCard = thisCard;
+        }
+        maxJustBeforeAndAfter.add(sortedSuitCards.get(sortedSuitCards.size()-1));
+        return maxJustBeforeAndAfter;
+    }
+
+    private Set<Card> highestNonKillingOrLowest(Card leadingCard, List<Card> sortedSuitCards) {
+        Card lowestCard = sortedSuitCards.get(sortedSuitCards.size()-1);
+        Card thisCard = lowestCard;
+        Card nextCard;
+        for (int i = sortedSuitCards.size()-2; i>=0; i--){
+            nextCard = sortedSuitCards.get(i);
+            if (nextCard.getNumeration().higherThan(leadingCard.getNumeration())){
+                return singletonSet(thisCard);
+            }
+            thisCard = nextCard;
+        }
+        return singletonSet(lowestCard);
+    }
+
+    private boolean cantKill(Card leadingCard, List<Card> sortedSuitCards) {
+        return ! sortedSuitCards.get(0).getNumeration().higherThan(leadingCard.getNumeration());
+    }
+
+    private Set<Card> singletonSet(Card card) {
+        Set<Card> singletonSet = new HashSet<>();
+        singletonSet.add(card);
+        return singletonSet;
+    }
+
+    private Set<Card> all(Map<Suit, List<Card>> playableCards) {
+        Set<Card> playableCardsAsSet = new HashSet<>();
+        playableCards.values().forEach(playableCardsAsSet::addAll);
+        return playableCardsAsSet;
     }
 
     private Set<Card> discarding(DealInProgress dealInProgress, Map<Suit, List<Card>> playableCardsBySuit) {
@@ -40,22 +102,24 @@ public class CardsFilter {
         }
 
         Map<Suit, List<Card>> positivePointCardsBySuit = positivePointCards(playableCardsBySuit);
-        Map<Suit, Card> mostValueableCardsBySuit = mostValuableCards(positivePointCardsBySuit);
-        return asSet(mostValueableCardsBySuit.values());
+        if (positivePointCardsBySuit.size() == 0) {
+            return lowestValue (playableCardsBySuit);
+        }
+        Map<Suit, Card> mostValuableCardsBySuit = mostValuableCards(positivePointCardsBySuit);
+        return asSet(mostValuableCardsBySuit.values());
     }
 
     private Map<Suit, List<Card>> positivePointCards(Map<Suit, List<Card>> cardsByAllSuits) {
         Map<Suit,List<Card>> nonNegativePointCards = new HashMap<>();
         for (Map.Entry<Suit, List<Card>> cardsBySuit : cardsByAllSuits.entrySet()) {
-            ArrayList<Card> positivePointCards = new ArrayList<>();
-            nonNegativePointCards.put(cardsBySuit.getKey(), positivePointCards);
-            positivePointCards.addAll(cardsBySuit.getValue().stream().filter(card -> cardScorer.score(card) >= 0).collect(Collectors.toList()));
+            List<Card> allPositive = cardsBySuit.getValue().stream().filter(card -> cardScorer.score(card) >= 0).collect(Collectors.toList());
+            if (allPositive.size() > 0){
+                ArrayList<Card> positivePointCards = new ArrayList<>();
+                nonNegativePointCards.put(cardsBySuit.getKey(), positivePointCards);
+                positivePointCards.addAll(allPositive);
+            }
         }
         return nonNegativePointCards;
-    }
-
-    private Set<Card> followingSuit(DealInProgress dealInProgress, Map<Suit, List<Card>> playableCards) {
-        return null;
     }
 
     private Set<Card> asSet(Collection<Card> values) {
@@ -76,8 +140,28 @@ public class CardsFilter {
         return filtered;
     }
 
+    private Set<Card> lowestValue(Map<Suit, List<Card>> playableCardsBySuit) {
+        for (List<Card> cards : playableCardsBySuit.values()) {
+            if (cards.size() > 0) {
+                Collections.sort(cards, (left, right) -> right.getNumeration().higherThan(left.getNumeration()) ? -1: 0);
+                Card lowestValue = cards.get(0);
+                Set<Card> lowestValueAsSet = new HashSet<>();
+                lowestValueAsSet.add(lowestValue);
+                return lowestValueAsSet;
+            }
+        }
+        throw new IllegalStateException();
+    }
+
     private Card highestValue(List<Card> cards) {
-        Collections.sort(cards, (left, right) -> right.getNumeration().higherThan(left.getNumeration()) ? 1: -1);
-        return cards.get(0);
+        List<Card> sortedCards = sortAsc(cards);
+        return sortedCards.get(0);
+    }
+
+    private List<Card> sortAsc(List<Card> cards) {
+        List<Card> sortedCards = new ArrayList<>();
+        sortedCards.addAll(cards);
+        Collections.sort(sortedCards, (left, right) -> right.getNumeration().higherThan(left.getNumeration()) ? 1: -1);
+        return sortedCards;
     }
 }

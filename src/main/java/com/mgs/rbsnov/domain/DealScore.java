@@ -1,11 +1,13 @@
 package com.mgs.rbsnov.domain;
 
+import java.math.BigDecimal;
+
 public class DealScore {
     private final Card winner;
     private final int winningCardIndex;
-    private final int points;
+    private final BigDecimal points;
 
-    public DealScore(Card winner, int winningCardIndex, int points) {
+    public DealScore(Card winner, int winningCardIndex, BigDecimal points) {
         this.winner = winner;
         this.winningCardIndex = winningCardIndex;
         this.points = points;
@@ -19,7 +21,7 @@ public class DealScore {
         return winner;
     }
 
-    public int getPoints() {
+    public BigDecimal getPoints() {
         return points;
     }
 }

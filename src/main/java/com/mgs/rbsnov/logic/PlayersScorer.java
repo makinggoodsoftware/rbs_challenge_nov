@@ -3,9 +3,14 @@ package com.mgs.rbsnov.logic;
 import com.mgs.rbsnov.utils.ClosureValue;
 import com.mgs.rbsnov.domain.*;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
+import static java.math.BigDecimal.ZERO;
+import static java.math.RoundingMode.HALF_EVEN;
+
 public class PlayersScorer {
+    public static final BigDecimal PRECISSION_ZERO = new BigDecimal("0.0000000000");
     private final DealScorer dealScorer;
 
     public PlayersScorer(DealScorer dealScorer) {
@@ -34,47 +39,48 @@ public class PlayersScorer {
     }
 
 
-    public PlayersScore score(Player toPlayer, int points) {
+    public PlayersScore score(Player toPlayer, BigDecimal points) {
         switch (toPlayer){
             case EAST:
-                return new PlayersScore(0, points, 0, 0);
+                return new PlayersScore(ZERO, points, ZERO, ZERO);
             case SOUTH:
-                return new PlayersScore(points, 0, 0, 0);
+                return new PlayersScore(points, ZERO, ZERO, ZERO);
             case WEST:
-                return new PlayersScore(0, 0, 0, points);
+                return new PlayersScore(ZERO, ZERO, ZERO, points);
             case NORTH:
-                return new PlayersScore(0, 0, points, 0);
+                return new PlayersScore(ZERO, ZERO, points, ZERO);
         }
 
         throw new IllegalStateException();
     }
 
     public PlayersScore average(Collection<PlayersScore> scores) {
-        ClosureValue<Float> southTotal = new ClosureValue<>(0.0f);
-        ClosureValue<Float> eastTotal = new ClosureValue<>(0.0f);
-        ClosureValue<Float> northTotal = new ClosureValue<>(0.0f);
-        ClosureValue<Float> westTotal = new ClosureValue<>(0.0f);
+        ClosureValue<BigDecimal> southTotal = new ClosureValue<>(PRECISSION_ZERO);
+        ClosureValue<BigDecimal> eastTotal = new ClosureValue<>(PRECISSION_ZERO);
+        ClosureValue<BigDecimal> northTotal = new ClosureValue<>(PRECISSION_ZERO);
+        ClosureValue<BigDecimal> westTotal = new ClosureValue<>(PRECISSION_ZERO);
         scores.forEach((score)->{
-            southTotal.update((current)-> current+=score.getSouthScore());
-            eastTotal.update((current)-> current+=score.getEastScore());
-            northTotal.update((current)-> current+=score.getNorthScore());
-            westTotal.update((current)-> current+=score.getWestScore());
+            southTotal.update((current)-> current = current.add(score.getSouthScore()));
+            eastTotal.update((current)-> current = current.add(score.getEastScore()));
+            northTotal.update((current)-> current = current.add(score.getNorthScore()));
+            westTotal.update((current)-> current = current.add(score.getWestScore()));
         });
 
+        BigDecimal scoresSize = BigDecimal.valueOf(scores.size());
         return new PlayersScore(
-                southTotal.get() / scores.size(),
-                eastTotal.get() / scores.size(),
-                northTotal.get() / scores.size(),
-                westTotal.get() / scores.size()
+                southTotal.get().divide(scoresSize, HALF_EVEN) ,
+                eastTotal.get().divide(scoresSize, HALF_EVEN),
+                northTotal.get().divide(scoresSize, HALF_EVEN),
+                westTotal.get().divide(scoresSize, HALF_EVEN)
         );
     }
 
     public PlayersScore add(PlayersScore left, PlayersScore right) {
         return new PlayersScore(
-                left.getSouthScore() + right.getSouthScore(),
-                left.getEastScore() + right.getEastScore(),
-                left.getNorthScore() + right.getNorthScore(),
-                left.getWestScore() + right.getWestScore()
+                left.getSouthScore().add(right.getSouthScore()),
+                left.getEastScore().add(right.getEastScore()),
+                left.getNorthScore().add(right.getNorthScore()),
+                left.getWestScore().add(right.getWestScore())
         );
     }
 }

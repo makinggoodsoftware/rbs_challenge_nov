@@ -2,32 +2,34 @@ package com.mgs.rbsnov.domain;
 
 import com.google.common.base.Objects;
 
-public class PlayersScore {
-    private final float southScore;
-    private final float eastScore;
-    private final float northScore;
-    private final float westScore;
+import java.math.BigDecimal;
 
-    public PlayersScore(float southScore, float eastScore, float northScore, float westScore) {
+public class PlayersScore {
+    private final BigDecimal southScore;
+    private final BigDecimal eastScore;
+    private final BigDecimal northScore;
+    private final BigDecimal westScore;
+
+    public PlayersScore(BigDecimal southScore, BigDecimal eastScore, BigDecimal northScore, BigDecimal westScore) {
         this.southScore = southScore;
         this.eastScore = eastScore;
         this.northScore = northScore;
         this.westScore = westScore;
     }
 
-    public float getSouthScore() {
+    public BigDecimal getSouthScore() {
         return southScore;
     }
 
-    public float getEastScore() {
+    public BigDecimal getEastScore() {
         return eastScore;
     }
 
-    public float getNorthScore() {
+    public BigDecimal getNorthScore() {
         return northScore;
     }
 
-    public float getWestScore() {
+    public BigDecimal getWestScore() {
         return westScore;
     }
 
@@ -37,10 +39,10 @@ public class PlayersScore {
         if (this == o) return true;
         if (!(o instanceof PlayersScore)) return false;
         PlayersScore that = (PlayersScore) o;
-        return Float.compare(that.southScore, southScore) == 0 &&
-                Float.compare(that.eastScore, eastScore) == 0 &&
-                Float.compare(that.northScore, northScore) == 0 &&
-                Float.compare(that.westScore, westScore) == 0;
+        return Objects.equal(southScore, that.southScore) &&
+                Objects.equal(eastScore, that.eastScore) &&
+                Objects.equal(northScore, that.northScore) &&
+                Objects.equal(westScore, that.westScore);
     }
 
     @Override

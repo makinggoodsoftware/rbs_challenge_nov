@@ -31,6 +31,17 @@ class GameAnalyserIISpecification extends Specification {
         ), Player.SOUTH)
 
         then:
+        println(predictedScore)
+        predictedScore[Card.TWO_OF_HEARTS].averagedScore.southScore == new BigDecimal("0.0000000000")
+        predictedScore[Card.TWO_OF_HEARTS].averagedScore.eastScore == new BigDecimal("0.0000000000")
+        predictedScore[Card.TWO_OF_HEARTS].averagedScore.northScore == new BigDecimal("5.0000000000")
+        predictedScore[Card.TWO_OF_HEARTS].averagedScore.westScore == new BigDecimal("0.0000000000")
+
+        predictedScore[Card.ACE_OF_HEARTS].averagedScore.southScore == new BigDecimal("3.0000000000")
+        predictedScore[Card.ACE_OF_HEARTS].averagedScore.eastScore == new BigDecimal("0.0000000000")
+        predictedScore[Card.ACE_OF_HEARTS].averagedScore.northScore == new BigDecimal("0.0000000000")
+        predictedScore[Card.ACE_OF_HEARTS].averagedScore.westScore == new BigDecimal("2.0000000000")
+
         predictedScore[Card.ACE_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
     }
 
@@ -81,6 +92,7 @@ class GameAnalyserIISpecification extends Specification {
                 ),
                 dealInProgressFactory.newJustStartedDeal(Player.SOUTH)
         ), Player.SOUTH)
+
 
         then:
         predictedScore[Card.ACE_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()

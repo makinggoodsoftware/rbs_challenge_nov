@@ -2,19 +2,19 @@ package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.domain.Card;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class CardScorer {
     private final Map<Card, Integer> scores;
-    private final Map<Card, Integer> tempScores = new HashMap<>();
+    private Map<Card, Integer> tempScores = new HashMap<>();
 
     public CardScorer(Map<Card, Integer> scores) {
         this.scores = scores;
     }
 
-    public int score(Card toScore) {
+    public Integer score(Card toScore) {
         if (tempScores.containsKey(toScore)) return tempScores.get(toScore);
         return scores.getOrDefault(toScore, 0);
     }
@@ -24,9 +24,6 @@ public class CardScorer {
     }
 
     public void removeTempScores() {
-        Set<Card> cards = tempScores.keySet();
-        for (Card card : cards) {
-            tempScores.remove(card);
-        }
+        tempScores = new HashMap<>();
     }
 }

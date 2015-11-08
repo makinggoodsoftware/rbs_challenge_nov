@@ -4,6 +4,8 @@ import com.mgs.rbsnov.domain.Card;
 import com.mgs.rbsnov.domain.Deal;
 import com.mgs.rbsnov.domain.DealScore;
 
+import java.math.BigDecimal;
+
 import static java.util.stream.Stream.of;
 
 public class DealScorer {
@@ -14,10 +16,11 @@ public class DealScorer {
     }
 
     public DealScore score(Deal toScore) {
+        Integer score = cardScorer.score(toScore.getCard1());
         DealScoreInProgress dealScoreInProgress = new DealScoreInProgress(
                 toScore.getCard1(),
                 0,
-                cardScorer.score(toScore.getCard1())
+                BigDecimal.valueOf(score)
         );
 
         of(
@@ -32,17 +35,17 @@ public class DealScorer {
     private class DealScoreInProgress {
         private Card currentWinner;
         private int winningCardIndex;
-        private int currentScore;
+        private BigDecimal currentScore;
         private int currentIndex = 0;
 
-        public DealScoreInProgress(Card startingWinner, int winningCardIndex, int startingScore) {
+        public DealScoreInProgress(Card startingWinner, int winningCardIndex, BigDecimal startingScore) {
             this.currentWinner = startingWinner;
             this.winningCardIndex = winningCardIndex;
             currentScore = startingScore;
         }
 
-        public void addScore(int toAdd) {
-            currentScore += toAdd;
+        public void addScore(BigDecimal toAdd) {
+            currentScore = currentScore.add(toAdd);
             currentIndex ++;
         }
 
@@ -50,7 +53,7 @@ public class DealScorer {
             return currentWinner;
         }
 
-        public void changeWinner(Card newWinner, int addingScore) {
+        public void changeWinner(Card newWinner, BigDecimal addingScore) {
             addScore(addingScore);
             currentWinner = newWinner;
             winningCardIndex = currentIndex;
@@ -61,7 +64,7 @@ public class DealScorer {
         }
 
         private void apply(Card followingCard) {
-            int score = cardScorer.score(followingCard);
+            BigDecimal score = BigDecimal.valueOf(cardScorer.score(followingCard));
             if (followingCard.kills(getCurrentWinner())) {
                 changeWinner(followingCard, score);
             } else  {

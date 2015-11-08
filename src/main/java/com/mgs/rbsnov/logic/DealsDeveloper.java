@@ -30,7 +30,7 @@ public class DealsDeveloper {
         Set<Card> allCards = hands.get(waitingForPlayer);
         Set<Card> playableCards = playableCards(dealInProgress, allCards);
         Set<Card> filteredCards = cardsFilter.bestCards (dealInProgress, playableCards);
-        for (Card playableCard : playableCards) {
+        for (Card playableCard : filteredCards) {
             DealInProgress nextDeal = dealInProgressFactory.next(dealInProgress, playableCard);
             allDeals.addAll(develop(nextDeal, hands));
         }
