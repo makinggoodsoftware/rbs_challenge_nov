@@ -29,6 +29,7 @@ public class CardsFilter {
                 processHearts(startingDeal, suitListEntry.getValue());
             } else {
                 List<Card> sortedCards = sortAsc(suitListEntry.getValue());
+                startingDeal.add(sortedCards.get(0));
                 startingDeal.add(sortedCards.get(sortedCards.size()-1));
             }
         }

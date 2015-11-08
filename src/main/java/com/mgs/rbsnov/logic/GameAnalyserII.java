@@ -5,7 +5,7 @@ import com.mgs.rbsnov.domain.*;
 import java.util.*;
 
 public class GameAnalyserII {
-    private static final int MAX_STEP = 5;
+    private static final int MAX_STEP = 4;
     private final DealsDeveloper dealsDeveloper;
     private final PredictedScorer predictedScorer;
     private final DealInProgressFactory dealInProgressFactory;
