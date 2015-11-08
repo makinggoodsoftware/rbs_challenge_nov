@@ -22,7 +22,22 @@ public class CardsFilter {
     }
 
     private Set<Card> startingDeal(Map<Suit, List<Card>> playableCards) {
-        return all(playableCards);
+        Set<Card> startingDeal = new HashSet<>();
+        for (Map.Entry<Suit, List<Card>> suitListEntry : playableCards.entrySet()) {
+            Suit suit = suitListEntry.getKey();
+            if (suit == Suit.HEARTS){
+                processHearts(startingDeal, suitListEntry.getValue());
+            } else {
+                startingDeal.addAll(suitListEntry.getValue());
+            }
+        }
+
+        return startingDeal;
+    }
+
+    private void processHearts(Set<Card> startingDeal, List<Card> hearts) {
+        Card lowestHeart = sortAsc(hearts).get(hearts.size() - 1);
+        startingDeal.add(lowestHeart);
     }
 
     private Set<Card> followingDeal(DealInProgress dealInProgress, Map<Suit, List<Card>> playableCardsBySuit) {

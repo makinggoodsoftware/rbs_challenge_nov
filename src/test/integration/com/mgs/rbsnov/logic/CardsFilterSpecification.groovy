@@ -83,7 +83,7 @@ class CardsFilterSpecification extends Specification {
         bestCards == [Card.SIX_OF_CLUBS] as Set
     }
 
-    def "following suit: should process the max killing one, the lowest killing one and the highest non killing one" (){
+    def "following suit: should process the max killing one, the lowest killing one and the highest non killing one. IF NOT HEARTS" (){
         when:
         Set<Card> bestCards = cardsFilter.bestCards(
                 dealInProgressFactory.oneCardDeal(Player.SOUTH, Card.FIVE_OF_CLUBS),
@@ -94,7 +94,7 @@ class CardsFilterSpecification extends Specification {
         bestCards == [Card.ACE_OF_CLUBS, Card.SIX_OF_CLUBS, Card.FOUR_OF_CLUBS] as Set
     }
 
-    def "following suit: should process the max killing one, the lowest killing one" (){
+    def "following suit: should process the max killing one, the lowest killing one. IF NOT HEARTS" (){
         when:
         Set<Card> bestCards = cardsFilter.bestCards(
                 dealInProgressFactory.oneCardDeal(Player.SOUTH, Card.FIVE_OF_CLUBS),
@@ -116,5 +116,26 @@ class CardsFilterSpecification extends Specification {
         bestCards == [Card.FOUR_OF_HEARTS] as Set
     }
 
+    def "leading deal: should only consider lowest HEART"(){
+        when:
+        Set<Card> bestCards = cardsFilter.bestCards(
+                dealInProgressFactory.newJustStartedDeal(Player.SOUTH),
+                [Card.ACE_OF_HEARTS, Card.TWO_OF_HEARTS, Card.FOUR_OF_HEARTS] as Set
+        )
+
+        then:
+        bestCards == [Card.TWO_OF_HEARTS] as Set
+    }
+
+    def "leading deal: should only consider highest and lowest of non scoring SUITS"(){
+        when:
+        Set<Card> bestCards = cardsFilter.bestCards(
+                dealInProgressFactory.newJustStartedDeal(Player.SOUTH),
+                [Card.ACE_OF_DIAMONDS, Card.TWO_OF_DIAMONDS, Card.FOUR_OF_DIAMONDS] as Set
+        )
+
+        then:
+        bestCards == [Card.ACE_OF_DIAMONDS, Card.FOUR_OF_DIAMONDS] as Set
+    }
 
 }

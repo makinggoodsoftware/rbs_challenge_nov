@@ -37,12 +37,6 @@ class GameAnalyserIISpecification extends Specification {
         predictedScore[Card.TWO_OF_HEARTS].averagedScore.northScore == new BigDecimal("5.0000000000")
         predictedScore[Card.TWO_OF_HEARTS].averagedScore.westScore == new BigDecimal("0.0000000000")
 
-        predictedScore[Card.ACE_OF_HEARTS].averagedScore.southScore == new BigDecimal("3.0000000000")
-        predictedScore[Card.ACE_OF_HEARTS].averagedScore.eastScore == new BigDecimal("0.0000000000")
-        predictedScore[Card.ACE_OF_HEARTS].averagedScore.northScore == new BigDecimal("0.0000000000")
-        predictedScore[Card.ACE_OF_HEARTS].averagedScore.westScore == new BigDecimal("2.0000000000")
-
-        predictedScore[Card.ACE_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
     }
 
     def "should score 3 cards hands" (){
@@ -58,9 +52,7 @@ class GameAnalyserIISpecification extends Specification {
         ), Player.SOUTH)
 
         then:
-        predictedScore[Card.ACE_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
         predictedScore[Card.ACE_OF_SPADES].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
-        predictedScore[Card.ACE_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.ACE_OF_SPADES].averagedScore.getSouthScore()
     }
 
     def "should score 5 cards hands" (){
@@ -76,9 +68,7 @@ class GameAnalyserIISpecification extends Specification {
         ), Player.SOUTH)
 
         then:
-        predictedScore[Card.ACE_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
         predictedScore[Card.ACE_OF_SPADES].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
-        predictedScore[Card.ACE_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.ACE_OF_SPADES].averagedScore.getSouthScore()
     }
 
     def "should score 6 cards hands" (){
@@ -95,9 +85,7 @@ class GameAnalyserIISpecification extends Specification {
 
 
         then:
-        predictedScore[Card.ACE_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
-        predictedScore[Card.ACE_OF_SPADES].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
-        predictedScore[Card.ACE_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.ACE_OF_SPADES].averagedScore.getSouthScore()
+        predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.ACE_OF_SPADES].averagedScore.getSouthScore()
     }
 
 
