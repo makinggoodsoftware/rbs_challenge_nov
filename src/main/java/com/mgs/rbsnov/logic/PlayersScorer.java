@@ -10,7 +10,7 @@ import static java.math.BigDecimal.ZERO;
 import static java.math.RoundingMode.HALF_EVEN;
 
 public class PlayersScorer {
-    public static final BigDecimal PRECISSION_ZERO = new BigDecimal("0.0000000000");
+    public static final BigDecimal PRECISSION_ZERO = new BigDecimal("0.00000000");
     private final DealScorer dealScorer;
 
     public PlayersScorer(DealScorer dealScorer) {

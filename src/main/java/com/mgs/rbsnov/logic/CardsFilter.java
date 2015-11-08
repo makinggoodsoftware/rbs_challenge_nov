@@ -28,7 +28,8 @@ public class CardsFilter {
             if (suit == Suit.HEARTS){
                 processHearts(startingDeal, suitListEntry.getValue());
             } else {
-                startingDeal.addAll(suitListEntry.getValue());
+                List<Card> sortedCards = sortAsc(suitListEntry.getValue());
+                startingDeal.add(sortedCards.get(sortedCards.size()-1));
             }
         }
 
@@ -45,7 +46,7 @@ public class CardsFilter {
         if (playableCardsBySuit.containsKey(leadingSuit)){
             return followingSuit(dealInProgress, playableCardsBySuit.get(leadingSuit));
         }
-        return discarding (dealInProgress, playableCardsBySuit);
+        return discarding (playableCardsBySuit);
     }
 
     private Set<Card> followingSuit(DealInProgress dealInProgress, List<Card> playableCards) {
@@ -103,13 +104,7 @@ public class CardsFilter {
         return singletonSet;
     }
 
-    private Set<Card> all(Map<Suit, List<Card>> playableCards) {
-        Set<Card> playableCardsAsSet = new HashSet<>();
-        playableCards.values().forEach(playableCardsAsSet::addAll);
-        return playableCardsAsSet;
-    }
-
-    private Set<Card> discarding(DealInProgress dealInProgress, Map<Suit, List<Card>> playableCardsBySuit) {
+    private Set<Card> discarding(Map<Suit, List<Card>> playableCardsBySuit) {
         Set<Card> bestCards = new HashSet<>();
         if (playableCardsBySuit.containsKey(Suit.SPADES) && playableCardsBySuit.get(Suit.SPADES).contains(Card.QUEEN_OF_SPADES)){
             bestCards.add(Card.QUEEN_OF_SPADES);
