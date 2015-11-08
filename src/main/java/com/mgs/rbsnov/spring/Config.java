@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class Config {
     @Bean
     public CardSelector cardSelector (){
-        return new CardSelector(gameAnalyser(), cardsDealer());
+        return new CardSelector(cardsDealer(), gameAnalyserII(), dealInProgressFactory());
     }
 
     @Bean

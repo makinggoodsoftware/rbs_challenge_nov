@@ -34,6 +34,20 @@ public class PlayersScore {
     }
 
 
+    public BigDecimal get(Player forPlayer) {
+        switch (forPlayer){
+            case EAST:
+                return getEastScore();
+            case NORTH:
+                return getNorthScore();
+            case WEST:
+                return getWestScore();
+            case SOUTH:
+                return getSouthScore();
+        }
+        throw new IllegalStateException();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

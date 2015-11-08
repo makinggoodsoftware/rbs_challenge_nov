@@ -64,7 +64,7 @@ class GameAnalyserIISpecification extends Specification {
         ), Player.SOUTH)
 
         then:
-        predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore() > predictedScore[Card.JACK_OF_CLUBS].averagedScore.getSouthScore()
+        predictedScore[Card.JACK_OF_CLUBS].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
     }
 
     def "should score 6 cards hands" (){

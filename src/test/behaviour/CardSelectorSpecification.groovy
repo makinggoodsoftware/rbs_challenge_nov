@@ -1,4 +1,5 @@
 import com.mgs.rbsnov.domain.Card
+import com.mgs.rbsnov.domain.Player
 import com.mgs.rbsnov.logic.CardSelector
 import com.mgs.rbsnov.spring.Config
 import org.springframework.test.context.ContextConfiguration
@@ -15,18 +16,22 @@ class CardSelectorSpecification extends Specification{
     def "should select the best card" (){
         when:
         Card bestCard = cardSelector.bestCard (
-                [Card.ACE_OF_HEARTS,
-                Card.EIGHT_OF_HEARTS,
-                Card.QUEEN_OF_SPADES,
-                Card.ACE_OF_DIAMONDS,
-                Card.TEN_OF_DIAMONDS,
-                Card.FOUR_OF_DIAMONDS] as Set,
                 [
-                        Card.FOUR_OF_HEARTS,
-                        Card.TWO_OF_SPADES] as Set
+                    Card.ACE_OF_HEARTS,
+                    Card.EIGHT_OF_HEARTS,
+                    Card.FOUR_OF_HEARTS,
+                    Card.ACE_OF_DIAMONDS,
+                    Card.TEN_OF_DIAMONDS,
+                    Card.FOUR_OF_SPADES
+                ] as Set,
+                [
+                        Card.QUEEN_OF_SPADES,
+                        Card.TWO_OF_SPADES
+                ] as Set,
+                Player.SOUTH
         )
 
         then:
-        bestCard == Card.FOUR_OF_HEARTS
+        bestCard == Card.TWO_OF_SPADES
     }
 }
