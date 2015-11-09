@@ -2,43 +2,53 @@ package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.domain.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.util.*;
 
 public class CardSelector {
     private final CardsDealer cardsDealer;
     private final GameAnalyserII gameAnalyserII;
     private final DealInProgressFactory dealInProgressFactory;
+    private final CardScorer cardScorer;
 
-    public CardSelector(CardsDealer cardsDealer, GameAnalyserII gameAnalyserII, DealInProgressFactory dealInProgressFactory) {
+    public CardSelector(CardsDealer cardsDealer, GameAnalyserII gameAnalyserII, DealInProgressFactory dealInProgressFactory, CardScorer cardScorer) {
         this.cardsDealer = cardsDealer;
         this.gameAnalyserII = gameAnalyserII;
         this.dealInProgressFactory = dealInProgressFactory;
+        this.cardScorer = cardScorer;
     }
 
 
-    public Card bestCard(Set<Card> inPlay, Set<Card> myCards, Player forPlayer) {
+    public Card bestCard(Set<Card> inPlay, Set<Card> myCards, Player forPlayer, Player startingPlayer) {
         List<Set<Card>> otherPlayerCards = cardsDealer.deal(3, inPlay);
         GameState gameState = new GameState(
                 new Hands(myCards, otherPlayerCards.get(0), otherPlayerCards.get(1), otherPlayerCards.get(2)),
-                dealInProgressFactory.newJustStartedDeal(Player.NORTH));
+                dealInProgressFactory.newJustStartedDeal(startingPlayer));
         Map<Card, PredictedScore> predictedScores = gameAnalyserII.analyse(gameState, forPlayer);
-        Card bestCard = null;
-        PredictedScore bestScore = null;
+        List<CardAndScore> cardAndScores = new ArrayList<>();
         for (Map.Entry<Card, PredictedScore> cardPredictedScoreEntry : predictedScores.entrySet()) {
-            PredictedScore thisScore = cardPredictedScoreEntry.getValue();
-            if (isThisBestScore (bestScore, thisScore, forPlayer)){
-                bestScore = thisScore;
-                bestCard = cardPredictedScoreEntry.getKey();
-            }
+            cardAndScores.add(new CardAndScore(cardPredictedScoreEntry.getKey(), cardPredictedScoreEntry.getValue()));
         }
-        return bestCard;
+        Collections.sort(cardAndScores, (left, right) -> {
+            BigDecimal leftScore = left.predictedScore.getAveragedScore().get(forPlayer);
+            BigDecimal rightScore = left.predictedScore.getAveragedScore().get(forPlayer);
+            Integer leftPoints = cardScorer.score(left.card);
+            Integer rightPoints = cardScorer.score(right.card);
+
+            if (leftScore.compareTo(rightScore) != 0) return leftScore.compareTo(rightScore);
+            if (leftPoints.compareTo(rightPoints) !=0 ) return leftPoints.compareTo(rightPoints);
+            return left.card.getNumeration().compareTo(right.card.getNumeration());
+        });
+        return cardAndScores.get(0).card;
     }
 
-    private boolean isThisBestScore(PredictedScore bestScore, PredictedScore thisScore, Player forPlayer) {
-        if (bestScore== null) return true;
-        int compareToResult = thisScore.getAveragedScore().get(forPlayer).compareTo(bestScore.getAveragedScore().get(forPlayer));
-        return compareToResult < 0;
+    class CardAndScore {
+        private final Card card;
+        private final PredictedScore predictedScore;
+
+        CardAndScore(Card card, PredictedScore predictedScore) {
+            this.card = card;
+            this.predictedScore = predictedScore;
+        }
     }
 }
