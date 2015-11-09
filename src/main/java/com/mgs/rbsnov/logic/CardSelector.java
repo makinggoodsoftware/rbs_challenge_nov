@@ -4,6 +4,7 @@ import com.mgs.rbsnov.domain.*;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class CardSelector {
     private final CardsDealer cardsDealer;
@@ -25,13 +26,14 @@ public class CardSelector {
                 new Hands(myCards, otherPlayerCards.get(0), otherPlayerCards.get(1), otherPlayerCards.get(2)),
                 dealInProgressFactory.newJustStartedDeal(startingPlayer));
         Map<Card, PredictedScore> predictedScores = gameAnalyserII.analyse(gameState, forPlayer);
-        List<CardAndScore> cardAndScores = new ArrayList<>();
-        for (Map.Entry<Card, PredictedScore> cardPredictedScoreEntry : predictedScores.entrySet()) {
-            cardAndScores.add(new CardAndScore(cardPredictedScoreEntry.getKey(), cardPredictedScoreEntry.getValue()));
-        }
+        List<CardAndScore> cardAndScores = predictedScores.entrySet().stream().
+                map(cardPredictedScoreEntry ->
+                        new CardAndScore(cardPredictedScoreEntry.getKey(), cardPredictedScoreEntry.getValue())
+                ).
+                collect(Collectors.toList());
         Collections.sort(cardAndScores, (left, right) -> {
             BigDecimal leftScore = left.predictedScore.getAveragedScore().get(forPlayer);
-            BigDecimal rightScore = left.predictedScore.getAveragedScore().get(forPlayer);
+            BigDecimal rightScore = right.predictedScore.getAveragedScore().get(forPlayer);
             Integer leftPoints = cardScorer.score(left.card);
             Integer rightPoints = cardScorer.score(right.card);
 

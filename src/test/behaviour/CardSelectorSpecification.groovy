@@ -21,7 +21,7 @@ class CardSelectorSpecification extends Specification{
                     Card.EIGHT_OF_HEARTS,
                     Card.FOUR_OF_HEARTS,
                     Card.ACE_OF_DIAMONDS,
-                    Card.TEN_OF_DIAMONDS,
+                    Card.FIVE_OF_SPADES,
                     Card.FOUR_OF_SPADES
                 ] as Set,
                 [
