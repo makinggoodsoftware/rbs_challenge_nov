@@ -19,4 +19,5 @@ public class CardsDealer {
         cardsShuffler.shuffle(fromCards).forEach(setRotator::accept);
         return setRotator.getSets();
     }
+
 }

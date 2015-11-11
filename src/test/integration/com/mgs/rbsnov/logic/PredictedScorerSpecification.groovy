@@ -23,10 +23,10 @@ class PredictedScorerSpecification extends Specification{
                 build()
 
         then:
-        predictedScore.averagedScore.southScore == 0.25f
-        predictedScore.averagedScore.eastScore == 0.75f
-        predictedScore.averagedScore.northScore == 0f
-        predictedScore.averagedScore.westScore == 1.0f
+        predictedScore.averagedScore.southScore == 0.25
+        predictedScore.averagedScore.eastScore == 0.75
+        predictedScore.averagedScore.northScore == 0.0
+        predictedScore.averagedScore.westScore == 1.0
     }
 
     def "should add final and predicted scores" () {
@@ -44,9 +44,9 @@ class PredictedScorerSpecification extends Specification{
                 build()
 
         then:
-        predictedScore.averagedScore.southScore == 1.0f
-        predictedScore.averagedScore.eastScore == 0.5f
-        predictedScore.averagedScore.northScore == 0.0f
-        predictedScore.averagedScore.westScore == 1.5f
+        predictedScore.averagedScore.southScore == 1.0
+        predictedScore.averagedScore.eastScore == 0.5
+        predictedScore.averagedScore.northScore == 0.0
+        predictedScore.averagedScore.westScore == 1.5
     }
 }

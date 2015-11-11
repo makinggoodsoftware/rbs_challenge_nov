@@ -14,16 +14,6 @@ public class Config {
     }
 
     @Bean
-    public GameAnalyser gameAnalyser() {
-        return new GameAnalyser(
-                predictedScorer(),
-                cardsSetBuilder(),
-                cardDealsCombinator(),
-                playersScorer()
-        );
-    }
-
-    @Bean
     public PlayersScorer playersScorer() {
         return new PlayersScorer(dealScorer());
     }
@@ -54,11 +44,6 @@ public class Config {
     }
 
     @Bean
-    public CardDealsCombinator cardDealsCombinator() {
-        return new CardDealsCombinator(dealRules(), cardsSetBuilder());
-    }
-
-    @Bean
     public DealRules dealRules() {
         return new DealRules();
     }
@@ -72,17 +57,12 @@ public class Config {
     }
 
     @Bean
-    public GameAnalyserII gameAnalyserII(){
-        return new GameAnalyserII(
+    public GameAnalyser gameAnalyserII(){
+        return new GameAnalyser(
                 gameDeveloper(),
                 predictedScorer(),
                 dealInProgressFactory(),
                 cardsSetBuilder());
-    }
-
-    @Bean
-    public GameStateFactory gameStateFactory() {
-        return new GameStateFactory();
     }
 
     @Bean

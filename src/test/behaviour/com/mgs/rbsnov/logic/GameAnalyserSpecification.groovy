@@ -8,15 +8,15 @@ import spock.lang.Specification
 import javax.annotation.Resource
 
 @ContextConfiguration(classes = Config)
-class GameAnalyserIISpecification extends Specification {
+class GameAnalyserSpecification extends Specification {
     @Resource
-    GameAnalyserII gameAnalyserII
+    GameAnalyser gameAnalyser
     @Resource
     DealInProgressFactory dealInProgressFactory
 
     def "should score 2 cards hands" (){
         when:
-        Map<Card, PredictedScore> predictedScore = gameAnalyserII.analyse(new GameState(
+        Map<Card, PredictedScore> predictedScore = gameAnalyser.analyse(new GameState(
                 new Hands(
                         [Card.ACE_OF_HEARTS, Card.TWO_OF_HEARTS] as Set,
                         [Card.QUEEN_OF_HEARTS, Card.FIVE_OF_HEARTS] as Set,
@@ -37,7 +37,7 @@ class GameAnalyserIISpecification extends Specification {
 
     def "should score 3 cards hands" (){
         when:
-        Map<Card, PredictedScore> predictedScore = gameAnalyserII.analyse(new GameState(
+        Map<Card, PredictedScore> predictedScore = gameAnalyser.analyse(new GameState(
                 new Hands(
                         [Card.ACE_OF_HEARTS, Card.TWO_OF_HEARTS, Card.ACE_OF_SPADES] as Set,
                         [Card.QUEEN_OF_HEARTS, Card.FIVE_OF_HEARTS, Card.FIVE_OF_CLUBS] as Set,
@@ -53,7 +53,7 @@ class GameAnalyserIISpecification extends Specification {
 
     def "should score 5 cards hands" (){
         when:
-        Map<Card, PredictedScore> predictedScore = gameAnalyserII.analyse(new GameState(
+        Map<Card, PredictedScore> predictedScore = gameAnalyser.analyse(new GameState(
                 new Hands(
                         [Card.ACE_OF_HEARTS, Card.TWO_OF_HEARTS, Card.ACE_OF_SPADES, Card.FOUR_OF_SPADES, Card.JACK_OF_CLUBS] as Set,
                         [Card.QUEEN_OF_HEARTS, Card.FIVE_OF_HEARTS, Card.FIVE_OF_CLUBS, Card.SEVEN_OF_CLUBS, Card.SEVEN_OF_HEARTS] as Set,
@@ -69,7 +69,7 @@ class GameAnalyserIISpecification extends Specification {
 
     def "should score 6 cards hands" (){
         when:
-        Map<Card, PredictedScore> predictedScore = gameAnalyserII.analyse(new GameState(
+        Map<Card, PredictedScore> predictedScore = gameAnalyser.analyse(new GameState(
                 new Hands(
                         [Card.ACE_OF_HEARTS, Card.TWO_OF_HEARTS, Card.ACE_OF_SPADES, Card.FOUR_OF_SPADES, Card.JACK_OF_CLUBS, Card.THREE_OF_CLUBS] as Set,
                         [Card.QUEEN_OF_HEARTS, Card.FIVE_OF_HEARTS, Card.FIVE_OF_CLUBS, Card.SEVEN_OF_CLUBS, Card.SEVEN_OF_HEARTS, Card.THREE_OF_SPADES] as Set,
@@ -86,7 +86,7 @@ class GameAnalyserIISpecification extends Specification {
 
     def "should score 7 cards hands" (){
         when:
-        Map<Card, PredictedScore> predictedScore = gameAnalyserII.analyse(new GameState(
+        Map<Card, PredictedScore> predictedScore = gameAnalyser.analyse(new GameState(
                 new Hands(
                         [Card.ACE_OF_HEARTS, Card.TWO_OF_HEARTS, Card.ACE_OF_SPADES, Card.FOUR_OF_SPADES, Card.JACK_OF_CLUBS, Card.THREE_OF_CLUBS, Card.FIVE_OF_SPADES] as Set,
                         [Card.QUEEN_OF_HEARTS, Card.FIVE_OF_HEARTS, Card.FIVE_OF_CLUBS, Card.SEVEN_OF_CLUBS, Card.SEVEN_OF_HEARTS, Card.THREE_OF_SPADES, Card.QUEEN_OF_SPADES] as Set,
@@ -103,7 +103,7 @@ class GameAnalyserIISpecification extends Specification {
 
     def "should score 8 cards hands" (){
         when:
-        Map<Card, PredictedScore> predictedScore = gameAnalyserII.analyse(new GameState(
+        Map<Card, PredictedScore> predictedScore = gameAnalyser.analyse(new GameState(
                 new Hands(
                         [Card.ACE_OF_HEARTS, Card.TWO_OF_HEARTS, Card.ACE_OF_SPADES, Card.FOUR_OF_SPADES, Card.JACK_OF_CLUBS, Card.THREE_OF_CLUBS, Card.FIVE_OF_SPADES, Card.ACE_OF_DIAMONDS] as Set,
                         [Card.QUEEN_OF_HEARTS, Card.FIVE_OF_HEARTS, Card.FIVE_OF_CLUBS, Card.SEVEN_OF_CLUBS, Card.SEVEN_OF_HEARTS, Card.THREE_OF_SPADES, Card.QUEEN_OF_SPADES, Card.NINE_OF_CLUBS] as Set,

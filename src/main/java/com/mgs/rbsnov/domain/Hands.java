@@ -1,6 +1,7 @@
 package com.mgs.rbsnov.domain;
 
 import com.google.common.base.Objects;
+import com.mgs.rbsnov.logic.HandsFactory;
 
 import java.util.HashMap;
 import java.util.Map;

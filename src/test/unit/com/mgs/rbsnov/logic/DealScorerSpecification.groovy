@@ -11,8 +11,8 @@ import spock.lang.Specification
 import static com.mgs.rbsnov.domain.Card.from
 
 class DealScorerSpecification extends Specification{
-    int EIGHT_SPADES_SCORE = 5
-    int ACE_SPADES_SCORE = 2
+    def EIGHT_SPADES_SCORE = 5.0
+    def ACE_SPADES_SCORE = 2.0
     DealScorer dealScorer
     CardScorer cardScorer = Mock(CardScorer)
 

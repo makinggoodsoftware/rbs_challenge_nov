@@ -37,4 +37,8 @@ public enum Player {
         IntStream.range(0, jumps).forEach((i)-> startingFrom.update(Player::nextClockwise));
         return startingFrom.get();
     }
+
+    public Player previousClockwise() {
+        return nextClockwise().nextClockwise().nextClockwise();
+    }
 }
