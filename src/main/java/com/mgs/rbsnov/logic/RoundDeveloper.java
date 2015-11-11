@@ -13,26 +13,28 @@ public class RoundDeveloper {
     private final Map<Player, PlayerLogic> playerLogicMap;
     private final Map<Player, DiscardResult> discards;
     private final HandsFactory handsFactory;
+    private final HeartRules heartRules;
 
-    public RoundDeveloper(PlayerRotator playerRotator, DealInProgressFactory dealInProgressFactory, PlayersScorer playersScorer, Map<Player, PlayerLogic> playerLogicMap, Map<Player, DiscardResult> discards, HandsFactory handsFactory) {
+    public RoundDeveloper(PlayerRotator playerRotator, DealInProgressFactory dealInProgressFactory, PlayersScorer playersScorer, Map<Player, PlayerLogic> playerLogicMap, Map<Player, DiscardResult> discards, HandsFactory handsFactory, HeartRules heartRules) {
         this.playerRotator = playerRotator;
         this.dealInProgressFactory = dealInProgressFactory;
         this.playersScorer = playersScorer;
         this.playerLogicMap = playerLogicMap;
         this.discards = discards;
         this.handsFactory = handsFactory;
+        this.heartRules = heartRules;
     }
 
     public List<RoundResult> playAllRounds(Hands hands) {
         List<RoundResult> roundResults = new ArrayList<>();
-        Player startingPlayer = findStartingPlayer(hands);
+        Player startingPlayer = heartRules.findStartingPlayer(hands);
         FinishedDeal finishedDeal;
         do {
             finishedDeal = playRound(hands, startingPlayer);
             roundResults.add(new RoundResult(hands, finishedDeal));
             hands = handsFactory.reduce(hands, finishedDeal.getDeal(), startingPlayer);
             startingPlayer = finishedDeal.getWinningPlayer();
-        } while (cardsToPlayRemaining(hands));
+        } while (heartRules.cardsToPlayRemaining(hands));
         return roundResults;
     }
 
@@ -47,12 +49,5 @@ public class RoundDeveloper {
         return playersScorer.score(dealInProgress);
     }
 
-    private boolean cardsToPlayRemaining(Hands hands) {
-        return false;
-    }
 
-
-    private Player findStartingPlayer(Hands discards) {
-        return null;
-    }
 }

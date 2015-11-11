@@ -62,7 +62,12 @@ public class Config {
                 gameDeveloper(),
                 predictedScorer(),
                 dealInProgressFactory(),
-                cardsSetBuilder());
+                handsFactory());
+    }
+
+    @Bean
+    public HandsFactory handsFactory() {
+        return new HandsFactory(cardsDealer(), cardsSetBuilder());
     }
 
     @Bean

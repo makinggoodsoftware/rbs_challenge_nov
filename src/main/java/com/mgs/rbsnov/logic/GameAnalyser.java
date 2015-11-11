@@ -9,14 +9,14 @@ public class GameAnalyser {
     private final DealsDeveloper dealsDeveloper;
     private final PredictedScorer predictedScorer;
     private final DealInProgressFactory dealInProgressFactory;
-    private final CardsSetBuilder cardsSetBuilder;
     private final Map<GameState, Map<Card, PredictedScore>> alreadyProcessedStates = new HashMap<>();
+    private final HandsFactory handsFactory;
 
-    public GameAnalyser(DealsDeveloper dealsDeveloper, PredictedScorer predictedScorer, DealInProgressFactory dealInProgressFactory, CardsSetBuilder cardsSetBuilder) {
+    public GameAnalyser(DealsDeveloper dealsDeveloper, PredictedScorer predictedScorer, DealInProgressFactory dealInProgressFactory, HandsFactory handsFactory) {
         this.dealsDeveloper = dealsDeveloper;
         this.predictedScorer = predictedScorer;
         this.dealInProgressFactory = dealInProgressFactory;
-        this.cardsSetBuilder = cardsSetBuilder;
+        this.handsFactory = handsFactory;
     }
 
     public Map<Card, PredictedScore> analyse(GameState gameState, Player target){
@@ -61,7 +61,7 @@ public class GameAnalyser {
     private GameState childGameState(GameState gameState, FinishedDeal possibleDeal) {
         int distanceToSouth = possibleDeal.getStartingPlayer().distanceTo(Player.SOUTH);
         GameState newGameState = new GameState(
-                cardsSetBuilder.removeCards(gameState.getAllHands(),
+                handsFactory.removeCards(gameState.getAllHands(),
                         possibleDeal.getDeal().getCard(relativeDistance(distanceToSouth, 0)),
                         possibleDeal.getDeal().getCard(relativeDistance(distanceToSouth, 1)),
                         possibleDeal.getDeal().getCard(relativeDistance(distanceToSouth, 2)),

@@ -11,23 +11,8 @@ import java.util.Set;
 import static java.util.stream.Collectors.toSet;
 
 public class CardsSetBuilder {
-
-
     public CardsSetBuilderWip newSet(Set<Card> startingWith) {
         return new CardsSetBuilderWip(startingWith);
-    }
-
-    public Hands removeCards(Hands allHands, Card card1, Card card2, Card card3, Card card4) {
-        return new Hands(
-            removeCard(allHands.getSouthHand(), card1),
-            removeCard(allHands.getWestHand(), card2),
-            removeCard(allHands.getNorthHand(), card3),
-            removeCard(allHands.getEastHand(), card4)
-        );
-    }
-
-    private Set<Card> removeCard(Set<Card> from, Card toRemove) {
-        return newSet(from).remove(toRemove).build();
     }
 
     public Set<Card> allCards() {
