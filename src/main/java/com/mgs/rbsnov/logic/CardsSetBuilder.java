@@ -2,12 +2,11 @@ package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.domain.Card;
 import com.mgs.rbsnov.domain.Hands;
+import com.mgs.rbsnov.domain.Suit;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
+import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toSet;
 
 public class CardsSetBuilder {
@@ -15,8 +14,15 @@ public class CardsSetBuilder {
         return new CardsSetBuilderWip(startingWith);
     }
 
+    public CardsSetBuilderWip newEmptySet() {
+        return newSet(new HashSet<>());
+    }
+
     public Set<Card> allCards() {
-        return null;
+        Set<Card> asSet = new HashSet<>();
+        Card[] values = Card.values();
+        asSet.addAll(asList(values));
+        return asSet;
     }
 
     public class CardsSetBuilderWip {
@@ -28,7 +34,7 @@ public class CardsSetBuilder {
         }
 
         public CardsSetBuilderWip remove(Card... toRemove) {
-            this.toRemove.addAll(Arrays.asList(toRemove));
+            this.toRemove.addAll(asList(toRemove));
             return this;
         }
 

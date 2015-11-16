@@ -5,17 +5,19 @@ import com.mgs.rbsnov.domain.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class RoundDeveloper {
     private final PlayerRotator playerRotator;
     private final DealInProgressFactory dealInProgressFactory;
     private final PlayersScorer playersScorer;
-    private final Map<Player, PlayerLogic> playerLogicMap;
-    private final Map<Player, DiscardResult> discards;
     private final HandsFactory handsFactory;
     private final HeartRules heartRules;
+    private final CardsSetBuilder cardsSetBuilder;
+    private final PlayersLogic playerLogicMap;
+    private final Map<Player, DiscardResult> discards;
 
-    public RoundDeveloper(PlayerRotator playerRotator, DealInProgressFactory dealInProgressFactory, PlayersScorer playersScorer, Map<Player, PlayerLogic> playerLogicMap, Map<Player, DiscardResult> discards, HandsFactory handsFactory, HeartRules heartRules) {
+    public RoundDeveloper(PlayerRotator playerRotator, DealInProgressFactory dealInProgressFactory, PlayersScorer playersScorer, PlayersLogic playerLogicMap, Map<Player, DiscardResult> discards, HandsFactory handsFactory, HeartRules heartRules, CardsSetBuilder cardsSetBuilder) {
         this.playerRotator = playerRotator;
         this.dealInProgressFactory = dealInProgressFactory;
         this.playersScorer = playersScorer;
@@ -23,6 +25,7 @@ public class RoundDeveloper {
         this.discards = discards;
         this.handsFactory = handsFactory;
         this.heartRules = heartRules;
+        this.cardsSetBuilder = cardsSetBuilder;
     }
 
     public List<RoundResult> playAllRounds(Hands hands) {
@@ -43,7 +46,12 @@ public class RoundDeveloper {
         DealInProgress dealInProgress = dealInProgressFactory.newJustStartedDeal(startingPlayer);
         while(playerRotation.hasNext()){
             Player thisPlayer = playerRotation.next();
-            Card card = playerLogicMap.get(thisPlayer).playCard (dealInProgress, hands.get(thisPlayer), discards.get(thisPlayer));
+            Set<Card> inPlay = cardsSetBuilder.newEmptySet().
+                    add(hands.get(thisPlayer.moveClockWise(1))).
+                    add(hands.get(thisPlayer.moveClockWise(2))).
+                    add(hands.get(thisPlayer.moveClockWise(3))).
+                    build();
+            Card card = playerLogicMap.get(thisPlayer).playCard (dealInProgress,  inPlay, hands.get(thisPlayer), discards.get(thisPlayer));
             dealInProgressFactory.next(dealInProgress, card);
         }
         return playersScorer.score(dealInProgress);

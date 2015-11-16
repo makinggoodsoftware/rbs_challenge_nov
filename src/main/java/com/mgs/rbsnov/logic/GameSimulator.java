@@ -17,7 +17,7 @@ public class GameSimulator {
     }
 
     public GameResult start(PlayersLogic playersLogic) {
-        Hands beforeDescarding = handsFactory.fromAllCardsShuffled();
+        Hands beforeDescarding = handsFactory.fromAllCardsShuffled(Player.SOUTH);
         Map<Player, DiscardResult> discards = cardsDiscarder.discard(playersLogic, beforeDescarding);
 
         RoundDeveloper roundDeveloper = roundDeveloperFactory.newRoundDeveloper(playersLogic, discards);

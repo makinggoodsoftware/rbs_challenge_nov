@@ -9,22 +9,20 @@ import java.util.stream.Collectors;
 public class CardSelector {
     private final CardsDealer cardsDealer;
     private final GameAnalyser gameAnalyser;
-    private final DealInProgressFactory dealInProgressFactory;
     private final CardScorer cardScorer;
 
-    public CardSelector(CardsDealer cardsDealer, GameAnalyser gameAnalyser, DealInProgressFactory dealInProgressFactory, CardScorer cardScorer) {
+    public CardSelector(CardsDealer cardsDealer, GameAnalyser gameAnalyser, CardScorer cardScorer) {
         this.cardsDealer = cardsDealer;
         this.gameAnalyser = gameAnalyser;
-        this.dealInProgressFactory = dealInProgressFactory;
         this.cardScorer = cardScorer;
     }
 
 
-    public Card bestCard(Set<Card> inPlay, Set<Card> myCards, Player forPlayer, Player startingPlayer) {
+    public Card bestCard(Set<Card> inPlay, Set<Card> myCards, Player forPlayer, DealInProgress dealInProgress) {
         List<Set<Card>> otherPlayerCards = cardsDealer.deal(3, inPlay);
         GameState gameState = new GameState(
                 new Hands(myCards, otherPlayerCards.get(0), otherPlayerCards.get(1), otherPlayerCards.get(2)),
-                dealInProgressFactory.newJustStartedDeal(startingPlayer));
+                dealInProgress);
         Map<Card, PredictedScore> predictedScores = gameAnalyser.analyse(gameState, forPlayer);
         List<CardAndScore> cardAndScores = predictedScores.entrySet().stream().
                 map(cardPredictedScoreEntry ->

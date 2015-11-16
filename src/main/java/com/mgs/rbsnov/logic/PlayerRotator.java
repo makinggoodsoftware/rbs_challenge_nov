@@ -4,16 +4,26 @@ import com.mgs.rbsnov.domain.Player;
 
 public class PlayerRotator {
     public PlayerRotation clockwiseIterator(Player from) {
-        return new PlayerRotation();
+        return new PlayerRotation(from);
     }
 
     class PlayerRotation {
+        private Player from;
+        private int iteratations = 0;
+
+        public PlayerRotation(Player from) {
+            this.from = from;
+        }
+
         public boolean hasNext() {
-            return false;
+            return iteratations < 4;
         }
 
         public Player next() {
-            return null;
+            Player next = from;
+            this.from = next.nextClockwise();
+            this.iteratations ++;
+            return next;
         }
     }
 }

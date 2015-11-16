@@ -22,4 +22,10 @@ class CardsSetBuilderSpecification extends Specification {
         newCards == [Card.ACE_OF_HEARTS] as Set
 
     }
+
+    def "should create a set containing all cards" (){
+        expect:
+        cardsSetBuilder.allCards().size() == 52
+    }
+
 }

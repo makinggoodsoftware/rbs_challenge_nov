@@ -14,4 +14,7 @@ public enum  Numeration {
         return value > numeration.value;
     }
 
+    public int getValue() {
+        return value;
+    }
 }

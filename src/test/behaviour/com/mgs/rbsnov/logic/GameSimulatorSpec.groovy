@@ -1,6 +1,7 @@
 package com.mgs.rbsnov.logic
 
 import com.mgs.rbsnov.domain.GameResult
+import com.mgs.rbsnov.domain.PlayersLogic
 import com.mgs.rbsnov.spring.Config
 import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
@@ -11,17 +12,16 @@ import javax.annotation.Resource
 public class GameSimulatorSpec extends Specification{
     @Resource
     GameSimulator gameSimulator
+    @Resource
+    PlayerLogic playerLogic
 
 
     def "game simulator" (){
         given:
-        PlayerLogic southPlayerLogic = new PlayerLogic()
-        PlayerLogic westPlayerLogic = new PlayerLogic()
-        PlayerLogic northPlayerLogic = new PlayerLogic()
-        PlayerLogic eastPlayerLogic = new PlayerLogic()
+        PlayersLogic playersLogic = PlayersLogic.from(playerLogic, playerLogic, playerLogic, playerLogic)
 
         when:
-        GameResult gameResult = gameSimulator.start (southPlayerLogic, westPlayerLogic, northPlayerLogic, eastPlayerLogic)
+        GameResult gameResult = gameSimulator.start (playersLogic)
 
         then:
         gameResult.roundResults.size() == 13

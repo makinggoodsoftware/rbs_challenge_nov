@@ -2,6 +2,7 @@ package com.mgs.rbsnov.spring;
 
 import com.google.common.collect.ImmutableMap;
 import com.mgs.rbsnov.domain.Card;
+import com.mgs.rbsnov.domain.CardRiskConfiguration;
 import com.mgs.rbsnov.logic.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,8 +10,18 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Config {
     @Bean
+    public CardRiskConfiguration cardRiskConfiguration() {
+        return new CardRiskConfiguration(
+                50,
+                40,
+                45,
+                2
+        );
+    }
+
+    @Bean
     public CardSelector cardSelector (){
-        return new CardSelector(cardsDealer(), gameAnalyserII(), dealInProgressFactory(), cardScorer());
+        return new CardSelector(cardsDealer(), gameAnalyserII(), cardScorer());
     }
 
     @Bean
@@ -63,6 +74,52 @@ public class Config {
                 predictedScorer(),
                 dealInProgressFactory(),
                 handsFactory());
+    }
+
+    @Bean
+    public GameSimulator gameSimulator(){
+        return new GameSimulator(
+                cardsDiscarded(),
+                roundDeveloperFactory(),
+                handsFactory()
+        );
+    }
+
+    @Bean
+    public RoundDeveloperFactory roundDeveloperFactory() {
+        return new RoundDeveloperFactory(
+                playerRotator(),
+                dealInProgressFactory(),
+                playersScorer(),
+                handsFactory(),
+                heartRules(),
+                cardsSetBuilder()
+        );
+    }
+
+    @Bean
+    public HeartRules heartRules() {
+        return new HeartRules();
+    }
+
+    @Bean
+    public CardsDiscarder cardsDiscarded() {
+        return new CardsDiscarder(playerRotator());
+    }
+
+    @Bean
+    public PlayerRotator playerRotator() {
+        return new PlayerRotator();
+    }
+
+    @Bean
+    public PlayerLogic playerLogic() {
+        return new PlayerLogic(cardSelector(), cardsRiskEvaluator());
+    }
+
+    @Bean
+    public CardRiskEvaluator cardsRiskEvaluator() {
+        return new CardRiskEvaluator(cardScorer(), cardRiskConfiguration());
     }
 
     @Bean
