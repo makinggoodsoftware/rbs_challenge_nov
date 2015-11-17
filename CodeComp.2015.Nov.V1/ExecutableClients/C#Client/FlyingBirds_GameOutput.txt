@@ -1,0 +1,895 @@
+
+Connected to server http://lonms12714.rbsres07.net/
+Game State - NotStarted
+Game State - Initiated
+Game State - Open
+Joined the game af9caeb9-3edc-4289-be5c-3539a8718193
+Join Successful
+Game State - Running
+Round 1 - Initiated
+Round 1 - Running
+My game - Round 1 Passing
+My Current Hand :  13, 10, 8, 7, 5, 10, 9, 8, 5, 4, 14, 8, 5,
+
+
+3 cards need to be passed to right.
+3 cards passed successfully. Cards are :
+ 14 
+ 8 
+ 8 
+
+My game - Round 1 Dealing
+My Current Hand :  13, 14, 10, 7, 5, 13, 11, 10, 9, 5, 4, 8, 5,
+
+Cards played so far in current deal :
+Dummy-0: 2
+Cards played so far in current deal :
+Dummy-0: 2
+Cards played so far in current deal :
+Dummy-0: 2
+Cards played so far in current deal :
+Dummy-0: 2
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 12
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 12
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 12
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 12
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 12
+PeterMohan: 7
+Card  13 dealt successfully
+
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 12
+PeterMohan: 7
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 12
+PeterMohan: 7
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 12
+PeterMohan: 7
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 12
+PeterMohan: 7
+My Current Hand :  14, 10, 7, 5, 13, 11, 10, 9, 5, 4, 8, 5,
+
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 12
+PeterMohan: 7
+FlyingBirds: 13
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 12
+PeterMohan: 7
+FlyingBirds: 13
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 12
+PeterMohan: 7
+FlyingBirds: 13
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 12
+PeterMohan: 7
+FlyingBirds: 13
+Card  8 dealt successfully
+
+My Current Hand :  14, 10, 7, 5, 13, 11, 10, 9, 5, 4, 5,
+
+Cards played so far in current deal :
+FlyingBirds: 8
+Cards played so far in current deal :
+FlyingBirds: 8
+Cards played so far in current deal :
+FlyingBirds: 8
+Cards played so far in current deal :
+FlyingBirds: 8
+Cards played so far in current deal :
+FlyingBirds: 8
+Dummy-0: 11
+Cards played so far in current deal :
+FlyingBirds: 8
+Dummy-0: 11
+Cards played so far in current deal :
+FlyingBirds: 8
+Dummy-0: 11
+Cards played so far in current deal :
+FlyingBirds: 8
+Dummy-0: 11
+Cards played so far in current deal :
+FlyingBirds: 8
+Dummy-0: 11
+Dummy-1: 4
+Cards played so far in current deal :
+FlyingBirds: 8
+Dummy-0: 11
+Dummy-1: 4
+Cards played so far in current deal :
+FlyingBirds: 8
+Dummy-0: 11
+Dummy-1: 4
+Cards played so far in current deal :
+FlyingBirds: 8
+Dummy-0: 11
+Dummy-1: 4
+Cards played so far in current deal :
+FlyingBirds: 8
+Dummy-0: 11
+Dummy-1: 4
+Cards played so far in current deal :
+FlyingBirds: 8
+Dummy-0: 11
+Dummy-1: 4
+PeterMohan: 14
+Cards played so far in current deal :
+FlyingBirds: 8
+Dummy-0: 11
+Dummy-1: 4
+PeterMohan: 14
+Cards played so far in current deal :
+FlyingBirds: 8
+Dummy-0: 11
+Dummy-1: 4
+PeterMohan: 14
+Cards played so far in current deal :
+FlyingBirds: 8
+Dummy-0: 11
+Dummy-1: 4
+PeterMohan: 14
+Cards played so far in current deal :
+PeterMohan: 6
+Card  5 dealt successfully
+
+Cards played so far in current deal :
+PeterMohan: 6
+Cards played so far in current deal :
+PeterMohan: 6
+Cards played so far in current deal :
+PeterMohan: 6
+My Current Hand :  14, 10, 7, 5, 13, 11, 10, 9, 5, 4,
+
+Cards played so far in current deal :
+PeterMohan: 6
+FlyingBirds: 5
+Cards played so far in current deal :
+PeterMohan: 6
+FlyingBirds: 5
+Cards played so far in current deal :
+PeterMohan: 6
+FlyingBirds: 5
+Cards played so far in current deal :
+PeterMohan: 6
+FlyingBirds: 5
+Cards played so far in current deal :
+PeterMohan: 6
+FlyingBirds: 5
+Cards played so far in current deal :
+PeterMohan: 6
+FlyingBirds: 5
+Dummy-0: 4
+Cards played so far in current deal :
+PeterMohan: 6
+FlyingBirds: 5
+Dummy-0: 4
+Cards played so far in current deal :
+PeterMohan: 6
+FlyingBirds: 5
+Dummy-0: 4
+Cards played so far in current deal :
+PeterMohan: 6
+FlyingBirds: 5
+Dummy-0: 4
+Cards played so far in current deal :
+PeterMohan: 6
+FlyingBirds: 5
+Dummy-0: 4
+Dummy-1: 5
+Cards played so far in current deal :
+PeterMohan: 6
+FlyingBirds: 5
+Dummy-0: 4
+Dummy-1: 5
+Cards played so far in current deal :
+PeterMohan: 6
+FlyingBirds: 5
+Dummy-0: 4
+Dummy-1: 5
+Cards played so far in current deal :
+PeterMohan: 6
+FlyingBirds: 5
+Dummy-0: 4
+Dummy-1: 5
+Cards played so far in current deal :
+PeterMohan: 9
+Card  5 dealt successfully
+
+Cards played so far in current deal :
+PeterMohan: 9
+Cards played so far in current deal :
+PeterMohan: 9
+Cards played so far in current deal :
+PeterMohan: 9
+My Current Hand :  14, 10, 7, 13, 11, 10, 9, 5, 4,
+
+Cards played so far in current deal :
+PeterMohan: 9
+FlyingBirds: 5
+Cards played so far in current deal :
+PeterMohan: 9
+FlyingBirds: 5
+Cards played so far in current deal :
+PeterMohan: 9
+FlyingBirds: 5
+Cards played so far in current deal :
+PeterMohan: 9
+FlyingBirds: 5
+Cards played so far in current deal :
+PeterMohan: 9
+FlyingBirds: 5
+Cards played so far in current deal :
+PeterMohan: 9
+FlyingBirds: 5
+Dummy-0: 12
+Cards played so far in current deal :
+PeterMohan: 9
+FlyingBirds: 5
+Dummy-0: 12
+Cards played so far in current deal :
+PeterMohan: 9
+FlyingBirds: 5
+Dummy-0: 12
+Cards played so far in current deal :
+PeterMohan: 9
+FlyingBirds: 5
+Dummy-0: 12
+Cards played so far in current deal :
+PeterMohan: 9
+FlyingBirds: 5
+Dummy-0: 12
+Dummy-1: 6
+Cards played so far in current deal :
+PeterMohan: 9
+FlyingBirds: 5
+Dummy-0: 12
+Dummy-1: 6
+Cards played so far in current deal :
+PeterMohan: 9
+FlyingBirds: 5
+Dummy-0: 12
+Dummy-1: 6
+Cards played so far in current deal :
+PeterMohan: 9
+FlyingBirds: 5
+Dummy-0: 12
+Dummy-1: 6
+Cards played so far in current deal :
+Dummy-0: 14
+Cards played so far in current deal :
+Dummy-0: 14
+Cards played so far in current deal :
+Dummy-0: 14
+Cards played so far in current deal :
+Dummy-0: 14
+Cards played so far in current deal :
+Dummy-0: 14
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 8
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 8
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 8
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 8
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 8
+PeterMohan: 9
+Card  9 dealt successfully
+
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 8
+PeterMohan: 9
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 8
+PeterMohan: 9
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 8
+PeterMohan: 9
+My Current Hand :  14, 10, 7, 13, 11, 10, 5, 4,
+
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 8
+PeterMohan: 9
+FlyingBirds: 9
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 8
+PeterMohan: 9
+FlyingBirds: 9
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 8
+PeterMohan: 9
+FlyingBirds: 9
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 8
+PeterMohan: 9
+FlyingBirds: 9
+Cards played so far in current deal :
+Dummy-0: 14
+Cards played so far in current deal :
+Dummy-0: 14
+Cards played so far in current deal :
+Dummy-0: 14
+Cards played so far in current deal :
+Dummy-0: 14
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 6
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 6
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 6
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 6
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 6
+PeterMohan: 8
+Card  11 dealt successfully
+
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 6
+PeterMohan: 8
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 6
+PeterMohan: 8
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 6
+PeterMohan: 8
+My Current Hand :  14, 10, 7, 13, 10, 5, 4,
+
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 6
+PeterMohan: 8
+FlyingBirds: 11
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 6
+PeterMohan: 8
+FlyingBirds: 11
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 6
+PeterMohan: 8
+FlyingBirds: 11
+Cards played so far in current deal :
+Dummy-0: 14
+Dummy-1: 6
+PeterMohan: 8
+FlyingBirds: 11
+Cards played so far in current deal :
+Dummy-0: 7
+Cards played so far in current deal :
+Dummy-0: 7
+Cards played so far in current deal :
+Dummy-0: 7
+Cards played so far in current deal :
+Dummy-0: 7
+Cards played so far in current deal :
+Dummy-0: 7
+Dummy-1: 13
+Cards played so far in current deal :
+Dummy-0: 7
+Dummy-1: 13
+Cards played so far in current deal :
+Dummy-0: 7
+Dummy-1: 13
+Cards played so far in current deal :
+Dummy-0: 7
+Dummy-1: 13
+Cards played so far in current deal :
+Dummy-0: 7
+Dummy-1: 13
+PeterMohan: 12
+Card  5 dealt successfully
+
+Cards played so far in current deal :
+Dummy-0: 7
+Dummy-1: 13
+PeterMohan: 12
+Cards played so far in current deal :
+Dummy-0: 7
+Dummy-1: 13
+PeterMohan: 12
+Cards played so far in current deal :
+Dummy-0: 7
+Dummy-1: 13
+PeterMohan: 12
+My Current Hand :  14, 10, 7, 13, 10, 4,
+
+Cards played so far in current deal :
+Dummy-0: 7
+Dummy-1: 13
+PeterMohan: 12
+FlyingBirds: 5
+Cards played so far in current deal :
+Dummy-0: 7
+Dummy-1: 13
+PeterMohan: 12
+FlyingBirds: 5
+Cards played so far in current deal :
+Dummy-0: 7
+Dummy-1: 13
+PeterMohan: 12
+FlyingBirds: 5
+Cards played so far in current deal :
+Dummy-0: 7
+Dummy-1: 13
+PeterMohan: 12
+FlyingBirds: 5
+Cards played so far in current deal :
+Dummy-0: 7
+Dummy-1: 13
+PeterMohan: 12
+FlyingBirds: 5
+Cards played so far in current deal :
+PeterMohan: 3
+Card  10 dealt successfully
+
+Cards played so far in current deal :
+PeterMohan: 3
+Cards played so far in current deal :
+PeterMohan: 3
+Cards played so far in current deal :
+PeterMohan: 3
+My Current Hand :  14, 7, 13, 10, 4,
+
+Cards played so far in current deal :
+PeterMohan: 3
+FlyingBirds: 10
+Cards played so far in current deal :
+PeterMohan: 3
+FlyingBirds: 10
+Cards played so far in current deal :
+PeterMohan: 3
+FlyingBirds: 10
+Cards played so far in current deal :
+PeterMohan: 3
+FlyingBirds: 10
+Cards played so far in current deal :
+PeterMohan: 3
+FlyingBirds: 10
+Dummy-0: 10
+Cards played so far in current deal :
+PeterMohan: 3
+FlyingBirds: 10
+Dummy-0: 10
+Cards played so far in current deal :
+PeterMohan: 3
+FlyingBirds: 10
+Dummy-0: 10
+Cards played so far in current deal :
+PeterMohan: 3
+FlyingBirds: 10
+Dummy-0: 10
+Cards played so far in current deal :
+PeterMohan: 3
+FlyingBirds: 10
+Dummy-0: 10
+Dummy-1: 11
+Cards played so far in current deal :
+PeterMohan: 3
+FlyingBirds: 10
+Dummy-0: 10
+Dummy-1: 11
+Cards played so far in current deal :
+PeterMohan: 3
+FlyingBirds: 10
+Dummy-0: 10
+Dummy-1: 11
+Cards played so far in current deal :
+PeterMohan: 3
+FlyingBirds: 10
+Dummy-0: 10
+Dummy-1: 11
+Cards played so far in current deal :
+PeterMohan: 3
+FlyingBirds: 10
+Dummy-0: 10
+Dummy-1: 11
+Cards played so far in current deal :
+Dummy-1: 10
+Cards played so far in current deal :
+Dummy-1: 10
+Cards played so far in current deal :
+Dummy-1: 10
+Cards played so far in current deal :
+Dummy-1: 10
+Cards played so far in current deal :
+Dummy-1: 10
+PeterMohan: 8
+Card  10 dealt successfully
+
+Cards played so far in current deal :
+Dummy-1: 10
+PeterMohan: 8
+Cards played so far in current deal :
+Dummy-1: 10
+PeterMohan: 8
+Cards played so far in current deal :
+Dummy-1: 10
+PeterMohan: 8
+My Current Hand :  14, 7, 13, 4,
+
+Cards played so far in current deal :
+Dummy-1: 10
+PeterMohan: 8
+FlyingBirds: 10
+Cards played so far in current deal :
+Dummy-1: 10
+PeterMohan: 8
+FlyingBirds: 10
+Cards played so far in current deal :
+Dummy-1: 10
+PeterMohan: 8
+FlyingBirds: 10
+Cards played so far in current deal :
+Dummy-1: 10
+PeterMohan: 8
+FlyingBirds: 10
+Cards played so far in current deal :
+Dummy-1: 10
+PeterMohan: 8
+FlyingBirds: 10
+Cards played so far in current deal :
+Dummy-1: 10
+PeterMohan: 8
+FlyingBirds: 10
+Dummy-0: 2
+Cards played so far in current deal :
+Dummy-1: 10
+PeterMohan: 8
+FlyingBirds: 10
+Dummy-0: 2
+Cards played so far in current deal :
+Dummy-1: 10
+PeterMohan: 8
+FlyingBirds: 10
+Dummy-0: 2
+Cards played so far in current deal :
+Dummy-1: 10
+PeterMohan: 8
+FlyingBirds: 10
+Dummy-0: 2
+Cards played so far in current deal :
+Dummy-1: 3
+Cards played so far in current deal :
+Dummy-1: 3
+Cards played so far in current deal :
+Dummy-1: 3
+Cards played so far in current deal :
+Dummy-1: 3
+Cards played so far in current deal :
+Dummy-1: 3
+PeterMohan: 13
+Card  14 dealt successfully
+
+Cards played so far in current deal :
+Dummy-1: 3
+PeterMohan: 13
+Cards played so far in current deal :
+Dummy-1: 3
+PeterMohan: 13
+Cards played so far in current deal :
+Dummy-1: 3
+PeterMohan: 13
+My Current Hand :  7, 13, 4,
+
+Cards played so far in current deal :
+Dummy-1: 3
+PeterMohan: 13
+FlyingBirds: 14
+Cards played so far in current deal :
+Dummy-1: 3
+PeterMohan: 13
+FlyingBirds: 14
+Cards played so far in current deal :
+Dummy-1: 3
+PeterMohan: 13
+FlyingBirds: 14
+Cards played so far in current deal :
+Dummy-1: 3
+PeterMohan: 13
+FlyingBirds: 14
+Cards played so far in current deal :
+Dummy-1: 3
+PeterMohan: 13
+FlyingBirds: 14
+Cards played so far in current deal :
+Dummy-1: 3
+PeterMohan: 13
+FlyingBirds: 14
+Dummy-0: 4
+Cards played so far in current deal :
+Dummy-1: 3
+PeterMohan: 13
+FlyingBirds: 14
+Dummy-0: 4
+Cards played so far in current deal :
+Dummy-1: 3
+PeterMohan: 13
+FlyingBirds: 14
+Dummy-0: 4
+Card  4 dealt successfully
+
+My Current Hand :  7, 13,
+
+Cards played so far in current deal :
+FlyingBirds: 4
+Cards played so far in current deal :
+FlyingBirds: 4
+Cards played so far in current deal :
+FlyingBirds: 4
+Cards played so far in current deal :
+FlyingBirds: 4
+Cards played so far in current deal :
+FlyingBirds: 4
+Cards played so far in current deal :
+FlyingBirds: 4
+Dummy-0: 2
+Cards played so far in current deal :
+FlyingBirds: 4
+Dummy-0: 2
+Cards played so far in current deal :
+FlyingBirds: 4
+Dummy-0: 2
+Cards played so far in current deal :
+FlyingBirds: 4
+Dummy-0: 2
+Cards played so far in current deal :
+FlyingBirds: 4
+Dummy-0: 2
+Dummy-1: 6
+Cards played so far in current deal :
+FlyingBirds: 4
+Dummy-0: 2
+Dummy-1: 6
+Cards played so far in current deal :
+FlyingBirds: 4
+Dummy-0: 2
+Dummy-1: 6
+Cards played so far in current deal :
+FlyingBirds: 4
+Dummy-0: 2
+Dummy-1: 6
+Cards played so far in current deal :
+FlyingBirds: 4
+Dummy-0: 2
+Dummy-1: 6
+PeterMohan: 7
+Cards played so far in current deal :
+FlyingBirds: 4
+Dummy-0: 2
+Dummy-1: 6
+PeterMohan: 7
+Cards played so far in current deal :
+FlyingBirds: 4
+Dummy-0: 2
+Dummy-1: 6
+PeterMohan: 7
+Cards played so far in current deal :
+FlyingBirds: 4
+Dummy-0: 2
+Dummy-1: 6
+PeterMohan: 7
+Cards played so far in current deal :
+FlyingBirds: 4
+Dummy-0: 2
+Dummy-1: 6
+PeterMohan: 7
+Card  7 dealt successfully
+
+My Current Hand :  13,
+
+Cards played so far in current deal :
+FlyingBirds: 7
+Cards played so far in current deal :
+FlyingBirds: 7
+Cards played so far in current deal :
+FlyingBirds: 7
+Cards played so far in current deal :
+FlyingBirds: 7
+Cards played so far in current deal :
+FlyingBirds: 7
+Dummy-0: 3
+Cards played so far in current deal :
+FlyingBirds: 7
+Dummy-0: 3
+Cards played so far in current deal :
+FlyingBirds: 7
+Dummy-0: 3
+Cards played so far in current deal :
+FlyingBirds: 7
+Dummy-0: 3
+Cards played so far in current deal :
+FlyingBirds: 7
+Dummy-0: 3
+Dummy-1: 9
+Cards played so far in current deal :
+FlyingBirds: 7
+Dummy-0: 3
+Dummy-1: 9
+Cards played so far in current deal :
+FlyingBirds: 7
+Dummy-0: 3
+Dummy-1: 9
+Cards played so far in current deal :
+FlyingBirds: 7
+Dummy-0: 3
+Dummy-1: 9
+Cards played so far in current deal :
+FlyingBirds: 7
+Dummy-0: 3
+Dummy-1: 9
+PeterMohan: 11
+Cards played so far in current deal :
+FlyingBirds: 7
+Dummy-0: 3
+Dummy-1: 9
+PeterMohan: 11
+Cards played so far in current deal :
+FlyingBirds: 7
+Dummy-0: 3
+Dummy-1: 9
+PeterMohan: 11
+Cards played so far in current deal :
+FlyingBirds: 7
+Dummy-0: 3
+Dummy-1: 9
+PeterMohan: 11
+Cards played so far in current deal :
+PeterMohan: 12
+Card  13 dealt successfully
+
+Cards played so far in current deal :
+PeterMohan: 12
+Cards played so far in current deal :
+PeterMohan: 12
+Cards played so far in current deal :
+PeterMohan: 12
+Cards played so far in current deal :
+PeterMohan: 12
+FlyingBirds: 13
+Cards played so far in current deal :
+PeterMohan: 12
+FlyingBirds: 13
+Cards played so far in current deal :
+PeterMohan: 12
+FlyingBirds: 13
+Cards played so far in current deal :
+PeterMohan: 12
+FlyingBirds: 13
+Cards played so far in current deal :
+PeterMohan: 12
+FlyingBirds: 13
+Dummy-0: 3
+Cards played so far in current deal :
+PeterMohan: 12
+FlyingBirds: 13
+Dummy-0: 3
+Cards played so far in current deal :
+PeterMohan: 12
+FlyingBirds: 13
+Dummy-0: 3
+Cards played so far in current deal :
+PeterMohan: 12
+FlyingBirds: 13
+Dummy-0: 3
+Cards played so far in current deal :
+PeterMohan: 12
+FlyingBirds: 13
+Dummy-0: 3
+Dummy-1: 2
+Cards played so far in current deal :
+PeterMohan: 12
+FlyingBirds: 13
+Dummy-0: 3
+Dummy-1: 2
+Cards played so far in current deal :
+PeterMohan: 12
+FlyingBirds: 13
+Dummy-0: 3
+Dummy-1: 2
+Cards played so far in current deal :
+PeterMohan: 12
+FlyingBirds: 13
+Dummy-0: 3
+Dummy-1: 2
+Cards played so far in current deal :
+PeterMohan: 12
+FlyingBirds: 13
+Dummy-0: 3
+Dummy-1: 2
+Round 1 - Finished
+Round 2 - Initiated
+Round 2 - Running
+My game - Round 2 Passing
+My Current Hand :  11, 11, 10, 14, 13, 11, 6, 3, 13, 12, 7, 5, 2,
+
+
+3 cards need to be passed to right.
+3 cards passed successfully. Cards are :
+ 5 
+ 3 
+ 6 
+
+My game - Round 2 Dealing
+My Current Hand :  11, 8, 11, 10, 14, 13, 11, 13, 12, 11, 10, 7, 2,
+
+Cards played so far in current deal :
+Dummy-0: 2
+Cards played so far in current deal :
+Dummy-0: 2
+Cards played so far in current deal :
+Dummy-0: 2
+Cards played so far in current deal :
+Dummy-0: 2
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 5
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 5
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 5
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 5
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 5
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 5
+PeterMohan: 4
+Card  11 dealt successfully
+
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 5
+PeterMohan: 4
+Cards played so far in current deal :
+Dummy-0: 2
+Dummy-1: 5
+PeterMohan: 4

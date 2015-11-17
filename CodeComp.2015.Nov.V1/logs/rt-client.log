@@ -1,0 +1,12 @@
+2015-11-17 17:03:04 [main] INFO  App - Start Game
+2015-11-17 17:03:06 [Oggy] INFO  App - Connected to server  http://localhost:2015/api/participant
+2015-11-17 17:03:08 [Oggy] ERROR JsonHelper - Connect to localhost:2015 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: connect
+2015-11-17 17:03:08 [Oggy] ERROR App - Server is not started
+2015-11-17 17:03:10 [Oggy] ERROR JsonHelper - Connect to localhost:2015 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: connect
+2015-11-17 17:03:10 [Oggy] ERROR App - Server is not started
+2015-11-17 17:03:12 [Oggy] ERROR JsonHelper - Connect to localhost:2015 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: connect
+2015-11-17 17:03:12 [Oggy] ERROR App - Server is not started
+2015-11-17 17:03:14 [Oggy] ERROR JsonHelper - Connect to localhost:2015 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: connect
+2015-11-17 17:03:14 [Oggy] ERROR App - Server is not started
+2015-11-17 17:03:16 [Oggy] ERROR JsonHelper - Connect to localhost:2015 [localhost/127.0.0.1, localhost/0:0:0:0:0:0:0:1] failed: Connection refused: connect
+2015-11-17 17:03:16 [Oggy] ERROR App - Server is not started

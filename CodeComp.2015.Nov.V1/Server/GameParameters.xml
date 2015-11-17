@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameParameters RunGameInLoop="true">
+  <InitiationPhaseInSeconds>5</InitiationPhaseInSeconds>
+  <OpenPhaseInSeconds>15</OpenPhaseInSeconds>
+  <FinishingPhaseInSeconds>15</FinishingPhaseInSeconds>
+  <CancellingPhaseInSeconds>10</CancellingPhaseInSeconds>
+</GameParameters>

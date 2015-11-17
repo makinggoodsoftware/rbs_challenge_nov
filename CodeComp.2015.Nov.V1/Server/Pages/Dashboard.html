@@ -1,0 +1,276 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CodeComp Server</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="/api/Web/Get?id=Content/Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/api/Web/Get?id=Content/dataTable/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="/api/Web/Get?id=Content/Site.css">
+
+    <script src="/api/Web/Get?id=Content/Bootstrap/js/html5shiv.min.js"></script>
+    <script src="/api/Web/Get?id=Content/Bootstrap/js/respond.min.js"></script>
+
+
+    <style>
+        #outer1 {
+            float: left;
+            width: 20%;
+        }
+
+        #outer2 {
+            float: left;
+            width: 60%;
+        }
+
+        #outer3 {
+            float: right;
+            width: 20%;
+        }
+
+        #outer1, #outer2, #outer3 {
+            padding-bottom: 32767px;
+            margin-bottom: -32767px;
+        }
+
+        .content {
+            padding: 10px;
+        }
+
+        .rotated-text {
+            display: inline-block;
+            overflow: hidden;
+            width: 1.5em;
+        }
+
+        .rotated-text__inner {
+            display: inline-block;
+            white-space: nowrap;
+            /* this is for shity "non IE" browsers
+            that dosn't support writing-mode */
+            -webkit-transform: translate(1.1em,0) rotate(90deg);
+            -moz-transform: translate(1.1em,0) rotate(90deg);
+            -o-transform: translate(1.1em,0) rotate(90deg);
+            transform: translate(1.1em,0) rotate(90deg);
+            -webkit-transform-origin: 0 0;
+            -moz-transform-origin: 0 0;
+            -o-transform-origin: 0 0;
+            transform-origin: 0 0;
+            /* IE9+ */
+            -ms-transform: none;
+            -ms-transform-origin: none;
+            /* IE8+ */
+            -ms-writing-mode: tb-rl;
+            /* IE7 and below */
+            *writing-mode: tb-rl;
+        }
+
+            .rotated-text__inner:before {
+                content: "";
+                float: left;
+                margin-top: 100%;
+            }
+    </style>
+
+
+</head>
+
+<body>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Code-Comp</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a hrea="#">Dashboard</a></li>
+                </ul>
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#myModal" style="font-weight: bold; color: darkred">Rules
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    <!-- Begin page content -->
+    <div class="container">
+        <div class="page-header">
+            <button id="btnStartNewGame" type="button" class="btn btn-success">Start New Game</button>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Round Score <span id="roundNumber"></span><span id="titleRoundState"></span></h3>
+                    </div>
+                    <div class="panel-body" style="height: 500px">
+                        <table id="table_round_score" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>Point</th>
+                                    <th>Penalty</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div id="panelGameBoard" class="panel panel-info">
+                    <div id="gameStatus" class="panel-heading">
+                        <h3 class="panel-title"><b>Game Board ❤ </b><span id="titleHeartsGameState"></span></h3>
+                    </div>
+                    <div id="loginDiv" class="text-center" style="height: 550px; width: 550px; position: absolute; background-image: url(/api/Web/Get?id=Pages/images/jokerfire.jpg); background-position: center;">
+                        <label style="color: white">Team : </label>
+                        <input type="text" id="loginText" placeholder="Team Name" value="FlyingBirds" style="height: 30px" />
+                        <label style="color: white">Password : </label>
+                        <input type="password" id="passwordText" placeholder="Password" value="qwert123" style="height: 30px" />
+                        <button id="loginButton" class="btn-success btn-sm" style="height: 30px">Login</button>
+                    </div>
+                    <div id="game-region" class="panel-body" style="display: none; height: 550px; width: 550px; position: absolute; background-color: dimgray">
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
+                                <span class="sr-only">Game is being setup</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Game Score <span id="titleGameState"></span></h3>
+                    </div>
+                    <div class="panel-body" style="height: 500px">
+                        <table id="table_game_score" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Team</th>
+                                    <th>Point</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted">Copyright © 2015 Royal Bank of Scotland N.V.</p>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Game Rules</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="panel panel-danger">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Winning condition</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <b>Participant who will play all 10 rounds and gather minimum points (accumulated) will win.</b>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Point system</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <ul>
+                                        <li>Each ‘Heart’ is equivalent to 1 point. Queen of ‘Spade’ is equivalent to 13 points.</li>
+                                        <li>No point for ‘Spade’ (except Q), ‘Diamond’ or ‘Club’.</li>
+                                        <li>Total points in a game = 26 (13 ‘Heart’s + 1 Spade-Q)</li>
+                                        <li>Participant will receive 1 penalty point for non (or worng) submission of card during specified time window.</li>
+                                        <li><b>Above points may differ between rounds</b> :-) (maybe each club will have -1 point in some of the rounds). Observe round parameters.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">Generic Rules</h3>
+                                </div>
+                                <div class="panel-body">
+                                    <ul>
+                                        <li>Each 'Game' has 4 participants and one round can host multiple 'Game's. No of games will be decided by no of participants joined.</li>
+                                        <li>There will be 10 rounds.</li>
+                                        <li>In a game there are total 13 deals (4 cards in a deal)</li>
+                                        <li>Before starting a game, all 52 cards will be distributed randomly amongst 4 participants equally which leads 13 cards per participant.</li>
+                                        <li>Before starting a game, all participants have to pass 3 cards to his right in a 10 sec time window. If someone does not (or passed wrong cards), server will pass on his behalf (randomly)</li>
+                                        <li>The participant who has Club-2 will start 1st deal of the Game</li>
+                                        <li>Then turn goes to his left (game will proceed clockwise)</li>
+                                        <li>Suit (Spade, Heart, Diamond or Club) of a deal will be decided by the participant who opens that deal.</li>
+                                        <li>Other participants have to submit card of same suit during that deal (if someone starts a deal of “Diamond” everybody has to submit “Diamond”, if he has finished with “Diamond” only then he can submit other suit.</li>
+                                        <li>At the end of 4 submissions, participant who submitted highest card of deal-suit will win that deal and collect all 4 cards and store in his bucket. He will then start next deal.</li>
+                                        <li>Each participant will get 5 sec (variable in round parameters) time window to submit his card, if he doesn’t (or submits wrong card), server will submit on his behalf (randomly but abiding game rule) and add a penalty point.</li>
+                                        <li>After completion of 13 deals (which means one round), each participant’s bucket will be monitored and points will be given to him based on cards he had accumulated (see point system above)</li>
+                                        <li><b>Shooting the moon:</b> If someone is able to accumulate all 26 points (all ‘Heart’s and Spade-Q), he will be awarded 0 (zero) and all other participants will get 26 points each.</li>
+                                        <li>Winner will be decided after completion of 10 rounds: who had played all 10 rounds and gathered minimum points.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Bootstrap core JavaScript
+            ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/api/Web/Get?id=Content/jquery.min.js"></script>
+    <script src="/api/Web/Get?id=Content/jquery.base64.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="/api/Web/Get?id=Content/Bootstrap/js/bootstrap.min.js"></script>
+
+    <script src="/api/Web/Get?id=Content/dataTable/js/jquery.dataTable.min.js"></script>
+    <script src="/api/Web/Get?id=Content/dataTable/js/dataTable.bootstrap.min.js"></script>
+
+    <script src="/api/Web/Get?id=Content/Bootstrap/js/jquery.toaster.js"></script>
+
+    <script src="/api/Web/Get?id=Pages/Scripts/common.js"></script>
+    <script src="/api/Web/Get?id=Pages/Scripts/Dashboard.js"></script>
+    <script src="/api/Web/Get?id=Pages/Scripts/DeckCards.js"></script>
+</body>
+</html>
+

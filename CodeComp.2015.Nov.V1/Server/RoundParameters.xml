@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RoundParametersCollection TotalRounds="10">
+  <RoundParameters>
+    <RoundParameters RoundId="1">
+      <InitiationPhaseInSeconds>5</InitiationPhaseInSeconds>
+      <PassingPhaseInSeconds>15</PassingPhaseInSeconds>
+      <DealingPhaseInSeconds>5</DealingPhaseInSeconds>
+      <FinishingPhaseInSeconds>5</FinishingPhaseInSeconds>
+      <NumberOfCardsTobePassed>3</NumberOfCardsTobePassed>
+      <CardPoints>
+        <CardPoint>
+          <Card Suit="Heart" Number="2" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="3" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="4" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="5" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="6" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="7" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="8" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="9" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="10" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="11" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="12" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="13" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="14" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Spade" Number="12" />
+          <Point>13</Point>
+        </CardPoint>
+      </CardPoints>
+    </RoundParameters>
+    <RoundParameters RoundId="2">
+      <InitiationPhaseInSeconds>5</InitiationPhaseInSeconds>
+      <PassingPhaseInSeconds>15</PassingPhaseInSeconds>
+      <DealingPhaseInSeconds>5</DealingPhaseInSeconds>
+      <FinishingPhaseInSeconds>5</FinishingPhaseInSeconds>
+      <NumberOfCardsTobePassed>3</NumberOfCardsTobePassed>
+      <CardPoints>
+        <CardPoint>
+          <Card Suit="Heart" Number="2" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="3" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="4" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="5" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="6" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="7" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="8" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="9" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="10" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="11" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="12" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="13" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="14" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Spade" Number="12" />
+          <Point>13</Point>
+        </CardPoint>
+      </CardPoints>
+    </RoundParameters>
+    <RoundParameters RoundId="3">
+      <InitiationPhaseInSeconds>5</InitiationPhaseInSeconds>
+      <PassingPhaseInSeconds>15</PassingPhaseInSeconds>
+      <DealingPhaseInSeconds>5</DealingPhaseInSeconds>
+      <FinishingPhaseInSeconds>5</FinishingPhaseInSeconds>
+      <NumberOfCardsTobePassed>3</NumberOfCardsTobePassed>
+      <CardPoints>
+        <CardPoint>
+          <Card Suit="Heart" Number="2" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="3" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="4" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="5" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="6" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="7" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="8" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="9" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="10" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="11" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="12" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="13" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="14" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Spade" Number="12" />
+          <Point>13</Point>
+        </CardPoint>
+      </CardPoints>
+    </RoundParameters>
+    <RoundParameters RoundId="4">
+      <InitiationPhaseInSeconds>5</InitiationPhaseInSeconds>
+      <PassingPhaseInSeconds>15</PassingPhaseInSeconds>
+      <DealingPhaseInSeconds>5</DealingPhaseInSeconds>
+      <FinishingPhaseInSeconds>5</FinishingPhaseInSeconds>
+      <NumberOfCardsTobePassed>3</NumberOfCardsTobePassed>
+      <CardPoints>
+        <CardPoint>
+          <Card Suit="Heart" Number="2" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="3" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="4" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="5" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="6" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="7" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="8" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="9" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="10" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="11" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="12" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="13" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="14" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Spade" Number="12" />
+          <Point>13</Point>
+        </CardPoint>
+      </CardPoints>
+    </RoundParameters>
+    <RoundParameters RoundId="5">
+      <InitiationPhaseInSeconds>5</InitiationPhaseInSeconds>
+      <PassingPhaseInSeconds>15</PassingPhaseInSeconds>
+      <DealingPhaseInSeconds>5</DealingPhaseInSeconds>
+      <FinishingPhaseInSeconds>5</FinishingPhaseInSeconds>
+      <NumberOfCardsTobePassed>3</NumberOfCardsTobePassed>
+      <CardPoints>
+        <CardPoint>
+          <Card Suit="Heart" Number="2" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="3" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="4" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="5" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="6" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="7" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="8" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="9" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="10" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="11" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="12" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="13" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="14" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Spade" Number="12" />
+          <Point>13</Point>
+        </CardPoint>
+      </CardPoints>
+    </RoundParameters>
+    <RoundParameters RoundId="6">
+      <InitiationPhaseInSeconds>5</InitiationPhaseInSeconds>
+      <PassingPhaseInSeconds>15</PassingPhaseInSeconds>
+      <DealingPhaseInSeconds>5</DealingPhaseInSeconds>
+      <FinishingPhaseInSeconds>5</FinishingPhaseInSeconds>
+      <NumberOfCardsTobePassed>3</NumberOfCardsTobePassed>
+      <CardPoints>
+        <CardPoint>
+          <Card Suit="Heart" Number="2" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="3" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="4" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="5" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="6" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="7" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="8" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="9" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="10" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="11" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="12" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="13" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="14" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Spade" Number="12" />
+          <Point>13</Point>
+        </CardPoint>
+      </CardPoints>
+    </RoundParameters>
+    <RoundParameters RoundId="7">
+      <InitiationPhaseInSeconds>5</InitiationPhaseInSeconds>
+      <PassingPhaseInSeconds>15</PassingPhaseInSeconds>
+      <DealingPhaseInSeconds>5</DealingPhaseInSeconds>
+      <FinishingPhaseInSeconds>5</FinishingPhaseInSeconds>
+      <NumberOfCardsTobePassed>3</NumberOfCardsTobePassed>
+      <CardPoints>
+        <CardPoint>
+          <Card Suit="Heart" Number="2" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="3" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="4" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="5" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="6" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="7" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="8" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="9" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="10" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="11" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="12" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="13" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="14" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Spade" Number="12" />
+          <Point>13</Point>
+        </CardPoint>
+      </CardPoints>
+    </RoundParameters>
+    <RoundParameters RoundId="8">
+      <InitiationPhaseInSeconds>5</InitiationPhaseInSeconds>
+      <PassingPhaseInSeconds>15</PassingPhaseInSeconds>
+      <DealingPhaseInSeconds>5</DealingPhaseInSeconds>
+      <FinishingPhaseInSeconds>5</FinishingPhaseInSeconds>
+      <NumberOfCardsTobePassed>3</NumberOfCardsTobePassed>
+      <CardPoints>
+        <CardPoint>
+          <Card Suit="Heart" Number="2" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="3" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="4" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="5" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="6" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="7" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="8" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="9" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="10" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="11" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="12" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="13" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="14" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Spade" Number="12" />
+          <Point>13</Point>
+        </CardPoint>
+      </CardPoints>
+    </RoundParameters>
+    <RoundParameters RoundId="9">
+      <InitiationPhaseInSeconds>5</InitiationPhaseInSeconds>
+      <PassingPhaseInSeconds>15</PassingPhaseInSeconds>
+      <DealingPhaseInSeconds>5</DealingPhaseInSeconds>
+      <FinishingPhaseInSeconds>5</FinishingPhaseInSeconds>
+      <NumberOfCardsTobePassed>3</NumberOfCardsTobePassed>
+      <CardPoints>
+        <CardPoint>
+          <Card Suit="Heart" Number="2" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="3" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="4" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="5" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="6" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="7" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="8" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="9" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="10" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="11" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="12" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="13" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="14" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Spade" Number="12" />
+          <Point>13</Point>
+        </CardPoint>
+      </CardPoints>
+    </RoundParameters>
+    <RoundParameters RoundId="10">
+      <InitiationPhaseInSeconds>5</InitiationPhaseInSeconds>
+      <PassingPhaseInSeconds>15</PassingPhaseInSeconds>
+      <DealingPhaseInSeconds>5</DealingPhaseInSeconds>
+      <FinishingPhaseInSeconds>5</FinishingPhaseInSeconds>
+      <NumberOfCardsTobePassed>3</NumberOfCardsTobePassed>
+      <CardPoints>
+        <CardPoint>
+          <Card Suit="Heart" Number="2" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="3" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="4" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="5" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="6" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="7" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="8" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="9" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="10" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="11" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="12" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="13" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Heart" Number="14" />
+          <Point>1</Point>
+        </CardPoint>
+        <CardPoint>
+          <Card Suit="Spade" Number="12" />
+          <Point>13</Point>
+        </CardPoint>
+      </CardPoints>
+    </RoundParameters>
+  </RoundParameters>
+</RoundParametersCollection>
