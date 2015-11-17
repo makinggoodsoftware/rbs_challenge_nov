@@ -5,7 +5,7 @@ import com.mgs.rbsnov.domain.*;
 import java.util.*;
 
 public class GameAnalyser {
-    private static final int MAX_STEP = 4;
+    private static final int MAX_STEP = 2;
     private final DealsDeveloper dealsDeveloper;
     private final PredictedScorer predictedScorer;
     private final DealInProgressFactory dealInProgressFactory;
@@ -69,9 +69,6 @@ public class GameAnalyser {
                 ),
                 dealInProgressFactory.newJustStartedDeal(possibleDeal.getWinningPlayer())
         );
-        if (newGameState.getAllHands().getNorthHand().size() == gameState.getAllHands().getNorthHand().size()){
-            throw new IllegalStateException();
-        }
         return newGameState;
     }
 

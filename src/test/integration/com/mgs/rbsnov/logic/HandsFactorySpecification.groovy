@@ -1,6 +1,7 @@
 package com.mgs.rbsnov.logic
 
 import com.mgs.rbsnov.domain.Card
+import com.mgs.rbsnov.domain.Deal
 import com.mgs.rbsnov.domain.Hands
 import com.mgs.rbsnov.domain.Player
 import com.mgs.rbsnov.spring.Config
@@ -8,6 +9,15 @@ import org.springframework.test.context.ContextConfiguration
 import spock.lang.Specification
 
 import javax.annotation.Resource
+
+import static com.mgs.rbsnov.domain.Card.JACK_OF_CLUBS
+import static com.mgs.rbsnov.domain.Card.JACK_OF_DIAMONDS
+import static com.mgs.rbsnov.domain.Card.JACK_OF_HEARTS
+import static com.mgs.rbsnov.domain.Card.JACK_OF_SPADES
+import static com.mgs.rbsnov.domain.Card.QUEEN_OF_CLUBS
+import static com.mgs.rbsnov.domain.Card.QUEEN_OF_DIAMONDS
+import static com.mgs.rbsnov.domain.Card.QUEEN_OF_HEARTS
+import static com.mgs.rbsnov.domain.Card.QUEEN_OF_SPADES
 
 @ContextConfiguration(classes = Config)
 class HandsFactorySpecification extends Specification {
@@ -66,5 +76,32 @@ class HandsFactorySpecification extends Specification {
 
         then:
         hands.southHand.size() == 13
+    }
+
+    def "should reduce hands using deal" (){
+        when:
+        Hands hands = handsFactory.reduce(
+                new Hands(
+                        [JACK_OF_CLUBS, QUEEN_OF_CLUBS] as Set,
+                        [JACK_OF_DIAMONDS, QUEEN_OF_DIAMONDS] as Set,
+                        [JACK_OF_HEARTS, QUEEN_OF_HEARTS] as Set,
+                        [JACK_OF_SPADES, QUEEN_OF_SPADES] as Set,
+                ),
+                new Deal(
+                        JACK_OF_SPADES,
+                        JACK_OF_CLUBS,
+                        JACK_OF_DIAMONDS,
+                        JACK_OF_HEARTS,
+                ),
+                Player.EAST
+        )
+
+        then:
+        hands == new Hands (
+                [QUEEN_OF_CLUBS] as Set,
+                [QUEEN_OF_DIAMONDS] as Set,
+                [QUEEN_OF_HEARTS] as Set,
+                [QUEEN_OF_SPADES] as Set
+        )
     }
 }

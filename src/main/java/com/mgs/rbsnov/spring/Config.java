@@ -23,7 +23,7 @@ public class Config {
 
     @Bean
     public CardSelector cardSelector (){
-        return new CardSelector(cardsDealer(), gameAnalyserII(), cardScorer());
+        return new CardSelector(gameAnalyserII(), cardScorer(), handsFactory());
     }
 
     @Bean

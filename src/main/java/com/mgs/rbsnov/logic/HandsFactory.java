@@ -16,7 +16,13 @@ public class HandsFactory {
     }
 
     public Hands reduce(Hands hands, Deal deal, Player startingPlayer) {
-        return null;
+        int baseIndex = Player.SOUTH.distanceTo(startingPlayer);
+        return new Hands(
+                removeCard(hands.getSouthHand(), deal.getCard(cycle(0 - baseIndex))),
+                removeCard(hands.getWestHand(), deal.getCard(cycle(1 - baseIndex))),
+                removeCard(hands.getNorthHand(), deal.getCard(cycle(2 - baseIndex))),
+                removeCard(hands.getEastHand(), deal.getCard(cycle(3 - baseIndex)))
+        );
     }
 
     public Hands from(List<Set<Card>> asList, Player startingFrom) {
@@ -31,6 +37,7 @@ public class HandsFactory {
     }
 
     private int cycle(int from) {
+        if (from<0) return cycle(4+from);
         return from > 3? from % 4: from;
     }
 
@@ -74,6 +81,18 @@ public class HandsFactory {
                 (toReduce == Player.WEST) ? removeCard(hands.getWestHand(), toRemove) : hands.getWestHand(),
                 (toReduce == Player.NORTH) ? removeCard(hands.getNorthHand(), toRemove) : hands.getNorthHand(),
                 (toReduce == Player.EAST) ? removeCard(hands.getEastHand(), toRemove) : hands.getEastHand()
+        );
+    }
+
+    public Hands dealCards(Player startingPlayer, Set<Card> startingHand, Set<Card> inPlay) {
+        List<Set<Card>> otherPlayerCards = cardsDealer.deal(3, inPlay);
+        otherPlayerCards.add(0, startingHand);
+        int baseIndex = Player.SOUTH.distanceTo(startingPlayer);
+        return new Hands(
+                otherPlayerCards.get(cycle(0 - baseIndex)),
+                otherPlayerCards.get(cycle(1 - baseIndex)),
+                otherPlayerCards.get(cycle(2 - baseIndex)),
+                otherPlayerCards.get(cycle(3 - baseIndex))
         );
     }
 }

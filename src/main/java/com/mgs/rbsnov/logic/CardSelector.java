@@ -7,22 +7,21 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CardSelector {
-    private final CardsDealer cardsDealer;
     private final GameAnalyser gameAnalyser;
     private final CardScorer cardScorer;
+    private final HandsFactory handsFactory;
 
-    public CardSelector(CardsDealer cardsDealer, GameAnalyser gameAnalyser, CardScorer cardScorer) {
-        this.cardsDealer = cardsDealer;
+    public CardSelector(GameAnalyser gameAnalyser, CardScorer cardScorer, HandsFactory handsFactory) {
         this.gameAnalyser = gameAnalyser;
         this.cardScorer = cardScorer;
+        this.handsFactory = handsFactory;
     }
 
 
     public Card bestCard(Set<Card> inPlay, Set<Card> myCards, Player forPlayer, DealInProgress dealInProgress) {
-        List<Set<Card>> otherPlayerCards = cardsDealer.deal(3, inPlay);
-        GameState gameState = new GameState(
-                new Hands(myCards, otherPlayerCards.get(0), otherPlayerCards.get(1), otherPlayerCards.get(2)),
-                dealInProgress);
+        Hands hands = handsFactory.dealCards(forPlayer, myCards, inPlay);
+        if (! hands.get(forPlayer).equals(myCards)) throw new IllegalStateException();
+        GameState gameState = new GameState(hands, dealInProgress);
         Map<Card, PredictedScore> predictedScores = gameAnalyser.analyse(gameState, forPlayer);
         List<CardAndScore> cardAndScores = predictedScores.entrySet().stream().
                 map(cardPredictedScoreEntry ->
