@@ -29,30 +29,43 @@ public class RoundDeveloper {
     }
 
     public List<RoundResult> playAllRounds(Hands hands) {
+        FinishedDeal finishedDeal;
         List<RoundResult> roundResults = new ArrayList<>();
         Player startingPlayer = heartRules.findStartingPlayer(hands);
-        FinishedDeal finishedDeal;
+        DealInProgress dealInProgress = dealInProgressFactory.oneCardDeal(startingPlayer, Card.TWO_OF_CLUBS);
+        Hands thisHands = handsFactory.reduce(hands, startingPlayer, Card.TWO_OF_CLUBS);
         do {
-            finishedDeal = playRound(hands, startingPlayer);
-            roundResults.add(new RoundResult(hands, finishedDeal));
-            hands = handsFactory.reduce(hands, finishedDeal.getDeal(), startingPlayer);
+            finishedDeal = playRound(thisHands, dealInProgress);
+            RoundResult roundResult = new RoundResult(thisHands, finishedDeal);
+            roundResults.add(roundResult);
+            System.out.println("Round completed: Won by - " + finishedDeal.getWinningPlayer() + " round score: " + roundResult.getFinishedDeal().getScore());
+            thisHands = handsFactory.reduce(thisHands, finishedDeal.getDeal(), startingPlayer);
             startingPlayer = finishedDeal.getWinningPlayer();
         } while (heartRules.cardsToPlayRemaining(hands));
         return roundResults;
     }
 
-    FinishedDeal playRound(Hands hands, Player startingPlayer) {
-        PlayerRotator.PlayerRotation playerRotation = playerRotator.clockwiseIterator(startingPlayer);
-        DealInProgress dealInProgress = dealInProgressFactory.newJustStartedDeal(startingPlayer);
-        while(playerRotation.hasNext()){
+    FinishedDeal playRound(Hands hands, DealInProgress dealInProgress) {
+        System.out.println("=====================================================================================");
+        System.out.println("Playing round: ");
+        System.out.println("North: " + hands.getNorthHand());
+        System.out.println("East: " + hands.getEastHand());
+        System.out.println("South: " + hands.getSouthHand());
+        System.out.println("West: " + hands.getWestHand());
+        System.out.println("=====================================================================================");
+
+        PlayerRotator.PlayerRotation playerRotation = playerRotator.clockwiseIterator(dealInProgress.getWaitingForPlayer().get());
+        while(! dealInProgress.isCompleted()){
             Player thisPlayer = playerRotation.next();
+            System.out.println("    Players turn: " + thisPlayer);
             Set<Card> inPlay = cardsSetBuilder.newEmptySet().
                     add(hands.get(thisPlayer.moveClockWise(1))).
                     add(hands.get(thisPlayer.moveClockWise(2))).
                     add(hands.get(thisPlayer.moveClockWise(3))).
                     build();
             Card card = playerLogicMap.get(thisPlayer).playCard (dealInProgress,  inPlay, hands.get(thisPlayer), discards.get(thisPlayer));
-            dealInProgressFactory.next(dealInProgress, card);
+            System.out.println("    Card to play: " + card);
+            dealInProgress = dealInProgressFactory.next(dealInProgress, card);
         }
         return playersScorer.score(dealInProgress);
     }

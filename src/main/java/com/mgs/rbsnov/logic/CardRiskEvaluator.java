@@ -17,9 +17,9 @@ public class CardRiskEvaluator {
     }
 
     public Integer evaluate(Card toCompare, Map<Suit, ? extends Collection<Card>> cards) {
-        if (!cards.get(toCompare.getSuit()).contains(toCompare)) throw new IllegalArgumentException();
+        if (cardScorer.score(toCompare)<0) return basicRisk(toCompare);
 
-        return cardScorer.score(toCompare);
+        return basicRisk(toCompare) + suitScore(cards.get(toCompare.getSuit()).size());
     }
 
     public Integer basicRisk(Card toCompare) {
@@ -34,5 +34,12 @@ public class CardRiskEvaluator {
                 score == 0 ?
                     cardValue :
                     - cardValue;
+    }
+
+    public Integer suitScore(Integer numberOfCards) {
+        if (numberOfCards==1) return cardRiskConfiguration.getSuitScoreJustOne();
+        if (numberOfCards==2) return cardRiskConfiguration.getSuitScoreJustTwo();
+        if (numberOfCards==3) return cardRiskConfiguration.getSuitScoreJustThree();
+        return 0;
     }
 }

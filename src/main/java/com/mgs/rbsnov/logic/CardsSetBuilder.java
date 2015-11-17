@@ -28,6 +28,7 @@ public class CardsSetBuilder {
     public class CardsSetBuilderWip {
         private final Set<Card> startingWith;
         private Set<Card> toRemove = new HashSet<>();
+        private Set<Card> toAdd = new HashSet<>();
 
         private CardsSetBuilderWip(Set<Card> startingWith) {
             this.startingWith = startingWith;
@@ -44,12 +45,15 @@ public class CardsSetBuilder {
         }
 
         public Set<Card> build() {
-            return startingWith.stream().
+            Set<Card> removed = startingWith.stream().
                     filter(original -> !toRemove.contains(original)).
                     collect(toSet());
+            removed.addAll(this.toAdd);
+            return removed;
         }
 
         public CardsSetBuilderWip add(Collection<Card> toAdd) {
+            this.toAdd.addAll(toAdd);
             return this;
         }
     }

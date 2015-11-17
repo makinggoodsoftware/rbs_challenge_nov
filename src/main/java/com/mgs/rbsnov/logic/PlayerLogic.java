@@ -23,7 +23,7 @@ public class PlayerLogic {
         Map<Suit, List<Card>> bySuit = cards.stream().collect(Collectors.groupingBy(card -> card.getSuit()));
         return cards.stream().
                 sorted((left, right) ->
-                    cardRiskEvaluator.evaluate(left, bySuit).compareTo(cardRiskEvaluator.evaluate(right, bySuit))
+                    - cardRiskEvaluator.evaluate(left, bySuit).compareTo(cardRiskEvaluator.evaluate(right, bySuit))
                 ).
                 limit(3).collect(Collectors.toSet());
     }

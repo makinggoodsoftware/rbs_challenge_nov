@@ -12,4 +12,16 @@ public class DiscardResult {
         this.receivingCards = receivingCards;
         this.discardingCards = discardingCards;
     }
+
+    public Set<Card> getInitialCards() {
+        return initialCards;
+    }
+
+    public Set<Card> getReceivingCards() {
+        return receivingCards;
+    }
+
+    public Set<Card> getDiscardingCards() {
+        return discardingCards;
+    }
 }

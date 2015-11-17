@@ -35,7 +35,20 @@ public class HandsFactory {
     }
 
     public Hands fromDiscards(Map<Player, DiscardResult> discards) {
-        return null;
+        return new Hands(
+                buildHand(discards.get(Player.SOUTH)),
+                buildHand(discards.get(Player.WEST)),
+                buildHand(discards.get(Player.NORTH)),
+                buildHand(discards.get(Player.EAST))
+        );
+    }
+
+    private Set<Card> buildHand(DiscardResult discardResult) {
+        return cardsSetBuilder.
+                newSet(discardResult.getInitialCards()).
+                remove(discardResult.getDiscardingCards()).
+                add(discardResult.getReceivingCards()).
+                build();
     }
 
     public Hands fromAllCardsShuffled (Player startingFrom){
@@ -53,5 +66,14 @@ public class HandsFactory {
 
     private Set<Card> removeCard(Set<Card> from, Card toRemove) {
         return cardsSetBuilder.newSet(from).remove(toRemove).build();
+    }
+
+    public Hands reduce(Hands hands, Player toReduce, Card toRemove) {
+        return new Hands(
+                (toReduce == Player.SOUTH) ? removeCard(hands.getSouthHand(), toRemove) : hands.getSouthHand(),
+                (toReduce == Player.WEST) ? removeCard(hands.getWestHand(), toRemove) : hands.getWestHand(),
+                (toReduce == Player.NORTH) ? removeCard(hands.getNorthHand(), toRemove) : hands.getNorthHand(),
+                (toReduce == Player.EAST) ? removeCard(hands.getEastHand(), toRemove) : hands.getEastHand()
+        );
     }
 }

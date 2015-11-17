@@ -15,8 +15,10 @@ public class Config {
                 50,
                 40,
                 45,
-                2
-        );
+                2,
+                30,
+                20,
+                10);
     }
 
     @Bean
@@ -99,7 +101,7 @@ public class Config {
 
     @Bean
     public HeartRules heartRules() {
-        return new HeartRules();
+        return new HeartRules(playerRotator());
     }
 
     @Bean

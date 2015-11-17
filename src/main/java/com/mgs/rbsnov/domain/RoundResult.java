@@ -9,4 +9,12 @@ public class RoundResult {
         this.hands = hands;
         this.finishedDeal = finishedDeal;
     }
+
+    public Hands getHands() {
+        return hands;
+    }
+
+    public FinishedDeal getFinishedDeal() {
+        return finishedDeal;
+    }
 }
