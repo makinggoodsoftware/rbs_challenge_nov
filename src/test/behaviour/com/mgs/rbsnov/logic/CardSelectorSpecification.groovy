@@ -30,8 +30,7 @@ class CardSelectorSpecification extends Specification{
                 [
                         Card.QUEEN_OF_SPADES,
                         Card.TWO_OF_SPADES
-                ] as Set,
-                Player.SOUTH
+                ] as Set
         )
 
         then:

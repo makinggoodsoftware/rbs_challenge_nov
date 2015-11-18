@@ -9,12 +9,14 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class CardSelector {
+    private final RunningConfiguration runningConfiguration;
     private final GameAnalyser gameAnalyser;
     private final CardScorer cardScorer;
     private final HandsFactory handsFactory;
     private final PredictedScorer predictedScorer;
 
-    public CardSelector(GameAnalyser gameAnalyser, CardScorer cardScorer, HandsFactory handsFactory, PredictedScorer predictedScorer) {
+    public CardSelector(RunningConfiguration runningConfiguration, GameAnalyser gameAnalyser, CardScorer cardScorer, HandsFactory handsFactory, PredictedScorer predictedScorer) {
+        this.runningConfiguration = runningConfiguration;
         this.gameAnalyser = gameAnalyser;
         this.cardScorer = cardScorer;
         this.handsFactory = handsFactory;
@@ -22,12 +24,13 @@ public class CardSelector {
     }
 
 
-    public Card bestCard(DealInProgress dealInProgress, Set<Card> inPlay, Set<Card> myCards, Player forPlayer) {
-        List<List<CardAndScore>> listOfScenarios = runScenarios(inPlay, myCards, forPlayer, dealInProgress);
+    public Card bestCard(DealInProgress dealInProgress, Set<Card> inPlay, Set<Card> myCards) {
+        Player thisPlayer = dealInProgress.getWaitingForPlayer().get();
+        List<List<CardAndScore>> listOfScenarios = runScenarios(inPlay, myCards, dealInProgress);
         List<CardAndScore> allScores = aggregate (listOfScenarios);
         Collections.sort(allScores, (left, right) -> {
-            BigDecimal leftScore = left.predictedScore.getAveragedScore().get(forPlayer);
-            BigDecimal rightScore = right.predictedScore.getAveragedScore().get(forPlayer);
+            BigDecimal leftScore = left.predictedScore.getAveragedScore().get(thisPlayer);
+            BigDecimal rightScore = right.predictedScore.getAveragedScore().get(thisPlayer);
             Integer leftPoints = cardScorer.score(left.card);
             Integer rightPoints = cardScorer.score(right.card);
 
@@ -56,20 +59,21 @@ public class CardSelector {
         return aggregates;
     }
 
-    private List<List<CardAndScore>> runScenarios(Set<Card> inPlay, Set<Card> myCards, Player forPlayer, DealInProgress dealInProgress) {
+    private List<List<CardAndScore>> runScenarios(Set<Card> inPlay, Set<Card> myCards, DealInProgress dealInProgress) {
         List<List<CardAndScore>> allScoresBag = new ArrayList<>();
-        for (int i = 0; i<=3; i++){
-            List<CardAndScore> cardAndScores = runScenario(inPlay, myCards, forPlayer, dealInProgress);
+        for (int i = 0; i<=runningConfiguration.getScenariosToRun(); i++){
+            List<CardAndScore> cardAndScores = runScenario(inPlay, myCards, dealInProgress);
             allScoresBag.add(cardAndScores);
         }
         return allScoresBag;
     }
 
-    private List<CardAndScore> runScenario(Set<Card> inPlay, Set<Card> myCards, Player forPlayer, DealInProgress dealInProgress) {
-        Hands hands = handsFactory.dealCards(forPlayer, myCards, inPlay);
-        if (! hands.get(forPlayer).equals(myCards)) throw new IllegalStateException();
+    private List<CardAndScore> runScenario(Set<Card> inPlay, Set<Card> myCards, DealInProgress dealInProgress) {
+        Player thisPlayer = dealInProgress.getWaitingForPlayer().get();
+        Hands hands = handsFactory.dealCards(thisPlayer, myCards, inPlay);
+        if (! hands.get(thisPlayer).equals(myCards)) throw new IllegalStateException();
         GameState gameState = new GameState(hands, dealInProgress);
-        Map<Card, PredictedScore> predictedScores = gameAnalyser.analyse(gameState);
+        Map<Card, PredictedScore> predictedScores = gameAnalyser.analyse(gameState, runningConfiguration.getLevelsDownDeep());
         return predictedScores.entrySet().stream().
                 map(cardPredictedScoreEntry ->
                         new CardAndScore(cardPredictedScoreEntry.getKey(), cardPredictedScoreEntry.getValue())
