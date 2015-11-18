@@ -1,7 +1,9 @@
 package com.mgs.rbsnov.client.app;
 
 import com.mgs.rbsnov.client.util.Settings;
+import com.mgs.rbsnov.spring.Config;
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 
 /**
@@ -15,18 +17,11 @@ public class App
     {    	
     	
     	try {
-    		 String teamName = "FlyingBirds", password = "mypassword";
-
-             if (args.length == 2)
-             {
-                 teamName = args[0].trim();
-                 password = args[1].trim();
-             }
     		logger.info("Start Game");
 			Settings.init();
-	        Player player = new Player(teamName, password);
-	        player.Play();			
-		
+			AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(Config.class);
+			Player player = (Player) annotationConfigApplicationContext.getBean("player");
+			player.Play();
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 			logger.error(e.getStackTrace()[1].getClass().getSimpleName() + ": " + e.getMessage());

@@ -18,11 +18,12 @@ public class Player {
 	private final static Logger logger = Logger.getLogger(App.class.getSimpleName());
 	private JsonHelper helper;
 	private String baseUrl;
-	private ICardStrategy cardStrategy = new AdapterCardStrategy(playerLogic, cardsAdaptor);
+	private final ICardStrategy cardStrategy;
 	private Map<String, Boolean> playerActivityTracker = new HashMap<String, Boolean>();
 	private String teamName;
 	
-	public Player(String username, String password) throws Exception {
+	public Player(String username, String password, ICardStrategy cardStrategy) throws Exception {
+		this.cardStrategy = cardStrategy;
 		if (username == null || username.isEmpty())
 			this.teamName = Settings.getString("username");
 		else 

@@ -1,6 +1,9 @@
 package com.mgs.rbsnov.spring;
 
 import com.google.common.collect.ImmutableMap;
+import com.mgs.rbsnov.adapter.AdapterCardStrategy;
+import com.mgs.rbsnov.adapter.CardsAdaptor;
+import com.mgs.rbsnov.client.interfaces.ICardStrategy;
 import com.mgs.rbsnov.domain.Card;
 import com.mgs.rbsnov.domain.CardRiskConfiguration;
 import com.mgs.rbsnov.logic.*;
@@ -9,6 +12,25 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class Config {
+    @Bean
+    public com.mgs.rbsnov.client.app.Player player (){
+        try {
+            return new com.mgs.rbsnov.client.app.Player("Yogis", "eastex01", cardStrategy());
+        } catch (Exception e) {
+            throw new RuntimeException();
+        }
+    }
+
+    @Bean
+    public ICardStrategy cardStrategy() {
+        return new AdapterCardStrategy(playerLogic(), cardsAdaptor());
+    }
+
+    @Bean
+    public CardsAdaptor cardsAdaptor() {
+        return new CardsAdaptor(dealInProgressFactory(), cardsSetBuilder());
+    }
+
     @Bean
     public CardRiskConfiguration cardRiskConfiguration() {
         return new CardRiskConfiguration(
