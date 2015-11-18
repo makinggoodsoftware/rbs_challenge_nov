@@ -59,7 +59,7 @@ public class CardSelector {
 
     private List<List<CardAndScore>> runScenarios(Set<Card> inPlay, Set<Card> myCards, Player forPlayer, DealInProgress dealInProgress) {
         List<List<CardAndScore>> allScoresBag = new ArrayList<>();
-        for (int i = 0; i<=5; i++){
+        for (int i = 0; i<=4; i++){
             List<CardAndScore> cardAndScores = runScenario(inPlay, myCards, forPlayer, dealInProgress);
             allScoresBag.add(cardAndScores);
         }
