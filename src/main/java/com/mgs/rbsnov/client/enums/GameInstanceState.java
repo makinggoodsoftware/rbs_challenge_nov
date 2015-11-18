@@ -1,4 +1,4 @@
-package enums;
+package com.mgs.rbsnov.client.enums;
 
 public enum GameInstanceState
 {

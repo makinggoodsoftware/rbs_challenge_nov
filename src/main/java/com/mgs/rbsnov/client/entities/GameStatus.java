@@ -1,13 +1,12 @@
-package entities;
+package com.mgs.rbsnov.client.entities;
+
+import com.google.gson.annotations.SerializedName;
+import com.mgs.rbsnov.client.enums.GameInstanceState;
+import com.mgs.rbsnov.client.enums.HeartsGameInstanceState;
+import com.mgs.rbsnov.client.enums.RoundState;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.google.gson.annotations.SerializedName;
-
-import enums.GameInstanceState;
-import enums.HeartsGameInstanceState;
-import enums.RoundState;
 
 public class GameStatus
 {	

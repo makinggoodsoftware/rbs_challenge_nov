@@ -1,9 +1,9 @@
-package interfaces;
+package com.mgs.rbsnov.client.interfaces;
 
 import java.util.List;
 
-import entities.Card;
-import entities.GameStatus;
+import com.mgs.rbsnov.client.entities.Card;
+import com.mgs.rbsnov.client.entities.GameStatus;
 
 public interface ICardStrategy {
 	List<Card> PassCards(GameStatus gameStatus);

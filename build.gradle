@@ -14,7 +14,10 @@ dependencies {
     compile 'com.google.guava:guava:18.0',
             'org.springframework:spring-core:4.1.6.RELEASE',
             'org.springframework:spring-context:4.1.6.RELEASE',
-            'org.springframework:spring-beans:4.1.6.RELEASE'
+            'org.springframework:spring-beans:4.1.6.RELEASE',
+            'log4j:log4j:1.2.17',
+            'com.google.code.gson:gson:2.3',
+            'org.apache.httpcomponents:httpclient:4.3.6'
     testCompile 'cglib:cglib:2.2.2',
             'org.objenesis:objenesis:2.1',
             'org.spockframework:spock-spring:1.0-groovy-2.4',

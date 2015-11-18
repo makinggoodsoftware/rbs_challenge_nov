@@ -1,4 +1,4 @@
-package entities;
+package com.mgs.rbsnov.client.entities;
 
 import com.google.gson.annotations.SerializedName;
 public class ParticipantParameter {

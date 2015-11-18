@@ -1,10 +1,10 @@
-package entities;
+package com.mgs.rbsnov.client.entities;
+
+import com.mgs.rbsnov.client.interfaces.ICardStrategy;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import interfaces.ICardStrategy;
 
 public class CardStrategy implements ICardStrategy {
 	 

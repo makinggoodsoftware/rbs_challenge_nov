@@ -1,4 +1,4 @@
-package util;
+package com.mgs.rbsnov.client.util;
 
 import java.io.FileInputStream;
 import java.io.IOException;

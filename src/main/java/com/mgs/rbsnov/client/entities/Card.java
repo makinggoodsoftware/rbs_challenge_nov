@@ -1,8 +1,7 @@
-package entities;
+package com.mgs.rbsnov.client.entities;
 
 import com.google.gson.annotations.SerializedName;
-
-import enums.SuitType;
+import com.mgs.rbsnov.client.enums.SuitType;
 
 public class Card
 {

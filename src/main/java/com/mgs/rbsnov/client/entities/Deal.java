@@ -1,10 +1,9 @@
-package entities;
-
-import java.util.List;
+package com.mgs.rbsnov.client.entities;
 
 import com.google.gson.annotations.SerializedName;
+import com.mgs.rbsnov.client.enums.SuitType;
 
-import enums.SuitType;
+import java.util.List;
 
 public class Deal
 {    

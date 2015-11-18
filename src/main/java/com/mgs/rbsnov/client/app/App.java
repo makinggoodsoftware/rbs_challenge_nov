@@ -1,8 +1,8 @@
-package app;
+package com.mgs.rbsnov.client.app;
 
+import com.mgs.rbsnov.client.util.Settings;
 import org.apache.log4j.Logger;
 
-import util.Settings;
 
 /**
  * Hello world!
@@ -23,7 +23,7 @@ public class App
                  password = args[1].trim();
              }
     		logger.info("Start Game");
-			Settings.init();			
+			Settings.init();
 	        Player player = new Player(teamName, password);
 	        player.Play();			
 		

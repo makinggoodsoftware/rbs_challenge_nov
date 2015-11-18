@@ -1,28 +1,24 @@
-package app;
+package com.mgs.rbsnov.client.app;
+
+import com.mgs.rbsnov.adapter.AdapterCardStrategy;
+import com.mgs.rbsnov.client.entities.*;
+import com.mgs.rbsnov.client.enums.GameInstanceState;
+import com.mgs.rbsnov.client.impl.JsonHelper;
+import com.mgs.rbsnov.client.interfaces.ICardStrategy;
+import com.mgs.rbsnov.client.util.Settings;
+import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
-import entities.Card;
-import entities.CardStrategy;
-import entities.CodeCompResponse;
-import entities.DealCard;
-import entities.GameStatus;
-import enums.GameInstanceState;
-import impl.JsonHelper;
-import interfaces.ICardStrategy;
-import util.Settings;
-
 public class Player {
 
 	private final static Logger logger = Logger.getLogger(App.class.getSimpleName());
 	private JsonHelper helper;
 	private String baseUrl;
-	private ICardStrategy cardStrategy = new CardStrategy();
+	private ICardStrategy cardStrategy = new AdapterCardStrategy(playerLogic, cardsAdaptor);
 	private Map<String, Boolean> playerActivityTracker = new HashMap<String, Boolean>();
 	private String teamName;
 	

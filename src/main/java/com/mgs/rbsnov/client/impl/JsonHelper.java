@@ -1,4 +1,4 @@
-package impl;
+package com.mgs.rbsnov.client.impl;
 
 import java.io.BufferedReader;
 import java.io.IOException;
