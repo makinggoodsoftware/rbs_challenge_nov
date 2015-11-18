@@ -17,7 +17,6 @@ public class App
     {    	
     	
     	try {
-    		logger.info("Start Game");
 			Settings.init();
 			AnnotationConfigApplicationContext annotationConfigApplicationContext = new AnnotationConfigApplicationContext(Config.class);
 			Player player = (Player) annotationConfigApplicationContext.getBean("player");

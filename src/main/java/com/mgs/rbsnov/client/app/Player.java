@@ -48,7 +48,6 @@ public class Player {
 	public void Play() throws InterruptedException {
 
 		playerActivityTracker.clear();
-		CheckServerConnectivity();
 		boolean exitLoop = false;
 		while (true) {
 			try {
@@ -57,7 +56,6 @@ public class Player {
 					continue;
 				String keyGameStatus = "Game State - " + currentGameStatus.getCurrentGameState();
 				if (!playerActivityTracker.containsKey(keyGameStatus)) {
-					logger.info(keyGameStatus);
 					playerActivityTracker.put(keyGameStatus, Boolean.TRUE);
 				}
 				GameInstanceState state = currentGameStatus.getCurrentGameState();
@@ -82,7 +80,6 @@ public class Player {
 						String keyRoundStatus = "Round " + currentGameStatus.getCurrentRoundId() + " - "
 								+ currentGameStatus.getCurrentRoundState();
 						if (!playerActivityTracker.containsKey(keyRoundStatus)) {
-							logger.info(keyRoundStatus);
 							playerActivityTracker.put(keyRoundStatus, true);
 						}
 
@@ -91,7 +88,6 @@ public class Player {
 							String keyMyHeartsGameStatus = "My game - Round " + currentGameStatus.getCurrentRoundId()
 									+ " " + currentGameStatus.getMyGameState();
 							if (!playerActivityTracker.containsKey(keyMyHeartsGameStatus)) {
-								logger.info(keyMyHeartsGameStatus);
 								playerActivityTracker.put(keyMyHeartsGameStatus, true);
 							}
 
@@ -137,7 +133,7 @@ public class Player {
 				logger.error(JsonHelper.getStackTrace(ex));
 				exitLoop = true;
 			}
-			Thread.sleep(1000);
+			Thread.sleep(100);
 			if (exitLoop)
 				break;
 			Play();
@@ -147,6 +143,7 @@ public class Player {
 
 	private void DoDealingActivity(GameStatus currentGameStatus) throws IllegalStateException, IOException {
 		Card cardToDeal = cardStrategy.PlayCard(currentGameStatus, teamName);
+		if (cardToDeal == null) return;
 		
 		CodeCompResponse response = helper.processPostRequest("/playcard", cardToDeal,
 				CodeCompResponse.class);
@@ -160,15 +157,13 @@ public class Player {
 					+ response.getFault().getFaultMessage());
 
 		logger.info("");
-       
+
     
 		
 	}
 
 	private void DoPassingActivity(GameStatus currentGameStatus) throws IllegalStateException, IOException {
 		 int noOfCardsToBePassed = currentGameStatus.getRoundParameters().getNumberOfCardsTobePassed();
-         logger.info("");
-         logger.info(noOfCardsToBePassed + " cards need to be passed to right.");
          List<Card> cardsToPass = cardStrategy.PassCards(currentGameStatus);
 
          if (null != cardsToPass && cardsToPass.size() == noOfCardsToBePassed)
@@ -188,8 +183,6 @@ public class Player {
              }
          }
 
-         logger.info("");
-
 	}
 
 	private void DisplayMyCurrentHand(GameStatus currentGameStatus) {
@@ -206,32 +199,10 @@ public class Player {
 
              if (!playerActivityTracker.containsKey(keyDisplayCurrentHand))
              {
-                 logger.info("My Current Hand : ");
-
-                 for (Card card : currentGameStatus.getMyCurrentHand())
-                 {
-                     logger.info(card.getSuit() + " " + card.getNumber());
-                     logger.info(",");
-                 }
-
-                 logger.info("");
                  playerActivityTracker.put(keyDisplayCurrentHand, true);
              }
          }
 
-         if (currentGameStatus.getMyInProgressDeal().getDealCards() != null &&
-                 currentGameStatus.getMyInProgressDeal().getDealCards().size()> 0)
-         {
-             //display current deal
-             logger.info("Cards played so far in current deal :");
-
-             for (DealCard dealInfo : currentGameStatus.getMyInProgressDeal().getDealCards())
-                 logger.info(dealInfo.getTeamName() + ":" + dealInfo.getCard().getSuit()+ " " + dealInfo.getCard().getNumber());
-         }
-
-         if (currentGameStatus.getMyInProgressDeal().getDealWinner() == null || 
-        		 currentGameStatus.getMyInProgressDeal().getDealWinner().isEmpty())
-             logger.info("Current Deal Winner : " + currentGameStatus.getMyInProgressDeal().getDealWinner());
      }
 
 
@@ -272,9 +243,7 @@ public class Player {
 	private void CheckServerConnectivity() throws InterruptedException {
 		while (helper.ping(5000)) {
 			Thread.sleep(5000);
-			logger.info(String.format("Trying to connect server " + baseUrl));
 		}
-		logger.info(String.format("Connected to server  " + baseUrl));
 
 	}
 }
