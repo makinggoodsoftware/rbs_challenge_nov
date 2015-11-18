@@ -26,7 +26,4 @@ public class GameSimulator {
 
         return new GameResult(roundResults);
     }
-
-
-
 }
