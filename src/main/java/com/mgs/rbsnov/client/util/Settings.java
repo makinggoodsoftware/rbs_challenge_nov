@@ -10,7 +10,8 @@ public class Settings {
 	
 	public static void init() throws IOException {
 		config = new Properties();
-		InputStream input = new FileInputStream("C:\\Alberto\\rbsNov\\rbs_challenge_nov\\src\\main\\java\\config.properties");
+//		InputStream input = new FileInputStream("C:\\Alberto\\rbsNov\\rbs_challenge_nov\\src\\main\\java\\config.properties");
+		InputStream input = new FileInputStream("/Users/alberto/Google Drive/Alberto/projects/rbs_challenge_nov_III/src/main/java/config.properties");
 		config.load(input);
 	}
 	

@@ -19,11 +19,11 @@ public class GameAnalyser {
         this.handsFactory = handsFactory;
     }
 
-    public Map<Card, PredictedScore> analyse(GameState gameState, Player target){
-        return analyseMaxSteps(gameState, target, 0);
+    public Map<Card, PredictedScore> analyse(GameState gameState){
+        return analyseMaxSteps(gameState, 0);
     }
 
-    private Map<Card, PredictedScore> analyseMaxSteps(GameState gameState, Player target, int stepsTaken) {
+    private Map<Card, PredictedScore> analyseMaxSteps(GameState gameState, int stepsTaken) {
         if (alreadyProcessedStates.containsKey(gameState)){
             return alreadyProcessedStates.get(gameState);
         }
@@ -33,12 +33,13 @@ public class GameAnalyser {
         Map<Card, PredictedScore> analysis = new HashMap<>();
         DealInProgress dealInProgress = gameState.getDealInProgress();
         Set<FinishedDeal> possibleDeals = dealsDeveloper.develop(dealInProgress, gameState.getAllHands());
-        Map<Card, Set<FinishedDeal>> possibleDealsByCard = asMap(possibleDeals, target);
+        Player thisPlayer = dealInProgress.getWaitingForPlayer().get();
+        Map<Card, Set<FinishedDeal>> possibleDealsByCard = asMap(possibleDeals, thisPlayer);
         int newStepsTaken = stepsTaken + 1;
         for (Map.Entry<Card, Set<FinishedDeal>> finishedDealsByCardEntry : possibleDealsByCard.entrySet()) {
             Card card = finishedDealsByCardEntry.getKey();
             Set<FinishedDeal> thisPossibleDeals = finishedDealsByCardEntry.getValue();
-            PredictedScorer.PredictedScoring predictedScoring = getPredictedScoring(gameState, thisPossibleDeals, target, newStepsTaken);
+            PredictedScorer.PredictedScoring predictedScoring = getPredictedScoring(gameState, thisPossibleDeals, thisPlayer, newStepsTaken);
             analysis.put(card, predictedScoring.build());
         }
         alreadyProcessedStates.put(gameState, analysis);
@@ -51,7 +52,7 @@ public class GameAnalyser {
             predictedScoring.addScore(possibleDeal.getScore());
             if (! gameState.isLastDeal()){
                 GameState childGameState = childGameState(gameState, possibleDeal);
-                Map<Card, PredictedScore> childAnalysis = analyseMaxSteps(childGameState, target, stepsTaken);
+                Map<Card, PredictedScore> childAnalysis = analyseMaxSteps(childGameState, stepsTaken);
                 if (childAnalysis.size() > 0) predictedScoring.addCombinedChildrenDealScores(childAnalysis.values());
             }
         }

@@ -24,7 +24,7 @@ class GameAnalyserSpecification extends Specification {
                         [Card.TWO_OF_SPADES, Card.TWO_OF_DIAMONDS] as Set
                 ),
                 dealInProgressFactory.newJustStartedDeal(Player.SOUTH)
-        ), Player.SOUTH)
+        ))
 
         then:
         println(predictedScore)
@@ -45,7 +45,7 @@ class GameAnalyserSpecification extends Specification {
                         [Card.TWO_OF_SPADES, Card.TWO_OF_DIAMONDS, Card.SIX_OF_HEARTS] as Set
                 ),
                 dealInProgressFactory.newJustStartedDeal(Player.SOUTH)
-        ), Player.SOUTH)
+        ))
 
         then:
         predictedScore[Card.ACE_OF_SPADES].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
@@ -61,7 +61,7 @@ class GameAnalyserSpecification extends Specification {
                         [Card.TWO_OF_SPADES, Card.TWO_OF_DIAMONDS, Card.SIX_OF_HEARTS, Card.NINE_OF_HEARTS, Card.EIGHT_OF_CLUBS] as Set
                 ),
                 dealInProgressFactory.newJustStartedDeal(Player.SOUTH)
-        ), Player.SOUTH)
+        ))
 
         then:
         predictedScore[Card.JACK_OF_CLUBS].averagedScore.getSouthScore() > predictedScore[Card.TWO_OF_HEARTS].averagedScore.getSouthScore()
@@ -77,7 +77,7 @@ class GameAnalyserSpecification extends Specification {
                         [Card.TWO_OF_SPADES, Card.TWO_OF_DIAMONDS, Card.SIX_OF_HEARTS, Card.NINE_OF_HEARTS, Card.EIGHT_OF_CLUBS, Card.THREE_OF_DIAMONDS] as Set
                 ),
                 dealInProgressFactory.newJustStartedDeal(Player.SOUTH)
-        ), Player.SOUTH)
+        ))
 
 
         then:
@@ -94,7 +94,7 @@ class GameAnalyserSpecification extends Specification {
                         [Card.TWO_OF_SPADES, Card.TWO_OF_DIAMONDS, Card.SIX_OF_HEARTS, Card.NINE_OF_HEARTS, Card.EIGHT_OF_CLUBS, Card.THREE_OF_DIAMONDS, Card.SIX_OF_CLUBS] as Set
                 ),
                 dealInProgressFactory.newJustStartedDeal(Player.SOUTH)
-        ), Player.SOUTH)
+        ))
 
 
         then:
@@ -111,7 +111,7 @@ class GameAnalyserSpecification extends Specification {
                         [Card.TWO_OF_SPADES, Card.TWO_OF_DIAMONDS, Card.SIX_OF_HEARTS, Card.NINE_OF_HEARTS, Card.EIGHT_OF_CLUBS, Card.THREE_OF_DIAMONDS, Card.SIX_OF_CLUBS, Card.KING_OF_CLUBS] as Set
                 ),
                 dealInProgressFactory.newJustStartedDeal(Player.SOUTH)
-        ), Player.SOUTH)
+        ))
 
 
         then:

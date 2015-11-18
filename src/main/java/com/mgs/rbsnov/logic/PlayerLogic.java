@@ -29,6 +29,6 @@ public class PlayerLogic {
     }
 
     public Card playCard(DealInProgress dealInProgress, Set<Card> inPlay, Set<Card> from, DiscardResult discards) {
-        return cardSelector.bestCard(inPlay, from, dealInProgress.getWaitingForPlayer().get(), dealInProgress);
+        return cardSelector.bestCard(dealInProgress, inPlay, from, dealInProgress.getWaitingForPlayer().get());
     }
 }

@@ -2,7 +2,6 @@ package com.mgs.rbsnov.logic;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.MultimapBuilder;
 import com.mgs.rbsnov.domain.*;
 
 import java.math.BigDecimal;
@@ -23,7 +22,7 @@ public class CardSelector {
     }
 
 
-    public Card bestCard(Set<Card> inPlay, Set<Card> myCards, Player forPlayer, DealInProgress dealInProgress) {
+    public Card bestCard(DealInProgress dealInProgress, Set<Card> inPlay, Set<Card> myCards, Player forPlayer) {
         List<List<CardAndScore>> listOfScenarios = runScenarios(inPlay, myCards, forPlayer, dealInProgress);
         List<CardAndScore> allScores = aggregate (listOfScenarios);
         Collections.sort(allScores, (left, right) -> {
@@ -70,7 +69,7 @@ public class CardSelector {
         Hands hands = handsFactory.dealCards(forPlayer, myCards, inPlay);
         if (! hands.get(forPlayer).equals(myCards)) throw new IllegalStateException();
         GameState gameState = new GameState(hands, dealInProgress);
-        Map<Card, PredictedScore> predictedScores = gameAnalyser.analyse(gameState, forPlayer);
+        Map<Card, PredictedScore> predictedScores = gameAnalyser.analyse(gameState);
         return predictedScores.entrySet().stream().
                 map(cardPredictedScoreEntry ->
                         new CardAndScore(cardPredictedScoreEntry.getKey(), cardPredictedScoreEntry.getValue())

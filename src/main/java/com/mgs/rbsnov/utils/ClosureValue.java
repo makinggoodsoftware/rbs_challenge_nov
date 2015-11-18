@@ -16,4 +16,8 @@ public class ClosureValue<T> {
     public T get() {
         return value;
     }
+
+    public static <R> ClosureValue<R> empty() {
+        return new ClosureValue<>(null);
+    }
 }

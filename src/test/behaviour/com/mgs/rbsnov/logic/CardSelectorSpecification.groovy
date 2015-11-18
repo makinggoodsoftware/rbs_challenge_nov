@@ -18,7 +18,7 @@ class CardSelectorSpecification extends Specification{
 
     def "should select the best card" (){
         when:
-        Card bestCard = cardSelector.bestCard(
+        Card bestCard = cardSelector.bestCard(dealInProgressFactory.newJustStartedDeal(Player.SOUTH),
                 [
                         Card.ACE_OF_HEARTS,
                         Card.EIGHT_OF_HEARTS,
@@ -31,8 +31,7 @@ class CardSelectorSpecification extends Specification{
                         Card.QUEEN_OF_SPADES,
                         Card.TWO_OF_SPADES
                 ] as Set,
-                Player.SOUTH,
-                dealInProgressFactory.newJustStartedDeal(Player.SOUTH)
+                Player.SOUTH
         )
 
         then:
