@@ -37,8 +37,49 @@ public class Config {
     }
 
     @Bean
-    public RunningConfiguration runningConfiguration() {
-        return new RunningConfiguration(50, 2);
+    public CardSelector cardSelector (){
+        return progressiveCardSelectorFactory().create(4500);
+    }
+
+    @Bean
+    public ProgressiveCardSelectorFactory progressiveCardSelectorFactory (){
+        return new ProgressiveCardSelectorFactory(new ImmutableMap.Builder<Integer, CardSelector> ().
+                put(0, new SimpleCardSelector(
+                        new RunningConfiguration(1, 2),
+                        gameAnalyserII(),
+                        cardScorer(),
+                        handsFactory(),
+                        predictedScorer())
+                ).
+                put(1, new SimpleCardSelector(
+                        new RunningConfiguration(5, 2),
+                        gameAnalyserII(),
+                        cardScorer(),
+                        handsFactory(),
+                        predictedScorer())
+                ).
+                put(2, new SimpleCardSelector(
+                        new RunningConfiguration(3, 4),
+                        gameAnalyserII(),
+                        cardScorer(),
+                        handsFactory(),
+                        predictedScorer())
+                ).
+                put(3, new SimpleCardSelector(
+                        new RunningConfiguration(5, 5),
+                        gameAnalyserII(),
+                        cardScorer(),
+                        handsFactory(),
+                        predictedScorer())
+                ).
+                put(4, new SimpleCardSelector(
+                        new RunningConfiguration(50, 6),
+                        gameAnalyserII(),
+                        cardScorer(),
+                        handsFactory(),
+                        predictedScorer())
+                ).
+                build());
     }
 
     @Bean
@@ -49,11 +90,6 @@ public class Config {
     @Bean
     public CardsAdaptor cardsAdaptor() {
         return new CardsAdaptor(dealInProgressFactory(), cardsSetBuilder());
-    }
-
-    @Bean
-    public CardSelector cardSelector (){
-        return new CardSelector(runningConfiguration(), gameAnalyserII(), cardScorer(), handsFactory(), predictedScorer());
     }
 
     @Bean

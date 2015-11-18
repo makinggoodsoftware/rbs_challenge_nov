@@ -23,6 +23,10 @@ public class GameAnalyser {
     }
 
     private Map<Card, PredictedScore> analyseMaxSteps(GameState gameState, int stepsTaken, int numberOfLevelsDeep) {
+        if (Thread.currentThread().isInterrupted()) {
+            return new HashMap<>();
+        }
+
         if (alreadyProcessedStates.containsKey(gameState)){
             return alreadyProcessedStates.get(gameState);
         }

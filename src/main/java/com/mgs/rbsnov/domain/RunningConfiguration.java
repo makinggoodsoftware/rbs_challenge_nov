@@ -16,4 +16,12 @@ public class RunningConfiguration {
     public int getLevelsDownDeep() {
         return levelsDownDeep;
     }
+
+    @Override
+    public String toString() {
+        return "RunningConfiguration{" +
+                "scenariosToRun=" + scenariosToRun +
+                ", levelsDownDeep=" + levelsDownDeep +
+                '}';
+    }
 }

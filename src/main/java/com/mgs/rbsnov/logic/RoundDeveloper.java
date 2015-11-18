@@ -1,6 +1,7 @@
 package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.domain.*;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class RoundDeveloper {
-    private final PlayerRotator playerRotator;
+    private final Logger LOG = Logger.getLogger(ProgressiveCardSelectorFactory.class);
+    
     private final DealInProgressFactory dealInProgressFactory;
     private final PlayersScorer playersScorer;
     private final HandsFactory handsFactory;
@@ -17,8 +19,7 @@ public class RoundDeveloper {
     private final PlayersLogic playerLogicMap;
     private final Map<Player, DiscardResult> discards;
 
-    public RoundDeveloper(PlayerRotator playerRotator, DealInProgressFactory dealInProgressFactory, PlayersScorer playersScorer, PlayersLogic playerLogicMap, Map<Player, DiscardResult> discards, HandsFactory handsFactory, HeartRules heartRules, CardsSetBuilder cardsSetBuilder) {
-        this.playerRotator = playerRotator;
+    public RoundDeveloper(DealInProgressFactory dealInProgressFactory, PlayersScorer playersScorer, PlayersLogic playerLogicMap, Map<Player, DiscardResult> discards, HandsFactory handsFactory, HeartRules heartRules, CardsSetBuilder cardsSetBuilder) {
         this.dealInProgressFactory = dealInProgressFactory;
         this.playersScorer = playersScorer;
         this.playerLogicMap = playerLogicMap;
@@ -35,17 +36,17 @@ public class RoundDeveloper {
         DealInProgress dealInProgress = dealInProgressFactory.oneCardDeal(startingPlayer, Card.TWO_OF_CLUBS);
         Hands thisHands = handsFactory.reduce(hands, startingPlayer, Card.TWO_OF_CLUBS);
         do {
-            System.out.println("=====================================================================================");
-            System.out.println("Playing round: ");
-            System.out.println("North: " + thisHands.getNorthHand());
-            System.out.println("East: " + thisHands.getEastHand());
-            System.out.println("South: " + thisHands.getSouthHand());
-            System.out.println("West: " + thisHands.getWestHand());
-            System.out.println("=====================================================================================");
+            LOG.info("=====================================================================================");
+            LOG.info("Playing round: ");
+            LOG.info("North: " + thisHands.getNorthHand());
+            LOG.info("East: " + thisHands.getEastHand());
+            LOG.info("South: " + thisHands.getSouthHand());
+            LOG.info("West: " + thisHands.getWestHand());
+            LOG.info("=====================================================================================");
             finishedDeal = playDeal(thisHands, dealInProgress);
             RoundResult roundResult = new RoundResult(thisHands, finishedDeal);
             roundResults.add(roundResult);
-            System.out.println("Round completed: Won by - " + finishedDeal.getWinningPlayer() + " round score: " + roundResult.getFinishedDeal().getScore());
+            LOG.info("Round completed: Won by - " + finishedDeal.getWinningPlayer() + " round score: " + roundResult.getFinishedDeal().getScore());
             Hands previousHands = thisHands;
             thisHands = handsFactory.reduce(thisHands, finishedDeal.getDeal(), startingPlayer);
             if (previousHands.equals(thisHands)){
@@ -62,7 +63,7 @@ public class RoundDeveloper {
 
 
         Player thisPlayer = dealInProgress.getWaitingForPlayer().get();
-        System.out.println("    Players turn: " + thisPlayer);
+        LOG.info("Players turn: " + thisPlayer);
         Set<Card> thisHand = hands.get(thisPlayer);
         Set<Card> inPlay = cardsSetBuilder.newEmptySet().
                 add(hands.getNorthHand()).
@@ -74,7 +75,7 @@ public class RoundDeveloper {
         boolean inPlayNotUnique = inPlay.stream().anyMatch(thisHand::contains);
         if (inPlayNotUnique) throw new IllegalStateException();
         Card card = playerLogicMap.get(thisPlayer).playCard (dealInProgress, inPlay, thisHand, discards.get(thisPlayer));
-        System.out.println("    Card to play: " + card);
+        LOG.info("Card to play: " + card);
         if (! thisHand.contains(card)) throw new IllegalStateException("Player trying to play a card that he doesn't own");
         dealInProgress = dealInProgressFactory.next(dealInProgress, card);
         return playDeal(handsFactory.reduce(hands, thisPlayer, card), dealInProgress);

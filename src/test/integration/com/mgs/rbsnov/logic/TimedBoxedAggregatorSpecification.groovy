@@ -2,9 +2,7 @@ package com.mgs.rbsnov.logic
 
 import spock.lang.Specification
 
-import java.util.concurrent.Executors
 import java.util.function.BiFunction
-import java.util.function.Function
 
 class TimedBoxedAggregatorSpecification extends Specification {
     TimedBoxedAggregator timedBoxedExecutor
@@ -25,8 +23,7 @@ class TimedBoxedAggregatorSpecification extends Specification {
                         throw new IllegalStateException("Should never get called")
                     }
                 },
-                100,
-                Executors.newSingleThreadExecutor()
+                100
         )
 
         expect:
@@ -49,8 +46,7 @@ class TimedBoxedAggregatorSpecification extends Specification {
                         return o
                     }
                 },
-                100,
-                Executors.newSingleThreadExecutor()
+                100
         )
 
         expect:

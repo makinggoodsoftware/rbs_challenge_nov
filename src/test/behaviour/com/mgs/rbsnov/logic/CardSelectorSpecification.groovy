@@ -12,7 +12,7 @@ import javax.annotation.Resource
 @ContextConfiguration(classes = Config)
 class CardSelectorSpecification extends Specification{
     @Resource
-    CardSelector cardSelector
+    SimpleCardSelector cardSelector
     @Resource
     DealInProgressFactory dealInProgressFactory
 

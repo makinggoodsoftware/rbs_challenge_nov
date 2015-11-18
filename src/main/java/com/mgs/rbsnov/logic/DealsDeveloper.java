@@ -1,10 +1,13 @@
 package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.domain.*;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class DealsDeveloper {
+    private final Logger LOG = Logger.getLogger(DealsDeveloper.class);
+
     private final DealRules dealRules;
     private final PlayersScorer playersScorer;
     private final DealInProgressFactory dealInProgressFactory;
@@ -19,6 +22,9 @@ public class DealsDeveloper {
 
 
     public Set<FinishedDeal> develop(DealInProgress dealInProgress, Hands hands) {
+        if (Thread.currentThread().isInterrupted()) {
+            return new HashSet<>();
+        }
         if (dealInProgress.isCompleted()) {
             HashSet<FinishedDeal> finishedDeal = new HashSet<>();
             finishedDeal.add(playersScorer.score(dealInProgress));

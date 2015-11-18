@@ -23,6 +23,6 @@ public class RoundDeveloperFactory {private final PlayerRotator playerRotator;
     }
 
     public RoundDeveloper newRoundDeveloper(PlayersLogic playerLogicMap, Map<Player, DiscardResult> discards) {
-        return new RoundDeveloper(playerRotator, dealInProgressFactory, playersScorer, playerLogicMap, discards, handsFactory, heartRules, cardsSetBuilder);
+        return new RoundDeveloper(dealInProgressFactory, playersScorer, playerLogicMap, discards, handsFactory, heartRules, cardsSetBuilder);
     }
 }
