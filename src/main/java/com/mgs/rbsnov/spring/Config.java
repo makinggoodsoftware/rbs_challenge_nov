@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.mgs.rbsnov.adapter.AdapterCardStrategy;
 import com.mgs.rbsnov.adapter.CardsAdaptor;
 import com.mgs.rbsnov.client.interfaces.ICardStrategy;
+import com.mgs.rbsnov.client.util.Settings;
 import com.mgs.rbsnov.domain.Card;
 import com.mgs.rbsnov.domain.CardRiskConfiguration;
 import com.mgs.rbsnov.logic.*;
@@ -15,15 +16,16 @@ public class Config {
     @Bean
     public com.mgs.rbsnov.client.app.Player player (){
         try {
+            Settings.init();
             return new com.mgs.rbsnov.client.app.Player("Yogis", "eastex01", cardStrategy());
         } catch (Exception e) {
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
     @Bean
     public ICardStrategy cardStrategy() {
-        return new AdapterCardStrategy(playerLogic(), cardsAdaptor());
+        return new AdapterCardStrategy(playerLogic(), cardsAdaptor(), cardScorer());
     }
 
     @Bean
@@ -45,7 +47,7 @@ public class Config {
 
     @Bean
     public CardSelector cardSelector (){
-        return new CardSelector(gameAnalyserII(), cardScorer(), handsFactory());
+        return new CardSelector(gameAnalyserII(), cardScorer(), handsFactory(), predictedScorer());
     }
 
     @Bean

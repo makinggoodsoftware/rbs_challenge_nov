@@ -1,9 +1,11 @@
 package com.mgs.rbsnov.adapter;
 
 import com.mgs.rbsnov.client.entities.Card;
+import com.mgs.rbsnov.client.entities.CardPoint;
 import com.mgs.rbsnov.client.entities.GameStatus;
 import com.mgs.rbsnov.client.interfaces.ICardStrategy;
 import com.mgs.rbsnov.domain.DealInProgress;
+import com.mgs.rbsnov.logic.CardScorer;
 import com.mgs.rbsnov.logic.PlayerLogic;
 import org.apache.log4j.Logger;
 
@@ -16,10 +18,12 @@ public class AdapterCardStrategy implements ICardStrategy {
     private final CardsAdaptor cardsAdaptor;
     private int latestRoundId = -1;
     private boolean cardsPassed = false;
+    private final CardScorer cardScorer;
 
-    public AdapterCardStrategy(PlayerLogic playerLogic, CardsAdaptor cardsAdaptor) {
+    public AdapterCardStrategy(PlayerLogic playerLogic, CardsAdaptor cardsAdaptor, CardScorer cardScorer) {
         this.playerLogic = playerLogic;
         this.cardsAdaptor = cardsAdaptor;
+        this.cardScorer = cardScorer;
     }
 
     @Override
@@ -30,6 +34,13 @@ public class AdapterCardStrategy implements ICardStrategy {
         }
 
         if (cardsPassed) return null;
+
+        cardScorer.removeTempScores();
+        List<CardPoint> cardPoints = gameStatus.getRoundParameters().getCardPoints();
+        for (CardPoint cardPoint : cardPoints) {
+            com.mgs.rbsnov.domain.Card card = cardsAdaptor.toDomainCard(cardPoint.getCard());
+            cardScorer.addTempScore(card, cardPoint.getPoint());
+        }
 
         Set<com.mgs.rbsnov.domain.Card> cards = cardsAdaptor.extractMyHand(gameStatus);
         LOGGER.info("Passing cards from: " + cards);

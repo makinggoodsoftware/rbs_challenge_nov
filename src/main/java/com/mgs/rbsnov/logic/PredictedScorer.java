@@ -19,6 +19,14 @@ public class PredictedScorer {
         return new PredictedScoring();
     }
 
+    public PredictedScore average(Collection<PredictedScore> scores) {
+        PredictedScoring predictedScoring = newScoring();
+        for (PredictedScore score : scores) {
+            predictedScoring.addScore(score.getAveragedScore());
+        }
+        return predictedScoring.build();
+    }
+
     class PredictedScoring {
         private List<PlayersScore> scores = new ArrayList<>();
         private List<PlayersScore> allChildScores = new ArrayList<>();

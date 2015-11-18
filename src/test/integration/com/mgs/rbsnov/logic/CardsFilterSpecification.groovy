@@ -135,7 +135,7 @@ class CardsFilterSpecification extends Specification {
         )
 
         then:
-        bestCards == [Card.ACE_OF_DIAMONDS, Card.FOUR_OF_DIAMONDS] as Set
+        bestCards == [Card.ACE_OF_DIAMONDS, Card.TWO_OF_DIAMONDS] as Set
     }
 
     def "leading deal: should only consider QS if for sure will get killed"(){
@@ -146,7 +146,7 @@ class CardsFilterSpecification extends Specification {
         )
 
         then:
-        bestCards == [Card.ACE_OF_DIAMONDS, Card.FOUR_OF_DIAMONDS] as Set
+        bestCards == [Card.ACE_OF_DIAMONDS, Card.TWO_OF_DIAMONDS] as Set
     }
 
 
