@@ -133,7 +133,7 @@ public class Player {
 				logger.error(JsonHelper.getStackTrace(ex));
 				exitLoop = true;
 			}
-			Thread.sleep(100);
+			Thread.sleep(300);
 			if (exitLoop)
 				break;
 			Play();

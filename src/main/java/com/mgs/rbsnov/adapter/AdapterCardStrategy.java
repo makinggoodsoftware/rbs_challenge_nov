@@ -26,7 +26,6 @@ public class AdapterCardStrategy implements ICardStrategy {
     public List<Card> PassCards(GameStatus gameStatus) {
         if (latestRoundId > -1) {
             LOGGER.info("Starting new round");
-            latestRoundId = -1;
             cardsPassed = false;
         }
 
@@ -37,6 +36,7 @@ public class AdapterCardStrategy implements ICardStrategy {
         Set<com.mgs.rbsnov.domain.Card> domainDiscards = playerLogic.discard(cards);
         LOGGER.info("Cards to pass: " + domainDiscards);
         cardsPassed = true;
+        latestRoundId = -1;
         return cardsAdaptor.toExternalHand(domainDiscards);
     }
 
