@@ -27,9 +27,9 @@ public class GameAnalyser {
             return new HashMap<>();
         }
 
-        if (alreadyProcessedStates.containsKey(gameState)){
-            return alreadyProcessedStates.get(gameState);
-        }
+//        if (alreadyProcessedStates.containsKey(gameState)){
+//            return alreadyProcessedStates.get(gameState);
+//        }
         if (stepsTaken == numberOfLevelsDeep){
             return new HashMap<>();
         }
@@ -45,7 +45,7 @@ public class GameAnalyser {
             PredictedScorer.PredictedScoring predictedScoring = getPredictedScoring(gameState, thisPossibleDeals, newStepsTaken, numberOfLevelsDeep);
             analysis.put(card, predictedScoring.build());
         }
-        alreadyProcessedStates.put(gameState, analysis);
+//        alreadyProcessedStates.put(gameState, analysis);
         return analysis;
     }
 

@@ -134,9 +134,7 @@ public class Player {
 				exitLoop = true;
 			}
 			Thread.sleep(100);
-			if (exitLoop)
-				break;
-			Play();
+			if (exitLoop) break;
 		}
 
 	}
