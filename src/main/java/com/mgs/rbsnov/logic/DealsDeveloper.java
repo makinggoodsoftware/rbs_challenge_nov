@@ -35,6 +35,9 @@ public class DealsDeveloper {
         Player waitingForPlayer = dealInProgress.getWaitingForPlayer().get();
         Set<Card> allCards = hands.get(waitingForPlayer);
         Set<Card> playableCards = playableCards(dealInProgress, allCards);
+        if (playableCards.size() == 0){
+            throw new IllegalStateException();
+        }
         Set<Card> filteredCards = cardsFilter.bestCards (dealInProgress, playableCards);
         for (Card playableCard : filteredCards) {
             DealInProgress nextDeal = dealInProgressFactory.next(dealInProgress, playableCard);

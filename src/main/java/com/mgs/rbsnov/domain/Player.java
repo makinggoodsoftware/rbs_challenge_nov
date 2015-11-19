@@ -2,7 +2,9 @@ package com.mgs.rbsnov.domain;
 
 import com.mgs.rbsnov.utils.ClosureValue;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -44,8 +46,8 @@ public enum Player {
         return nextClockwise().nextClockwise().nextClockwise();
     }
 
-    public static Set<Player> all(Player startingFrom) {
-        Set<Player> all = new HashSet<>();
+    public static List<Player> all(Player startingFrom) {
+        List<Player> all = new ArrayList<>();
         all.add(startingFrom);
         all.add(startingFrom.nextClockwise());
         all.add(startingFrom.nextClockwise().nextClockwise());
@@ -53,8 +55,8 @@ public enum Player {
         return all;
     }
 
-    public static Set<Player> except(Player startingPlayer) {
-        Set<Player> except = all(startingPlayer);
+    public static List<Player> except(Player startingPlayer) {
+        List<Player> except = all(startingPlayer);
         except.remove(startingPlayer);
         return except;
     }

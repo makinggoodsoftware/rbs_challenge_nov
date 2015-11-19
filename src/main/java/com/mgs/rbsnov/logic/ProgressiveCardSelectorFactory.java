@@ -3,7 +3,6 @@ package com.mgs.rbsnov.logic;
 import com.mgs.rbsnov.domain.Card;
 import org.apache.log4j.Logger;
 
-import java.util.HashSet;
 import java.util.Map;
 import java.util.function.BiFunction;
 

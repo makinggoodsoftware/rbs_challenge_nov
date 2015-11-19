@@ -12,20 +12,19 @@ public class CardsDealer {
         this.cardsShuffler = cardsShuffler;
     }
 
-    public Map<Player, Set<Card>> deal(Set<Player> toPlayers, Set<Card> fromCards) {
+    public Map<Player, Set<Card>> deal(List<Player> toPlayers, Set<Card> fromCards) {
         SetRotator setRotator = newSetRotator(toPlayers);
         cardsShuffler.shuffle(fromCards).forEach(setRotator::accept);
         return setRotator.getSets();
     }
 
-    public SetRotator newSetRotator(Set<Player> forPlayers) {
+    public SetRotator newSetRotator(List<Player> forPlayers) {
         Map<Player, Set<Card>> toRotate = new HashMap<>();
         for (Player forPlayer : forPlayers) {
             toRotate.put(forPlayer, new HashSet<>());
         }
-        List<Player> dealOrder = new ArrayList<>();
-        dealOrder.addAll(forPlayers);
-        return new SetRotator(toRotate, dealOrder);
+
+        return new SetRotator(toRotate, forPlayers);
     }
 
     public class SetRotator {

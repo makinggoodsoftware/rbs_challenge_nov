@@ -43,6 +43,10 @@ public class DealInProgress {
         return startingPlayer;
     }
 
+    public int getCardSize() {
+        return ! leadingCard.isPresent() ? 0: followingCards.size() + 1;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

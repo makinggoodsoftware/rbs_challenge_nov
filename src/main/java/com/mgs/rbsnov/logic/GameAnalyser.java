@@ -55,6 +55,14 @@ public class GameAnalyser {
             predictedScoring.addScore(possibleDeal.getScore());
             if (! gameState.isLastDeal()){
                 GameState childGameState = childGameState(gameState, possibleDeal);
+                Hands allHands = childGameState.getAllHands();
+                if (
+                        allHands.get(Player.SOUTH).size() != allHands.get(Player.NORTH).size() ||
+                        allHands.get(Player.SOUTH).size() != allHands.get(Player.EAST).size() ||
+                        allHands.get(Player.SOUTH).size() != allHands.get(Player.WEST).size()
+                ){
+                    throw new IllegalStateException();
+                }
                 Map<Card, PredictedScore> childAnalysis = analyseMaxSteps(childGameState, stepsTaken, numberOfLevelsDeep);
                 if (childAnalysis.size() > 0) predictedScoring.addCombinedChildrenDealScores(childAnalysis.values());
             }

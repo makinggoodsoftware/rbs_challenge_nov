@@ -72,6 +72,10 @@ public class RoundDeveloper {
                 add(hands.getWestHand()).
                 remove(thisHand).
                 build();
+
+        if ((inPlay.size() + thisHand.size() + dealInProgress.getCardSize()) % 4 != 0){
+            throw new IllegalStateException();
+        }
         boolean inPlayNotUnique = inPlay.stream().anyMatch(thisHand::contains);
         if (inPlayNotUnique) throw new IllegalStateException();
         Card card = playerLogicMap.get(thisPlayer).playCard (dealInProgress, inPlay, thisHand, discards.get(thisPlayer));
