@@ -78,7 +78,7 @@ public class RoundDeveloper {
         }
         boolean inPlayNotUnique = inPlay.stream().anyMatch(thisHand::contains);
         if (inPlayNotUnique) throw new IllegalStateException();
-        Card card = playerLogicMap.get(thisPlayer).playCard (dealInProgress, inPlay, thisHand, discards.get(thisPlayer));
+        Card card = playerLogicMap.get(thisPlayer).playCard (dealInProgress, inPlay, thisHand, discards.get(thisPlayer).getDiscardingCards());
         LOG.info("Card to play: " + card);
         if (! thisHand.contains(card)) throw new IllegalStateException("Player trying to play a card that he doesn't own");
         dealInProgress = dealInProgressFactory.next(dealInProgress, card);

@@ -28,13 +28,13 @@ public class SimpleCardSelector implements CardSelector {
 
 
     @Override
-    public Card bestCard(DealInProgress dealInProgress, Set<Card> inPlay, Set<Card> myCards) {
+    public Card bestCard(DealInProgress dealInProgress, Set<Card> inPlay, Set<Card> myCards, Map<Player, Set<Card>> knownCards) {
         if (Thread.currentThread().isInterrupted()) {
             return null;
         }
         LOG.trace("Looking up best card with config " + runningConfiguration);
         Player thisPlayer = dealInProgress.getWaitingForPlayer().get();
-        List<List<CardAndScore>> listOfScenarios = runScenarios(inPlay, myCards, dealInProgress);
+        List<List<CardAndScore>> listOfScenarios = runScenarios(inPlay, myCards, dealInProgress, knownCards);
         List<CardAndScore> allScores = aggregate (listOfScenarios);
         Collections.sort(allScores, (left, right) -> {
             BigDecimal leftScore = left.predictedScore.getAveragedScore().get(thisPlayer);
@@ -69,25 +69,25 @@ public class SimpleCardSelector implements CardSelector {
         return aggregates;
     }
 
-    private List<List<CardAndScore>> runScenarios(Set<Card> inPlay, Set<Card> myCards, DealInProgress dealInProgress) {
+    private List<List<CardAndScore>> runScenarios(Set<Card> inPlay, Set<Card> myCards, DealInProgress dealInProgress, Map<Player, Set<Card>> knownCards) {
         if (Thread.currentThread().isInterrupted()) {
             return new ArrayList<>();
         }
         List<List<CardAndScore>> allScoresBag = new ArrayList<>();
         ArrayList<Hands> alreadyProcessedHands = new ArrayList<>();
         for (int i = 0; i<=runningConfiguration.getScenariosToRun(); i++){
-            List<CardAndScore> cardAndScores = runScenario(inPlay, myCards, dealInProgress, alreadyProcessedHands);
+            List<CardAndScore> cardAndScores = runScenario(inPlay, myCards, dealInProgress, alreadyProcessedHands, knownCards);
             if (cardAndScores.size()>0) allScoresBag.add(cardAndScores);
         }
         return allScoresBag;
     }
 
-    private List<CardAndScore> runScenario(Set<Card> inPlay, Set<Card> myCards, DealInProgress dealInProgress, List<Hands> alreadyProcessedHands) {
+    private List<CardAndScore> runScenario(Set<Card> inPlay, Set<Card> myCards, DealInProgress dealInProgress, List<Hands> alreadyProcessedHands, Map<Player, Set<Card>> knownCards) {
         if (Thread.currentThread().isInterrupted()) {
             return new ArrayList<>();
         }
         Player thisPlayer = dealInProgress.getWaitingForPlayer().get();
-        Hands hands = handsFactory.dealCards(thisPlayer, myCards, inPlay);
+        Hands hands = handsFactory.dealCards(thisPlayer, myCards, inPlay, knownCards);
         if (alreadyProcessedHands.contains(hands)) {
             LOG.trace("Skipping already processed hand");
             return new ArrayList<>();

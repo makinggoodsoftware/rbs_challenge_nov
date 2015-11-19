@@ -57,8 +57,8 @@ public class HandsFactory {
                 build();
     }
 
-    public Hands fromAllCardsShuffled (Player startingFrom){
-        Map<Player, Set<Card>> deal = cardsDealer.deal(Player.all(startingFrom), cardsSetBuilder.allCards());
+    public Hands fromAllCardsShuffled (Player startingFrom, Map<Player, Set<Card>> knownCards){
+        Map<Player, Set<Card>> deal = cardsDealer.deal(Player.all(startingFrom), cardsSetBuilder.allCards(), knownCards);
         return from(deal);
     }
 
@@ -84,8 +84,8 @@ public class HandsFactory {
         );
     }
 
-    public Hands dealCards(Player startingPlayer, Set<Card> startingHand, Set<Card> inPlay) {
-        Map<Player, Set<Card>> playerCards = cardsDealer.deal(Player.except(startingPlayer), inPlay);
+    public Hands dealCards(Player startingPlayer, Set<Card> startingHand, Set<Card> inPlay, Map<Player, Set<Card>> knownCards) {
+        Map<Player, Set<Card>> playerCards = cardsDealer.deal(Player.except(startingPlayer), inPlay, knownCards);
         playerCards.put(startingPlayer, startingHand);
         return from(playerCards);
     }

@@ -1,10 +1,8 @@
 package com.mgs.rbsnov.logic;
 
-import com.mgs.rbsnov.domain.Card;
-import com.mgs.rbsnov.domain.DealInProgress;
-import com.mgs.rbsnov.domain.DiscardResult;
-import com.mgs.rbsnov.domain.Suit;
+import com.mgs.rbsnov.domain.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,7 +26,9 @@ public class PlayerLogic {
                 limit(3).collect(Collectors.toSet());
     }
 
-    public Card playCard(DealInProgress dealInProgress, Set<Card> inPlay, Set<Card> from, DiscardResult discards) {
-        return cardSelector.bestCard(dealInProgress, inPlay, from);
+    public Card playCard(DealInProgress dealInProgress, Set<Card> inPlay, Set<Card> from, Set<Card> discards) {
+        Map<Player, Set<Card>> discardMap = new HashMap<>();
+        discardMap.put(dealInProgress.getWaitingForPlayer().get().previousClockwise(), discards);
+        return cardSelector.bestCard(dealInProgress, inPlay, from, discardMap);
     }
 }

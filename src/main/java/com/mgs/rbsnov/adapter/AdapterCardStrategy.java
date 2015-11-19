@@ -16,9 +16,11 @@ public class AdapterCardStrategy implements ICardStrategy {
     private final static Logger LOGGER = Logger.getLogger(AdapterCardStrategy.class);
     private final PlayerLogic playerLogic;
     private final CardsAdaptor cardsAdaptor;
+    private final CardScorer cardScorer;
+
     private int latestRoundId = -1;
     private boolean cardsPassed = false;
-    private final CardScorer cardScorer;
+    private Set<com.mgs.rbsnov.domain.Card> discardedCards;
 
     public AdapterCardStrategy(PlayerLogic playerLogic, CardsAdaptor cardsAdaptor, CardScorer cardScorer) {
         this.playerLogic = playerLogic;
@@ -45,6 +47,7 @@ public class AdapterCardStrategy implements ICardStrategy {
         Set<com.mgs.rbsnov.domain.Card> cards = cardsAdaptor.extractMyHand(gameStatus);
         LOGGER.info("Passing cards from: " + cards);
         Set<com.mgs.rbsnov.domain.Card> domainDiscards = playerLogic.discard(cards);
+        discardedCards = domainDiscards;
         LOGGER.info("Cards to pass: " + domainDiscards);
         cardsPassed = true;
         latestRoundId = -1;
@@ -70,7 +73,7 @@ public class AdapterCardStrategy implements ICardStrategy {
                 dealInProgress,
                 inPlay,
                 myHand,
-                null
+                discardedCards
         );
 
         LOGGER.info("Playing card " + card);

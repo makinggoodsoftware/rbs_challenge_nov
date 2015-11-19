@@ -38,7 +38,8 @@ public class ProgressiveCardSelectorFactory {
             return cardSelector.bestCard(
                     input.getDealInProgress(),
                     input.getInPlay(),
-                    input.getMyCards()
+                    input.getMyCards(),
+                    input.getKnownCards()
             );
         };
     }

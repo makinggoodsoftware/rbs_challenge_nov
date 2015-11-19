@@ -2,6 +2,7 @@ package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.domain.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,7 +18,7 @@ public class GameSimulator {
     }
 
     public GameResult start(PlayersLogic playersLogic) {
-        Hands beforeDescarding = handsFactory.fromAllCardsShuffled(Player.SOUTH);
+        Hands beforeDescarding = handsFactory.fromAllCardsShuffled(Player.SOUTH, new HashMap<>());
         Map<Player, DiscardResult> discards = cardsDiscarder.discard(playersLogic, beforeDescarding);
 
         RoundDeveloper roundDeveloper = roundDeveloperFactory.newRoundDeveloper(playersLogic, discards);
