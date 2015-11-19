@@ -38,7 +38,7 @@ public class Config {
 
     @Bean
     public CardSelector cardSelector (){
-        return progressiveCardSelectorFactory().create(4500);
+        return progressiveCardSelectorFactory().create(4100);
     }
 
     @Bean

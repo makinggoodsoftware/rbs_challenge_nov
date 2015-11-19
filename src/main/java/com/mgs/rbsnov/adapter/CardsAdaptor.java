@@ -119,7 +119,7 @@ public class CardsAdaptor {
         throw new IllegalStateException();
     }
 
-    public Set<Card> inPlay(GameStatus gameStatus, DealInProgress dealInProgress) {
+    public Set<Card> inPlay(GameStatus gameStatus, DealInProgress dealInProgress, Set<Card> myHand) {
         CardsSetBuilder.CardsSetBuilderWip inPlayBuilder = cardsSetBuilder.newSet(cardsSetBuilder.allCards());
         List<com.mgs.rbsnov.client.entities.Deal> myGameDeals = gameStatus.getMyGameDeals();
         for (Deal myGameDeal : myGameDeals) {
@@ -129,8 +129,13 @@ public class CardsAdaptor {
             }
         }
 
+        dealInProgress.getLeadingCard().ifPresent(inPlayBuilder::remove);
+
         List<Card> followingCards = dealInProgress.getFollowingCards();
         followingCards.forEach(inPlayBuilder::remove);
+
+        myHand.forEach(inPlayBuilder::remove);
+
         return inPlayBuilder.build();
     }
 }

@@ -60,13 +60,19 @@ public class AdapterCardStrategy implements ICardStrategy {
         this.latestRoundId = currentDeal;
         DealInProgress dealInProgress = cardsAdaptor.deal(gameStatus);
         LOGGER.info("Playing cards, deal in progress: " + dealInProgress);
-        Set<com.mgs.rbsnov.domain.Card> inPlay = cardsAdaptor.inPlay(gameStatus, dealInProgress);
+        Set<com.mgs.rbsnov.domain.Card> myHand = cardsAdaptor.extractMyHand(gameStatus);
+        Set<com.mgs.rbsnov.domain.Card> inPlay = cardsAdaptor.inPlay(gameStatus, dealInProgress, myHand);
+
+        if ((inPlay.size() + myHand.size() + dealInProgress.getCardSize()) % 4 != 0) {
+            throw new IllegalStateException();
+        }
         com.mgs.rbsnov.domain.Card card = playerLogic.playCard(
                 dealInProgress,
                 inPlay,
-                cardsAdaptor.extractMyHand(gameStatus),
+                myHand,
                 null
         );
+
         LOGGER.info("Playing card " + card);
         return cardsAdaptor.toCardExt(card);
     }
