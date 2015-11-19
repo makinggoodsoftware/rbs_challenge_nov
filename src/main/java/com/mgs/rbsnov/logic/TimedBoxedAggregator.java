@@ -29,12 +29,13 @@ public class TimedBoxedAggregator<T, R> {
             }
         });
         try {
+            LOG.info("timeout START!");
             future.get(timeoutMs, TimeUnit.MILLISECONDS);
             throw new IllegalStateException("Should run forever!");
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         } catch (TimeoutException e) {
-            LOG.trace("timeout!");
+            LOG.info("timeout END!");
             future.cancel(true);
             executorService.shutdownNow();
             return closureValue.get();
