@@ -25,13 +25,12 @@ public class HandsFactory {
         );
     }
 
-    public Hands from(List<Set<Card>> asList, Player startingFrom) {
-        int baseIndex = Player.SOUTH.distanceTo(startingFrom);
+    public Hands from(Map<Player, Set<Card>> asMap) {
         Hands hands = new Hands(
-                asList.get(cycle(0 + baseIndex)),
-                asList.get(cycle(1 + baseIndex)),
-                asList.get(cycle(2 + baseIndex)),
-                asList.get(cycle(3 + baseIndex))
+                asMap.get(Player.SOUTH),
+                asMap.get(Player.WEST),
+                asMap.get(Player.NORTH),
+                asMap.get(Player.EAST)
         );
         return hands;
     }
@@ -59,7 +58,8 @@ public class HandsFactory {
     }
 
     public Hands fromAllCardsShuffled (Player startingFrom){
-        return from(cardsDealer.deal(4, cardsSetBuilder.allCards()), startingFrom);
+        Map<Player, Set<Card>> deal = cardsDealer.deal(Player.all(startingFrom), cardsSetBuilder.allCards());
+        return from(deal);
     }
 
     public Hands removeCards(Hands allHands, Card card1, Card card2, Card card3, Card card4) {
@@ -85,14 +85,8 @@ public class HandsFactory {
     }
 
     public Hands dealCards(Player startingPlayer, Set<Card> startingHand, Set<Card> inPlay) {
-        List<Set<Card>> otherPlayerCards = cardsDealer.deal(3, inPlay);
-        otherPlayerCards.add(0, startingHand);
-        int baseIndex = Player.SOUTH.distanceTo(startingPlayer);
-        return new Hands(
-                otherPlayerCards.get(cycle(0 - baseIndex)),
-                otherPlayerCards.get(cycle(1 - baseIndex)),
-                otherPlayerCards.get(cycle(2 - baseIndex)),
-                otherPlayerCards.get(cycle(3 - baseIndex))
-        );
+        Map<Player, Set<Card>> playerCards = cardsDealer.deal(Player.except(startingPlayer), inPlay);
+        playerCards.put(startingPlayer, startingHand);
+        return from(playerCards);
     }
 }

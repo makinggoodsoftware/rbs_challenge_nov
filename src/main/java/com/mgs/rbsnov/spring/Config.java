@@ -130,8 +130,7 @@ public class Config {
     @Bean
     public CardsDealer cardsDealer() {
         return new CardsDealer(
-                cardsShuffler(),
-                setRotationFactory()
+                cardsShuffler()
         );
     }
 
@@ -210,10 +209,6 @@ public class Config {
         return new DealInProgressFactory();
     }
 
-    @Bean
-    public SetRotatorFactory setRotationFactory() {
-        return new SetRotatorFactory();
-    }
 
     @Bean
     public CardsShuffler cardsShuffler() {

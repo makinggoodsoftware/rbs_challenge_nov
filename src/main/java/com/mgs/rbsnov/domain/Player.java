@@ -2,6 +2,8 @@ package com.mgs.rbsnov.domain;
 
 import com.mgs.rbsnov.utils.ClosureValue;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 public enum Player {
@@ -40,5 +42,20 @@ public enum Player {
 
     public Player previousClockwise() {
         return nextClockwise().nextClockwise().nextClockwise();
+    }
+
+    public static Set<Player> all(Player startingFrom) {
+        Set<Player> all = new HashSet<>();
+        all.add(startingFrom);
+        all.add(startingFrom.nextClockwise());
+        all.add(startingFrom.nextClockwise().nextClockwise());
+        all.add(startingFrom.nextClockwise().nextClockwise().nextClockwise());
+        return all;
+    }
+
+    public static Set<Player> except(Player startingPlayer) {
+        Set<Player> except = all(startingPlayer);
+        except.remove(startingPlayer);
+        return except;
     }
 }
