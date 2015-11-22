@@ -8,13 +8,13 @@ import spock.lang.Specification
 import spock.lang.Unroll
 
 class PlayersScorerSpecification extends Specification {
-    PlayersScorer playersScorer
+    FinishedDealScorer playersScorer
     DealScorer dealScorerMock = Mock(DealScorer)
     Deal dealMock = Mock (Deal)
     DealScore dealScoreMock = Mock (DealScore)
 
     def "setup"() {
-        playersScorer = new PlayersScorer(dealScorerMock)
+        playersScorer = new FinishedDealScorer(dealScorerMock)
 
         dealScorerMock.score(dealMock) >> dealScoreMock
         dealScoreMock.points >> 1

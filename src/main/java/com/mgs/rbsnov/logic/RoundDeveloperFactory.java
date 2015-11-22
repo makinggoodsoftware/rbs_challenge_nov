@@ -8,21 +8,21 @@ import java.util.Map;
 
 public class RoundDeveloperFactory {private final PlayerRotator playerRotator;
     private final DealInProgressFactory dealInProgressFactory;
-    private final PlayersScorer playersScorer;
+    private final FinishedDealScorer finishedDealScorer;
     private final HandsFactory handsFactory;
     private final HeartRules heartRules;
     private final CardsSetBuilder cardsSetBuilder;
 
-    public RoundDeveloperFactory(PlayerRotator playerRotator, DealInProgressFactory dealInProgressFactory, PlayersScorer playersScorer, HandsFactory handsFactory, HeartRules heartRules, CardsSetBuilder cardsSetBuilder) {
+    public RoundDeveloperFactory(PlayerRotator playerRotator, DealInProgressFactory dealInProgressFactory, FinishedDealScorer finishedDealScorer, HandsFactory handsFactory, HeartRules heartRules, CardsSetBuilder cardsSetBuilder) {
         this.playerRotator = playerRotator;
         this.dealInProgressFactory = dealInProgressFactory;
-        this.playersScorer = playersScorer;
+        this.finishedDealScorer = finishedDealScorer;
         this.handsFactory = handsFactory;
         this.heartRules = heartRules;
         this.cardsSetBuilder = cardsSetBuilder;
     }
 
     public RoundDeveloper newRoundDeveloper(PlayersLogic playerLogicMap, Map<Player, DiscardResult> discards) {
-        return new RoundDeveloper(dealInProgressFactory, playersScorer, playerLogicMap, discards, handsFactory, heartRules, cardsSetBuilder);
+        return new RoundDeveloper(dealInProgressFactory, finishedDealScorer, playerLogicMap, discards, handsFactory, heartRules, cardsSetBuilder);
     }
 }

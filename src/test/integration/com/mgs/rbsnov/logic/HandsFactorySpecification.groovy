@@ -45,7 +45,7 @@ class HandsFactorySpecification extends Specification {
 
     def "shuffle and deal all cards to the 4 players" (){
         when:
-        Hands hands = handsFactory.fromAllCardsShuffled(Player.SOUTH)
+        Hands hands = handsFactory.fromAllCardsShuffled(Player.SOUTH, missingSuits)
 
         then:
         hands.eastHand.size() == 13

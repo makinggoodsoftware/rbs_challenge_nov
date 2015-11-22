@@ -9,21 +9,19 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 public class PredictedScorer {
-    private final PlayersScorer playersScorer;
+    private final FinishedDealScorer finishedDealScorer;
 
-    public PredictedScorer(PlayersScorer playersScorer) {
-        this.playersScorer = playersScorer;
+    public PredictedScorer(FinishedDealScorer finishedDealScorer) {
+        this.finishedDealScorer = finishedDealScorer;
     }
 
     public PredictedScoring newScoring() {
         return new PredictedScoring();
     }
 
-    public PredictedScore average(Collection<PredictedScore> scores) {
+    public PlayersScore average(Collection<PlayersScore> scores) {
         PredictedScoring predictedScoring = newScoring();
-        for (PredictedScore score : scores) {
-            predictedScoring.addScore(score.getAveragedScore());
-        }
+        scores.forEach(predictedScoring::addScore);
         return predictedScoring.build();
     }
 
@@ -31,8 +29,8 @@ public class PredictedScorer {
         private List<PlayersScore> scores = new ArrayList<>();
         private List<PlayersScore> allChildScores = new ArrayList<>();
 
-        public PredictedScoring addCombinedChildrenDealScores(Collection<PredictedScore> scores) {
-            allChildScores.addAll(scores.stream().map(PredictedScore::getAveragedScore).collect(toList()));
+        public PredictedScoring addCombinedChildrenDealScores(Collection<PlayersScore> scores) {
+            allChildScores.addAll(scores);
             return this;
         }
 
@@ -41,16 +39,16 @@ public class PredictedScorer {
             return this;
         }
 
-        public PredictedScore build() {
+        public PlayersScore build() {
             if (scores.size() == 0 && allChildScores.size() == 0) throw new IllegalStateException();
 
-            PlayersScore averagedScored = playersScorer.average(this.scores);
+            PlayersScore averagedScored = finishedDealScorer.average(this.scores);
             PlayersScore finalScore = averagedScored;
             if (allChildScores.size() > 0){
-                PlayersScore predictedAverage = playersScorer.average(allChildScores);
-                finalScore = playersScorer.add (averagedScored, predictedAverage);
+                PlayersScore predictedAverage = finishedDealScorer.average(allChildScores);
+                finalScore = finishedDealScorer.add (averagedScored, predictedAverage);
             }
-            return new PredictedScore(finalScore);
+            return finalScore;
         }
     }
 }

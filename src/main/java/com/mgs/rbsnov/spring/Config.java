@@ -52,21 +52,21 @@ public class Config {
                         predictedScorer())
                 ).
                 put(1, new SimpleCardSelector(
-                        new RunningConfiguration(5, 2),
+                        new RunningConfiguration(15, 2),
                         gameAnalyserII(),
                         cardScorer(),
                         handsFactory(),
                         predictedScorer())
                 ).
                 put(2, new SimpleCardSelector(
-                        new RunningConfiguration(3, 4),
+                        new RunningConfiguration(15, 3),
                         gameAnalyserII(),
                         cardScorer(),
                         handsFactory(),
                         predictedScorer())
                 ).
                 put(3, new SimpleCardSelector(
-                        new RunningConfiguration(5, 5),
+                        new RunningConfiguration(15, 4),
                         gameAnalyserII(),
                         cardScorer(),
                         handsFactory(),
@@ -93,8 +93,8 @@ public class Config {
     }
 
     @Bean
-    public PlayersScorer playersScorer() {
-        return new PlayersScorer(dealScorer());
+    public FinishedDealScorer playersScorer() {
+        return new FinishedDealScorer(dealScorer());
     }
 
     @Bean
@@ -130,8 +130,8 @@ public class Config {
     @Bean
     public CardsDealer cardsDealer() {
         return new CardsDealer(
-                cardsShuffler()
-        );
+                cardsShuffler(),
+                cardsSetBuilder());
     }
 
     @Bean

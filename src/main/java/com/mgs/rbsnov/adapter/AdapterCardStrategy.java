@@ -2,6 +2,7 @@ package com.mgs.rbsnov.adapter;
 
 import com.mgs.rbsnov.client.entities.Card;
 import com.mgs.rbsnov.client.entities.CardPoint;
+import com.mgs.rbsnov.client.entities.Deal;
 import com.mgs.rbsnov.client.entities.GameStatus;
 import com.mgs.rbsnov.client.interfaces.ICardStrategy;
 import com.mgs.rbsnov.domain.DealInProgress;
@@ -56,7 +57,8 @@ public class AdapterCardStrategy implements ICardStrategy {
 
     @Override
     public Card PlayCard(GameStatus gameStatus, String myTeamName) {
-        int currentDeal = gameStatus.getMyInProgressDeal().getDealNumber();
+        Deal myInProgressDeal = gameStatus.getMyInProgressDeal();
+        int currentDeal = myInProgressDeal.getDealNumber();
         if (currentDeal <= latestRoundId) return null;
 
 
@@ -73,7 +75,8 @@ public class AdapterCardStrategy implements ICardStrategy {
                 dealInProgress,
                 inPlay,
                 myHand,
-                discardedCards
+                discardedCards,
+                cardsAdaptor.missingDeals (gameStatus.getMyGameDeals(), myInProgressDeal)
         );
 
         LOGGER.info("Playing card " + card);

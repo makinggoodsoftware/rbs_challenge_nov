@@ -8,7 +8,9 @@ import com.mgs.rbsnov.domain.*;
 import com.mgs.rbsnov.logic.CardsSetBuilder;
 import com.mgs.rbsnov.logic.DealInProgressFactory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -137,5 +139,9 @@ public class CardsAdaptor {
         myHand.forEach(inPlayBuilder::remove);
 
         return inPlayBuilder.build();
+    }
+
+    public Map<Player, Set<Suit>> missingDeals(List<Deal> myGameDeals, Deal myInProgressDeal) {
+        throw new IllegalStateException();
     }
 }

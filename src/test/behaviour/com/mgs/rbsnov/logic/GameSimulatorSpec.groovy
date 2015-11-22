@@ -21,7 +21,10 @@ public class GameSimulatorSpec extends Specification{
         PlayersLogic playersLogic = PlayersLogic.from(playerLogic, playerLogic, playerLogic, playerLogic)
 
         when:
-        GameResult gameResult = gameSimulator.start (playersLogic)
+        GameResult gameResult
+        (1..50).each{
+            gameResult = gameSimulator.start(playersLogic)
+        }
 
         then:
         gameResult.roundResults.size() == 13

@@ -1,14 +1,16 @@
 package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.domain.*;
+import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class GameAnalyser {
+    private final static Logger LOG = Logger.getLogger(GameAnalyser.class);
+
     private final DealsDeveloper dealsDeveloper;
     private final PredictedScorer predictedScorer;
     private final DealInProgressFactory dealInProgressFactory;
-    private final Map<GameState, Map<Card, PredictedScore>> alreadyProcessedStates = new HashMap<>();
     private final HandsFactory handsFactory;
 
     public GameAnalyser(DealsDeveloper dealsDeveloper, PredictedScorer predictedScorer, DealInProgressFactory dealInProgressFactory, HandsFactory handsFactory) {
@@ -18,22 +20,19 @@ public class GameAnalyser {
         this.handsFactory = handsFactory;
     }
 
-    public Map<Card, PredictedScore> analyse(GameState gameState, int numberOfLevelsDeep){
+    public Map<Card, PlayersScore> analyse(GameState gameState, int numberOfLevelsDeep){
         return analyseMaxSteps(gameState, 0, numberOfLevelsDeep);
     }
 
-    private Map<Card, PredictedScore> analyseMaxSteps(GameState gameState, int stepsTaken, int numberOfLevelsDeep) {
+    private Map<Card, PlayersScore> analyseMaxSteps(GameState gameState, int stepsTaken, int numberOfLevelsDeep) {
         if (Thread.currentThread().isInterrupted()) {
             return new HashMap<>();
         }
 
-//        if (alreadyProcessedStates.containsKey(gameState)){
-//            return alreadyProcessedStates.get(gameState);
-//        }
         if (stepsTaken == numberOfLevelsDeep){
             return new HashMap<>();
         }
-        Map<Card, PredictedScore> analysis = new HashMap<>();
+        Map<Card, PlayersScore> analysis = new HashMap<>();
         DealInProgress dealInProgress = gameState.getDealInProgress();
         Set<FinishedDeal> possibleDeals = dealsDeveloper.develop(dealInProgress, gameState.getAllHands());
         Player thisPlayer = dealInProgress.getWaitingForPlayer().get();
@@ -45,7 +44,6 @@ public class GameAnalyser {
             PredictedScorer.PredictedScoring predictedScoring = getPredictedScoring(gameState, thisPossibleDeals, newStepsTaken, numberOfLevelsDeep);
             analysis.put(card, predictedScoring.build());
         }
-//        alreadyProcessedStates.put(gameState, analysis);
         return analysis;
     }
 
@@ -63,7 +61,7 @@ public class GameAnalyser {
                 ){
                     throw new IllegalStateException();
                 }
-                Map<Card, PredictedScore> childAnalysis = analyseMaxSteps(childGameState, stepsTaken, numberOfLevelsDeep);
+                Map<Card, PlayersScore> childAnalysis = analyseMaxSteps(childGameState, stepsTaken, numberOfLevelsDeep);
                 if (childAnalysis.size() > 0) predictedScoring.addCombinedChildrenDealScores(childAnalysis.values());
             }
         }
@@ -73,7 +71,7 @@ public class GameAnalyser {
     private GameState childGameState(GameState gameState, FinishedDeal possibleDeal) {
         int distanceToSouth = possibleDeal.getStartingPlayer().distanceTo(Player.SOUTH);
         return new GameState(
-                handsFactory.removeCards(gameState.getAllHands(),
+                 handsFactory.removeCards(gameState.getAllHands(),
                         possibleDeal.getDeal().getCard(relativeDistance(distanceToSouth, 0)),
                         possibleDeal.getDeal().getCard(relativeDistance(distanceToSouth, 1)),
                         possibleDeal.getDeal().getCard(relativeDistance(distanceToSouth, 2)),

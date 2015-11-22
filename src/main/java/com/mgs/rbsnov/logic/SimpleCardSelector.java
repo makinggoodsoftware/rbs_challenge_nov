@@ -28,17 +28,17 @@ public class SimpleCardSelector implements CardSelector {
 
 
     @Override
-    public Card bestCard(DealInProgress dealInProgress, Set<Card> inPlay, Set<Card> myCards, Map<Player, Set<Card>> knownCards) {
+    public Card bestCard(DealInProgress dealInProgress, Set<Card> inPlay, Set<Card> myCards, Map<Player, Set<Card>> knownCards, Map<Player, Set<Suit>> missingSuits) {
         if (Thread.currentThread().isInterrupted()) {
             return null;
         }
         LOG.trace("Looking up best card with config " + runningConfiguration);
         Player thisPlayer = dealInProgress.getWaitingForPlayer().get();
-        List<List<CardAndScore>> listOfScenarios = runScenarios(inPlay, myCards, dealInProgress, knownCards);
+        List<List<CardAndScore>> listOfScenarios = runScenarios(inPlay, myCards, dealInProgress, knownCards, missingSuits);
         List<CardAndScore> allScores = aggregate (listOfScenarios);
         Collections.sort(allScores, (left, right) -> {
-            BigDecimal leftScore = left.predictedScore.getAveragedScore().get(thisPlayer);
-            BigDecimal rightScore = right.predictedScore.getAveragedScore().get(thisPlayer);
+            BigDecimal leftScore = left.predictedScore.get(thisPlayer);
+            BigDecimal rightScore = right.predictedScore.get(thisPlayer);
             Integer leftPoints = cardScorer.score(left.card);
             Integer rightPoints = cardScorer.score(right.card);
 
@@ -52,7 +52,7 @@ public class SimpleCardSelector implements CardSelector {
     }
 
     private List<CardAndScore> aggregate(List<List<CardAndScore>> listOfScenarios) {
-        Multimap<Card, PredictedScore> allScoresForCard = ArrayListMultimap.create();
+        Multimap<Card, PlayersScore> allScoresForCard = ArrayListMultimap.create();
         for (List<CardAndScore> scoresForScenario : listOfScenarios) {
             for (CardAndScore cardAndScore : scoresForScenario) {
                 allScoresForCard.put(cardAndScore.card, cardAndScore.predictedScore);
@@ -60,34 +60,34 @@ public class SimpleCardSelector implements CardSelector {
         }
 
         List<CardAndScore> aggregates = new ArrayList<>();
-        for (Map.Entry<Card, Collection<PredictedScore>> cardCollectionEntry : allScoresForCard.asMap().entrySet()) {
+        for (Map.Entry<Card, Collection<PlayersScore>> cardCollectionEntry : allScoresForCard.asMap().entrySet()) {
             Card card = cardCollectionEntry.getKey();
-            Collection<PredictedScore> scores = cardCollectionEntry.getValue();
-            PredictedScore predictedScore = predictedScorer.average (scores);
+            Collection<PlayersScore> scores = cardCollectionEntry.getValue();
+            PlayersScore predictedScore = predictedScorer.average (scores);
             aggregates.add(new CardAndScore(card, predictedScore));
         }
         return aggregates;
     }
 
-    private List<List<CardAndScore>> runScenarios(Set<Card> inPlay, Set<Card> myCards, DealInProgress dealInProgress, Map<Player, Set<Card>> knownCards) {
+    private List<List<CardAndScore>> runScenarios(Set<Card> inPlay, Set<Card> myCards, DealInProgress dealInProgress, Map<Player, Set<Card>> knownCards, Map<Player, Set<Suit>> missingSuits) {
         if (Thread.currentThread().isInterrupted()) {
             return new ArrayList<>();
         }
         List<List<CardAndScore>> allScoresBag = new ArrayList<>();
         ArrayList<Hands> alreadyProcessedHands = new ArrayList<>();
         for (int i = 0; i<=runningConfiguration.getScenariosToRun(); i++){
-            List<CardAndScore> cardAndScores = runScenario(inPlay, myCards, dealInProgress, alreadyProcessedHands, knownCards);
+            List<CardAndScore> cardAndScores = runScenario(inPlay, myCards, dealInProgress, alreadyProcessedHands, knownCards, missingSuits);
             if (cardAndScores.size()>0) allScoresBag.add(cardAndScores);
         }
         return allScoresBag;
     }
 
-    private List<CardAndScore> runScenario(Set<Card> inPlay, Set<Card> myCards, DealInProgress dealInProgress, List<Hands> alreadyProcessedHands, Map<Player, Set<Card>> knownCards) {
+    private List<CardAndScore> runScenario(Set<Card> inPlay, Set<Card> myCards, DealInProgress dealInProgress, List<Hands> alreadyProcessedHands, Map<Player, Set<Card>> knownCards, Map<Player, Set<Suit>> missingSuits) {
         if (Thread.currentThread().isInterrupted()) {
             return new ArrayList<>();
         }
         Player thisPlayer = dealInProgress.getWaitingForPlayer().get();
-        Hands hands = handsFactory.dealCards(thisPlayer, myCards, inPlay, knownCards);
+        Hands hands = handsFactory.dealCards(thisPlayer, myCards, inPlay, knownCards, missingSuits);
         if (alreadyProcessedHands.contains(hands)) {
             LOG.trace("Skipping already processed hand");
             return new ArrayList<>();
@@ -97,7 +97,7 @@ public class SimpleCardSelector implements CardSelector {
 
         if (! hands.get(thisPlayer).equals(myCards)) throw new IllegalStateException();
         GameState gameState = new GameState(hands, dealInProgress);
-        Map<Card, PredictedScore> predictedScores = gameAnalyser.analyse(gameState, runningConfiguration.getLevelsDownDeep());
+        Map<Card, PlayersScore> predictedScores = gameAnalyser.analyse(gameState, runningConfiguration.getLevelsDownDeep());
         return predictedScores.entrySet().stream().
                 map(cardPredictedScoreEntry ->
                         new CardAndScore(cardPredictedScoreEntry.getKey(), cardPredictedScoreEntry.getValue())
@@ -107,9 +107,9 @@ public class SimpleCardSelector implements CardSelector {
 
     class CardAndScore {
         private final Card card;
-        private final PredictedScore predictedScore;
+        private final PlayersScore predictedScore;
 
-        CardAndScore(Card card, PredictedScore predictedScore) {
+        CardAndScore(Card card, PlayersScore predictedScore) {
             this.card = card;
             this.predictedScore = predictedScore;
         }

@@ -31,7 +31,11 @@ public class GameState {
     }
 
     public boolean isLastDeal() {
-        return hands.getSouthHand().size() == 1;
+        return
+            hands.getSouthHand().size() == 1 ||
+            hands.getNorthHand().size() == 1 ||
+            hands.getEastHand().size() == 1 ||
+            hands.getWestHand().size() == 1 ;
     }
 
     public DealInProgress getDealInProgress() {

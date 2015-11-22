@@ -3,25 +3,22 @@ package com.mgs.rbsnov.logic;
 import com.mgs.rbsnov.domain.*;
 import org.apache.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class RoundDeveloper {
     private final Logger LOG = Logger.getLogger(ProgressiveCardSelectorFactory.class);
     
     private final DealInProgressFactory dealInProgressFactory;
-    private final PlayersScorer playersScorer;
+    private final FinishedDealScorer finishedDealScorer;
     private final HandsFactory handsFactory;
     private final HeartRules heartRules;
     private final CardsSetBuilder cardsSetBuilder;
     private final PlayersLogic playerLogicMap;
     private final Map<Player, DiscardResult> discards;
 
-    public RoundDeveloper(DealInProgressFactory dealInProgressFactory, PlayersScorer playersScorer, PlayersLogic playerLogicMap, Map<Player, DiscardResult> discards, HandsFactory handsFactory, HeartRules heartRules, CardsSetBuilder cardsSetBuilder) {
+    public RoundDeveloper(DealInProgressFactory dealInProgressFactory, FinishedDealScorer finishedDealScorer, PlayersLogic playerLogicMap, Map<Player, DiscardResult> discards, HandsFactory handsFactory, HeartRules heartRules, CardsSetBuilder cardsSetBuilder) {
         this.dealInProgressFactory = dealInProgressFactory;
-        this.playersScorer = playersScorer;
+        this.finishedDealScorer = finishedDealScorer;
         this.playerLogicMap = playerLogicMap;
         this.discards = discards;
         this.handsFactory = handsFactory;
@@ -29,7 +26,7 @@ public class RoundDeveloper {
         this.cardsSetBuilder = cardsSetBuilder;
     }
 
-    public List<RoundResult> playAllRounds(Hands hands) {
+    public List<RoundResult> playAllRounds(Hands hands, Map<Player, Set<Suit>> missingSuits) {
         FinishedDeal finishedDeal;
         List<RoundResult> roundResults = new ArrayList<>();
         Player startingPlayer = heartRules.findStartingPlayer(hands);
@@ -43,7 +40,7 @@ public class RoundDeveloper {
             LOG.info("South: " + thisHands.getSouthHand());
             LOG.info("West: " + thisHands.getWestHand());
             LOG.info("=====================================================================================");
-            finishedDeal = playDeal(thisHands, dealInProgress);
+            finishedDeal = playDeal(thisHands, dealInProgress, missingSuits);
             RoundResult roundResult = new RoundResult(thisHands, finishedDeal);
             roundResults.add(roundResult);
             LOG.info("Round completed: Won by - " + finishedDeal.getWinningPlayer() + " round score: " + roundResult.getFinishedDeal().getScore());
@@ -54,12 +51,12 @@ public class RoundDeveloper {
             }
             startingPlayer = finishedDeal.getWinningPlayer();
             dealInProgress = dealInProgressFactory.newJustStartedDeal(startingPlayer);
-        } while (heartRules.cardsToPlayRemaining(hands));
+        } while (heartRules.cardsToPlayRemaining(thisHands));
         return roundResults;
     }
 
-    FinishedDeal playDeal(Hands hands, DealInProgress dealInProgress) {
-        if (dealInProgress.isCompleted()) return playersScorer.score(dealInProgress);
+    FinishedDeal playDeal(Hands hands, DealInProgress dealInProgress, Map<Player, Set<Suit>> missingSuits) {
+        if (dealInProgress.isCompleted()) return finishedDealScorer.score(dealInProgress);
 
 
         Player thisPlayer = dealInProgress.getWaitingForPlayer().get();
@@ -78,12 +75,23 @@ public class RoundDeveloper {
         }
         boolean inPlayNotUnique = inPlay.stream().anyMatch(thisHand::contains);
         if (inPlayNotUnique) throw new IllegalStateException();
-        Card card = playerLogicMap.get(thisPlayer).playCard (dealInProgress, inPlay, thisHand, discards.get(thisPlayer).getDiscardingCards());
+        Card card = playerLogicMap.get(thisPlayer).playCard (dealInProgress, inPlay, thisHand, discards.get(thisPlayer).getDiscardingCards(), missingSuits);
+        if (card == null){
+            throw new IllegalStateException();
+        }
         LOG.info("Card to play: " + card);
         if (! thisHand.contains(card)) throw new IllegalStateException("Player trying to play a card that he doesn't own");
+
+        dealInProgress.getLeadingCard().ifPresent(leadingCard -> {
+            Suit leadingSuit = leadingCard.getSuit();
+            if (card.getSuit() != leadingSuit){
+                if (missingSuits.get(thisPlayer) == null) missingSuits.put(thisPlayer, new HashSet<>());
+                missingSuits.get(thisPlayer).add(leadingSuit);
+                LOG.info("Adding missing suit: " + thisPlayer + " doesnt have " + leadingSuit);
+            }
+        });
+
         dealInProgress = dealInProgressFactory.next(dealInProgress, card);
-        return playDeal(handsFactory.reduce(hands, thisPlayer, card), dealInProgress);
+        return playDeal(handsFactory.reduce(hands, thisPlayer, card), dealInProgress, missingSuits);
     }
-
-
 }

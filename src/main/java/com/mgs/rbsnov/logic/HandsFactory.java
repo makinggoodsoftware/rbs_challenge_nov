@@ -1,12 +1,14 @@
 package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.domain.*;
+import org.apache.commons.logging.Log;
+import org.apache.log4j.Logger;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class HandsFactory {
+    private static final Logger LOG = Logger.getLogger(HandsFactory.class);
     private final CardsDealer cardsDealer;
     private final CardsSetBuilder cardsSetBuilder;
 
@@ -57,9 +59,14 @@ public class HandsFactory {
                 build();
     }
 
-    public Hands fromAllCardsShuffled (Player startingFrom, Map<Player, Set<Card>> knownCards){
-        Map<Player, Set<Card>> deal = cardsDealer.deal(Player.all(startingFrom), cardsSetBuilder.allCards(), knownCards);
-        return from(deal);
+    public Hands fromAllCardsShuffled(Player startingFrom, Map<Player, Set<Card>> knownCards, Map<Player, Set<Suit>> missingSuits){
+        try {
+            Map<Player, Set<Card>> deal = cardsDealer.deal(Player.all(startingFrom), cardsSetBuilder.allCards(), knownCards, missingSuits);
+            return from(deal);
+        } catch (CantSatisfyRequirements cantSatisfyRequirements) {
+            LOG.warn("Can't satisfy dealing cards requirements. " + missingSuits + " trying again...");
+            return fromAllCardsShuffled(startingFrom, knownCards, missingSuits);
+        }
     }
 
     public Hands removeCards(Hands allHands, Card card1, Card card2, Card card3, Card card4) {
@@ -84,9 +91,14 @@ public class HandsFactory {
         );
     }
 
-    public Hands dealCards(Player startingPlayer, Set<Card> startingHand, Set<Card> inPlay, Map<Player, Set<Card>> knownCards) {
-        Map<Player, Set<Card>> playerCards = cardsDealer.deal(Player.except(startingPlayer), inPlay, knownCards);
-        playerCards.put(startingPlayer, startingHand);
-        return from(playerCards);
+    public Hands dealCards(Player startingPlayer, Set<Card> startingHand, Set<Card> inPlay, Map<Player, Set<Card>> knownCards, Map<Player, Set<Suit>> missingSuits) {
+        try {
+            Map<Player, Set<Card>> playerCards = cardsDealer.deal(Player.except(startingPlayer), inPlay, knownCards, missingSuits);
+            playerCards.put(startingPlayer, startingHand);
+            return from(playerCards);
+        } catch (CantSatisfyRequirements cantSatisfyRequirements) {
+            LOG.warn("Can't satisfy dealing cards requirements. " + missingSuits + " trying again...");
+            return dealCards(startingPlayer, startingHand, inPlay, knownCards, missingSuits);
+        }
     }
 }

@@ -29,6 +29,7 @@ public class CardsSetBuilder {
         private final Set<Card> startingWith;
         private Set<Card> toRemove = new HashSet<>();
         private Set<Card> toAdd = new HashSet<>();
+        private Set<Suit> suitsToRemove = new HashSet<>();
 
         private CardsSetBuilderWip(Set<Card> startingWith) {
             this.startingWith = startingWith;
@@ -51,11 +52,18 @@ public class CardsSetBuilder {
             finished = finished.stream().
                     filter(original -> !toRemove.contains(original)).
                     collect(toSet());
-            return finished;
+
+
+            return finished.stream().filter(card -> !this.suitsToRemove.contains(card.getSuit())).collect(toSet());
         }
 
         public CardsSetBuilderWip add(Collection<Card> toAdd) {
             this.toAdd.addAll(toAdd);
+            return this;
+        }
+
+        public CardsSetBuilderWip removeSuits(Set<Suit> suitsToRemove) {
+            this.suitsToRemove.addAll(suitsToRemove);
             return this;
         }
     }

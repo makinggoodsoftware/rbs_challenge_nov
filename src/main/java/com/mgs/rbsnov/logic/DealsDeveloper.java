@@ -1,21 +1,18 @@
 package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.domain.*;
-import org.apache.log4j.Logger;
 
 import java.util.*;
 
 public class DealsDeveloper {
-    private final Logger LOG = Logger.getLogger(DealsDeveloper.class);
-
     private final DealRules dealRules;
-    private final PlayersScorer playersScorer;
+    private final FinishedDealScorer finishedDealScorer;
     private final DealInProgressFactory dealInProgressFactory;
     private final CardsFilter cardsFilter;
 
-    public DealsDeveloper(DealRules dealRules, PlayersScorer playersScorer, DealInProgressFactory dealInProgressFactory, CardsFilter cardsFilter) {
+    public DealsDeveloper(DealRules dealRules, FinishedDealScorer finishedDealScorer, DealInProgressFactory dealInProgressFactory, CardsFilter cardsFilter) {
         this.dealRules = dealRules;
-        this.playersScorer = playersScorer;
+        this.finishedDealScorer = finishedDealScorer;
         this.dealInProgressFactory = dealInProgressFactory;
         this.cardsFilter = cardsFilter;
     }
@@ -27,7 +24,8 @@ public class DealsDeveloper {
         }
         if (dealInProgress.isCompleted()) {
             HashSet<FinishedDeal> finishedDeal = new HashSet<>();
-            finishedDeal.add(playersScorer.score(dealInProgress));
+            FinishedDeal score = finishedDealScorer.score(dealInProgress);
+            finishedDeal.add(score);
             return finishedDeal;
         }
 

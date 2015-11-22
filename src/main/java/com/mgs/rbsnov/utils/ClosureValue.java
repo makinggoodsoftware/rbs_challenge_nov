@@ -1,5 +1,7 @@
 package com.mgs.rbsnov.utils;
 
+import com.mgs.rbsnov.domain.Player;
+
 import java.util.function.Function;
 
 public class ClosureValue<T> {
@@ -19,5 +21,9 @@ public class ClosureValue<T> {
 
     public static <R> ClosureValue<R> empty() {
         return new ClosureValue<>(null);
+    }
+
+    public void set(T value) {
+        this.value = value;
     }
 }

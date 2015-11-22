@@ -9,20 +9,12 @@ import java.util.Collection;
 import static java.math.BigDecimal.ZERO;
 import static java.math.RoundingMode.HALF_EVEN;
 
-public class PlayersScorer {
+public class FinishedDealScorer {
     public static final BigDecimal PRECISSION_ZERO = new BigDecimal("0.00000000");
     private final DealScorer dealScorer;
 
-    public PlayersScorer(DealScorer dealScorer) {
+    public FinishedDealScorer(DealScorer dealScorer) {
         this.dealScorer = dealScorer;
-    }
-
-    public FinishedDeal score(Player startingPlayer, Deal deal) {
-        DealScore dealScore = dealScorer.score(deal);
-        int winningCardIndex = dealScore.getWinningCardIndex();
-        Player winningPlayer = startingPlayer.moveClockWise(winningCardIndex);
-        PlayersScore score = score(winningPlayer, dealScore.getPoints());
-        return new FinishedDeal(deal, score, winningPlayer, startingPlayer);
     }
 
     public FinishedDeal score(DealInProgress dealInProgress) {
@@ -36,6 +28,14 @@ public class PlayersScorer {
         );
 
         return score(dealInProgress.getStartingPlayer(), deal);
+    }
+
+    public FinishedDeal score(Player startingPlayer, Deal deal) {
+        DealScore dealScore = dealScorer.score(deal);
+        int winningCardIndex = dealScore.getWinningCardIndex();
+        Player winningPlayer = startingPlayer.moveClockWise(winningCardIndex);
+        PlayersScore score = score(winningPlayer, dealScore.getPoints());
+        return new FinishedDeal(deal, score, winningPlayer, startingPlayer);
     }
 
 
