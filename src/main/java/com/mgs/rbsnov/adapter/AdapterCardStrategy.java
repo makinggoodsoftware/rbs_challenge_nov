@@ -76,7 +76,8 @@ public class AdapterCardStrategy implements ICardStrategy {
                 inPlay,
                 myHand,
                 discardedCards,
-                cardsAdaptor.missingDeals (gameStatus.getMyGameDeals(), myInProgressDeal)
+                cardsAdaptor.missingDeals (gameStatus.getMyGameDeals(), myInProgressDeal),
+                cardsAdaptor.currentScore (gameStatus.getMyGameDeals())
         );
 
         LOGGER.info("Playing card " + card);

@@ -14,7 +14,7 @@ class PlayersScorerSpecification extends Specification {
     DealScore dealScoreMock = Mock (DealScore)
 
     def "setup"() {
-        playersScorer = new FinishedDealScorer(dealScorerMock)
+        playersScorer = new FinishedDealScorer(dealScorerMock, cardScorer)
 
         dealScorerMock.score(dealMock) >> dealScoreMock
         dealScoreMock.points >> 1

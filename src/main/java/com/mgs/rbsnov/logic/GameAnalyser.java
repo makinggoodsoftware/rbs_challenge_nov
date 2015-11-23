@@ -5,6 +5,8 @@ import org.apache.log4j.Logger;
 
 import java.util.*;
 
+import static com.mgs.rbsnov.domain.PlayersScore.shootTheMoon;
+
 public class GameAnalyser {
     private final static Logger LOG = Logger.getLogger(GameAnalyser.class);
 
@@ -20,11 +22,11 @@ public class GameAnalyser {
         this.handsFactory = handsFactory;
     }
 
-    public Map<Card, PlayersScore> analyse(GameState gameState, int numberOfLevelsDeep){
-        return analyseMaxSteps(gameState, 0, numberOfLevelsDeep);
+    public Map<Card, PlayersScore> analyse(GameState gameState, int numberOfLevelsDeep, PlayersScore heartsScore){
+        return analyseMaxSteps(gameState, 0, numberOfLevelsDeep, heartsScore);
     }
 
-    private Map<Card, PlayersScore> analyseMaxSteps(GameState gameState, int stepsTaken, int numberOfLevelsDeep) {
+    private Map<Card, PlayersScore> analyseMaxSteps(GameState gameState, int stepsTaken, int numberOfLevelsDeep, PlayersScore heartsScore) {
         if (Thread.currentThread().isInterrupted()) {
             return new HashMap<>();
         }
@@ -34,25 +36,32 @@ public class GameAnalyser {
         }
         Map<Card, PlayersScore> analysis = new HashMap<>();
         DealInProgress dealInProgress = gameState.getDealInProgress();
-        Set<FinishedDeal> possibleDeals = dealsDeveloper.develop(dealInProgress, gameState.getAllHands());
+        Set<FinishedDeal> possibleDeals = dealsDeveloper.develop(dealInProgress, gameState.getAllHands(), heartsScore);
         Player thisPlayer = dealInProgress.getWaitingForPlayer().get();
-        Map<Card, Set<FinishedDeal>> possibleDealsByCard = asMap(possibleDeals, thisPlayer);
+        Map<Card, Set<FinishedDeal>> finishedDealsByCard = asMap(possibleDeals, thisPlayer);
         int newStepsTaken = stepsTaken + 1;
-        for (Map.Entry<Card, Set<FinishedDeal>> finishedDealsByCardEntry : possibleDealsByCard.entrySet()) {
+        for (Map.Entry<Card, Set<FinishedDeal>> finishedDealsByCardEntry : finishedDealsByCard.entrySet()) {
             Card card = finishedDealsByCardEntry.getKey();
-            Set<FinishedDeal> thisPossibleDeals = finishedDealsByCardEntry.getValue();
-            PredictedScorer.PredictedScoring predictedScoring = getPredictedScoring(gameState, thisPossibleDeals, newStepsTaken, numberOfLevelsDeep);
+            Set<FinishedDeal> thisFinishedDeals = finishedDealsByCardEntry.getValue();
+            PredictedScorer.PredictedScoring predictedScoring = getPredictedScoring(gameState, thisFinishedDeals, newStepsTaken, numberOfLevelsDeep);
             analysis.put(card, predictedScoring.build());
         }
         return analysis;
     }
 
-    private PredictedScorer.PredictedScoring getPredictedScoring(GameState gameState, Set<FinishedDeal> possibleDeals, int stepsTaken, int numberOfLevelsDeep) {
+    private PredictedScorer.PredictedScoring getPredictedScoring(GameState gameState, Set<FinishedDeal> finishedDeals, int stepsTaken, int numberOfLevelsDeep) {
         PredictedScorer.PredictedScoring predictedScoring = predictedScorer.newScoring();
-        for (FinishedDeal possibleDeal : possibleDeals) {
-            predictedScoring.addScore(possibleDeal.getScore());
+        for (FinishedDeal finishedDeal : finishedDeals) {
+            Optional<Player> player = finishedDeal.hasShotTheMoon();
+            if (player.isPresent()){
+                LOG.info("Shooting the moon detected! " + player.get());
+                predictedScoring.addScore(shootTheMoon(player.get()));
+                continue;
+            }
+
+            predictedScoring.addScore(finishedDeal.getCardsScore());
             if (! gameState.isLastDeal()){
-                GameState childGameState = childGameState(gameState, possibleDeal);
+                GameState childGameState = childGameState(gameState, finishedDeal);
                 Hands allHands = childGameState.getAllHands();
                 if (
                         allHands.get(Player.SOUTH).size() != allHands.get(Player.NORTH).size() ||
@@ -61,7 +70,7 @@ public class GameAnalyser {
                 ){
                     throw new IllegalStateException();
                 }
-                Map<Card, PlayersScore> childAnalysis = analyseMaxSteps(childGameState, stepsTaken, numberOfLevelsDeep);
+                Map<Card, PlayersScore> childAnalysis = analyseMaxSteps(childGameState, stepsTaken, numberOfLevelsDeep, finishedDeal.getHeartsScore());
                 if (childAnalysis.size() > 0) predictedScoring.addCombinedChildrenDealScores(childAnalysis.values());
             }
         }

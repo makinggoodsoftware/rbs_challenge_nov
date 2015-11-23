@@ -26,9 +26,16 @@ public class PlayerLogic {
                 limit(3).collect(Collectors.toSet());
     }
 
-    public Card playCard(DealInProgress dealInProgress, Set<Card> inPlay, Set<Card> from, Set<Card> discards, Map<Player, Set<Suit>> missingSuits) {
+    public Card playCard(
+            DealInProgress dealInProgress,
+            Set<Card> inPlay,
+            Set<Card> inHand,
+            Set<Card> discards,
+            Map<Player, Set<Suit>> missingSuits,
+            GameScore currentScore
+    ) {
         Map<Player, Set<Card>> discardMap = new HashMap<>();
         discardMap.put(dealInProgress.getWaitingForPlayer().get().previousClockwise(), discards);
-        return cardSelector.bestCard(dealInProgress, inPlay, from, discardMap, missingSuits);
+        return cardSelector.bestCard(dealInProgress, inPlay, inHand, discardMap, missingSuits, currentScore);
     }
 }

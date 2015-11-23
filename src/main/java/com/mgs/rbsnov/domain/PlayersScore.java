@@ -10,11 +10,29 @@ public class PlayersScore {
     private final BigDecimal northScore;
     private final BigDecimal westScore;
 
+    public static PlayersScore zeros() {
+        return new PlayersScore(
+                BigDecimal.ZERO,
+                BigDecimal.ZERO,
+                BigDecimal.ZERO,
+                BigDecimal.ZERO
+        );
+    }
+
     public PlayersScore(BigDecimal southScore, BigDecimal eastScore, BigDecimal northScore, BigDecimal westScore) {
         this.southScore = southScore;
         this.eastScore = eastScore;
         this.northScore = northScore;
         this.westScore = westScore;
+    }
+
+    public static PlayersScore shootTheMoon(Player player) {
+        return new PlayersScore(
+                player == Player.SOUTH ? BigDecimal.ZERO : new BigDecimal("26.00000"),
+                player == Player.EAST ? BigDecimal.ZERO : new BigDecimal("26.00000"),
+                player == Player.NORTH ? BigDecimal.ZERO : new BigDecimal("26.00000"),
+                player == Player.WEST ? BigDecimal.ZERO : new BigDecimal("26.00000")
+        );
     }
 
     public BigDecimal getSouthScore() {
@@ -25,6 +43,7 @@ public class PlayersScore {
         return eastScore;
     }
 
+
     public BigDecimal getNorthScore() {
         return northScore;
     }
@@ -32,7 +51,6 @@ public class PlayersScore {
     public BigDecimal getWestScore() {
         return westScore;
     }
-
 
     public BigDecimal get(Player forPlayer) {
         switch (forPlayer){
@@ -72,5 +90,9 @@ public class PlayersScore {
                 ", northScore=" + northScore +
                 ", westScore=" + westScore +
                 '}';
+    }
+
+    public boolean anyHigherThan(int maxValue) {
+        return getSouthScore().intValue() > maxValue || getEastScore().intValue() > maxValue|| getNorthScore().intValue() > maxValue || getWestScore().intValue() > maxValue;
     }
 }

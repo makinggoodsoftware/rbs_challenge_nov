@@ -2,6 +2,7 @@ package com.mgs.rbsnov.logic;
 
 import com.mgs.rbsnov.utils.ClosureValue;
 import com.mgs.rbsnov.domain.*;
+import org.apache.log4j.Logger;
 
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -10,14 +11,17 @@ import static java.math.BigDecimal.ZERO;
 import static java.math.RoundingMode.HALF_EVEN;
 
 public class FinishedDealScorer {
+    private static final Logger LOG = Logger.getLogger(FinishedDealScorer.class);
     public static final BigDecimal PRECISSION_ZERO = new BigDecimal("0.00000000");
     private final DealScorer dealScorer;
+    private final CardScorer cardScorer;
 
-    public FinishedDealScorer(DealScorer dealScorer) {
+    public FinishedDealScorer(DealScorer dealScorer, CardScorer cardScorer) {
         this.dealScorer = dealScorer;
+        this.cardScorer = cardScorer;
     }
 
-    public FinishedDeal score(DealInProgress dealInProgress) {
+    public FinishedDeal score(PlayersScore currentScore, DealInProgress dealInProgress) {
         if (!dealInProgress.isCompleted()) throw new IllegalStateException();
 
         Deal deal = new Deal(
@@ -27,15 +31,39 @@ public class FinishedDealScorer {
                 dealInProgress.getFollowingCards().get(2)
         );
 
-        return score(dealInProgress.getStartingPlayer(), deal);
+        return score(currentScore, dealInProgress.getStartingPlayer(), deal);
     }
 
-    public FinishedDeal score(Player startingPlayer, Deal deal) {
+    public FinishedDeal score(PlayersScore currentScore, Player startingPlayer, Deal deal) {
         DealScore dealScore = dealScorer.score(deal);
         int winningCardIndex = dealScore.getWinningCardIndex();
         Player winningPlayer = startingPlayer.moveClockWise(winningCardIndex);
         PlayersScore score = score(winningPlayer, dealScore.getPoints());
-        return new FinishedDeal(deal, score, winningPlayer, startingPlayer);
+
+        PlayersScore heartsScore = addHearts(currentScore, winningPlayer, deal);
+        return new FinishedDeal(deal, score, heartsScore, winningPlayer, startingPlayer);
+    }
+
+    private PlayersScore addHearts(PlayersScore currentScore, Player winningPlayer, Deal deal) {
+        int totalScore = 0;
+        for (int i=0; i<4; i++){
+            Card card = deal.getCard(i);
+            if (card == Card.QUEEN_OF_SPADES || card.getSuit() == Suit.HEARTS) totalScore += cardScorer.score(card);
+        }
+
+        if (totalScore == 0) return currentScore;
+//        LOG.info("Adding to hearts score: " + winningCard);
+        BigDecimal score = BigDecimal.valueOf(totalScore);
+        PlayersScore playersScore = new PlayersScore(
+                winningPlayer == Player.SOUTH ? currentScore.getSouthScore().add(score) : currentScore.get(Player.SOUTH),
+                winningPlayer == Player.EAST ? currentScore.getEastScore().add(score) : currentScore.get(Player.EAST),
+                winningPlayer == Player.NORTH ? currentScore.getNorthScore().add(score) : currentScore.get(Player.NORTH),
+                winningPlayer == Player.WEST ? currentScore.getWestScore().add(score) : currentScore.get(Player.WEST)
+        );
+        if (playersScore.anyHigherThan(25)) {
+            LOG.info("Score after: " + playersScore);
+        }
+        return playersScore;
     }
 
 

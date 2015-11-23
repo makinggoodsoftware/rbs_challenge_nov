@@ -38,7 +38,7 @@ public class Config {
 
     @Bean
     public CardSelector cardSelector (){
-        return progressiveCardSelectorFactory().create(4500);
+        return progressiveCardSelectorFactory().create(500);
     }
 
     @Bean
@@ -94,7 +94,7 @@ public class Config {
 
     @Bean
     public FinishedDealScorer playersScorer() {
-        return new FinishedDealScorer(dealScorer());
+        return new FinishedDealScorer(dealScorer(), cardScorer());
     }
 
     @Bean
@@ -155,13 +155,12 @@ public class Config {
     @Bean
     public RoundDeveloperFactory roundDeveloperFactory() {
         return new RoundDeveloperFactory(
-                playerRotator(),
                 dealInProgressFactory(),
                 playersScorer(),
                 handsFactory(),
                 heartRules(),
-                cardsSetBuilder()
-        );
+                cardsSetBuilder(),
+                cardScorer());
     }
 
     @Bean

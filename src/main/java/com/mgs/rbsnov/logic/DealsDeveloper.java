@@ -18,13 +18,13 @@ public class DealsDeveloper {
     }
 
 
-    public Set<FinishedDeal> develop(DealInProgress dealInProgress, Hands hands) {
+    public Set<FinishedDeal> develop(DealInProgress dealInProgress, Hands hands, PlayersScore heartsScore) {
         if (Thread.currentThread().isInterrupted()) {
             return new HashSet<>();
         }
         if (dealInProgress.isCompleted()) {
             HashSet<FinishedDeal> finishedDeal = new HashSet<>();
-            FinishedDeal score = finishedDealScorer.score(dealInProgress);
+            FinishedDeal score = finishedDealScorer.score(heartsScore, dealInProgress);
             finishedDeal.add(score);
             return finishedDeal;
         }
@@ -39,7 +39,7 @@ public class DealsDeveloper {
         Set<Card> filteredCards = cardsFilter.bestCards (dealInProgress, playableCards);
         for (Card playableCard : filteredCards) {
             DealInProgress nextDeal = dealInProgressFactory.next(dealInProgress, playableCard);
-            allDeals.addAll(develop(nextDeal, hands));
+            allDeals.addAll(develop(nextDeal, hands, heartsScore));
         }
         return allDeals;
     }

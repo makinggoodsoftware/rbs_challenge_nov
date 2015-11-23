@@ -26,12 +26,13 @@ public class RoundDeveloper {
         this.cardsSetBuilder = cardsSetBuilder;
     }
 
-    public List<RoundResult> playAllRounds(Hands hands, Map<Player, Set<Suit>> missingSuits) {
+    public List<RoundResult> playAllRounds(Hands hands, Map<Player, Set<Suit>> missingSuits, GameScore currentScore) {
         FinishedDeal finishedDeal;
         List<RoundResult> roundResults = new ArrayList<>();
         Player startingPlayer = heartRules.findStartingPlayer(hands);
         DealInProgress dealInProgress = dealInProgressFactory.oneCardDeal(startingPlayer, Card.TWO_OF_CLUBS);
         Hands thisHands = handsFactory.reduce(hands, startingPlayer, Card.TWO_OF_CLUBS);
+        GameScore thisScore = currentScore;
         do {
             LOG.info("=====================================================================================");
             LOG.info("Playing round: ");
@@ -40,10 +41,11 @@ public class RoundDeveloper {
             LOG.info("South: " + thisHands.getSouthHand());
             LOG.info("West: " + thisHands.getWestHand());
             LOG.info("=====================================================================================");
-            finishedDeal = playDeal(thisHands, dealInProgress, missingSuits);
+            finishedDeal = playDeal(thisHands, dealInProgress, missingSuits, thisScore);
+            thisScore = new GameScore(finishedDeal.getCardsScore(), finishedDeal.getHeartsScore());
             RoundResult roundResult = new RoundResult(thisHands, finishedDeal);
             roundResults.add(roundResult);
-            LOG.info("Round completed: Won by - " + finishedDeal.getWinningPlayer() + " round score: " + roundResult.getFinishedDeal().getScore());
+            LOG.info("Round completed: Won by - " + finishedDeal.getWinningPlayer() + " round score: " + roundResult.getFinishedDeal().getCardsScore());
             Hands previousHands = thisHands;
             thisHands = handsFactory.reduce(thisHands, finishedDeal.getDeal(), startingPlayer);
             if (previousHands.equals(thisHands)){
@@ -55,8 +57,13 @@ public class RoundDeveloper {
         return roundResults;
     }
 
-    FinishedDeal playDeal(Hands hands, DealInProgress dealInProgress, Map<Player, Set<Suit>> missingSuits) {
-        if (dealInProgress.isCompleted()) return finishedDealScorer.score(dealInProgress);
+    FinishedDeal playDeal(Hands hands, DealInProgress dealInProgress, Map<Player, Set<Suit>> missingSuits, GameScore currentScore) {
+        if (dealInProgress.isCompleted()) {
+            FinishedDeal finishedDeal = finishedDealScorer.score(currentScore.getHeartsScore(), dealInProgress);
+            LOG.info("******** CURRENT HEARTS SCORE **********");
+            LOG.info(finishedDeal.getHeartsScore());
+            return finishedDeal;
+        }
 
 
         Player thisPlayer = dealInProgress.getWaitingForPlayer().get();
@@ -75,7 +82,8 @@ public class RoundDeveloper {
         }
         boolean inPlayNotUnique = inPlay.stream().anyMatch(thisHand::contains);
         if (inPlayNotUnique) throw new IllegalStateException();
-        Card card = playerLogicMap.get(thisPlayer).playCard (dealInProgress, inPlay, thisHand, discards.get(thisPlayer).getDiscardingCards(), missingSuits);
+        PlayerLogic playerLogic = playerLogicMap.get(thisPlayer);
+        Card card = playerLogic.playCard (dealInProgress, inPlay, thisHand, discards.get(thisPlayer).getDiscardingCards(), missingSuits, currentScore);
         if (card == null){
             throw new IllegalStateException();
         }
@@ -92,6 +100,6 @@ public class RoundDeveloper {
         });
 
         dealInProgress = dealInProgressFactory.next(dealInProgress, card);
-        return playDeal(handsFactory.reduce(hands, thisPlayer, card), dealInProgress, missingSuits);
+        return playDeal(handsFactory.reduce(hands, thisPlayer, card), dealInProgress, missingSuits, currentScore);
     }
 }

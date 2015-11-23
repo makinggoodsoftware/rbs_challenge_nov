@@ -144,4 +144,8 @@ public class CardsAdaptor {
     public Map<Player, Set<Suit>> missingDeals(List<Deal> myGameDeals, Deal myInProgressDeal) {
         throw new IllegalStateException();
     }
+
+    public GameScore currentScore(List<Deal> myGameDeals) {
+        throw new IllegalStateException();
+    }
 }
