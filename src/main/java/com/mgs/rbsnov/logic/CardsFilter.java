@@ -52,11 +52,19 @@ public class CardsFilter {
 
     private Set<Card> followingSuit(DealInProgress dealInProgress, List<Card> playableCards) {
         Card leadingCard = dealInProgress.getLeadingCard().get();
+        Card highestCard = leadingCard;
+
+        for (Card followingCard : dealInProgress.getFollowingCards()) {
+            if (followingCard.getNumeration().getValue() > highestCard.getNumeration().getValue()) {
+                highestCard = followingCard;
+            }
+        }
+
         List<Card> sortedSuitCards = sortAsc(playableCards);
-        if (cantKill(leadingCard, sortedSuitCards)) {
+        if (cantKill(highestCard, sortedSuitCards)) {
             return singletonSet(sortedSuitCards.get(0));
         }
-        return canKillFollowingSuit(leadingCard, sortedSuitCards);
+        return canKillFollowingSuit(highestCard, sortedSuitCards);
     }
 
     private Set<Card> canKillFollowingSuit(Card leadingCard, List<Card> sortedSuitCards) {

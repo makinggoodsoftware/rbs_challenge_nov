@@ -27,9 +27,9 @@ public class Config {
     @Bean
     public CardRiskConfiguration cardRiskConfiguration() {
         return new CardRiskConfiguration(
-                50,
+                25,
                 40,
-                45,
+                40,
                 2,
                 30,
                 20,
@@ -52,21 +52,21 @@ public class Config {
                         predictedScorer())
                 ).
                 put(1, new SimpleCardSelector(
-                        new RunningConfiguration(15, 2),
-                        gameAnalyserII(),
-                        cardScorer(),
-                        handsFactory(),
-                        predictedScorer())
+                                new RunningConfiguration(15, 2),
+                                gameAnalyserII(),
+                                cardScorer(),
+                                handsFactory(),
+                                predictedScorer())
                 ).
                 put(2, new SimpleCardSelector(
-                        new RunningConfiguration(15, 3),
+                        new RunningConfiguration(3, 8),
                         gameAnalyserII(),
                         cardScorer(),
                         handsFactory(),
                         predictedScorer())
                 ).
                 put(3, new SimpleCardSelector(
-                        new RunningConfiguration(15, 4),
+                        new RunningConfiguration(15, 8),
                         gameAnalyserII(),
                         cardScorer(),
                         handsFactory(),

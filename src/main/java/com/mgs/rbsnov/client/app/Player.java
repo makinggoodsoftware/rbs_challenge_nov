@@ -130,8 +130,8 @@ public class Player {
 			}
 
 			catch (Exception ex) {
-				logger.error(JsonHelper.getStackTrace(ex));
-				exitLoop = true;
+				logger.error("Unidentified error:" , ex);
+				playerActivityTracker.clear();
 			}
 			Thread.sleep(100);
 			if (exitLoop) break;

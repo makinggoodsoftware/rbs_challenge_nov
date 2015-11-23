@@ -60,9 +60,6 @@ public class FinishedDealScorer {
                 winningPlayer == Player.NORTH ? currentScore.getNorthScore().add(score) : currentScore.get(Player.NORTH),
                 winningPlayer == Player.WEST ? currentScore.getWestScore().add(score) : currentScore.get(Player.WEST)
         );
-        if (playersScore.anyHigherThan(25)) {
-            LOG.info("Score after: " + playersScore);
-        }
         return playersScore;
     }
 

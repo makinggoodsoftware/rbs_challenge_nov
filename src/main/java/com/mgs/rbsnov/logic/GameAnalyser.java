@@ -54,7 +54,6 @@ public class GameAnalyser {
         for (FinishedDeal finishedDeal : finishedDeals) {
             Optional<Player> player = finishedDeal.hasShotTheMoon();
             if (player.isPresent()){
-                LOG.info("Shooting the moon detected! " + player.get());
                 predictedScoring.addScore(shootTheMoon(player.get()));
                 continue;
             }
