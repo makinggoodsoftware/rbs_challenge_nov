@@ -39,6 +39,7 @@ public class SimpleCardSelector implements CardSelector {
         Collections.sort(allScores, (left, right) -> {
             BigDecimal leftScore = left.predictedCardsScore.get(thisPlayer);
             BigDecimal rightScore = right.predictedCardsScore.get(thisPlayer);
+
             Integer leftPoints = cardScorer.score(left.card);
             Integer rightPoints = cardScorer.score(right.card);
 

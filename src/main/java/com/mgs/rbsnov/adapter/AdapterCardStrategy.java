@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AdapterCardStrategy implements ICardStrategy {
     private final static Logger LOGGER = Logger.getLogger(AdapterCardStrategy.class);
@@ -46,7 +47,7 @@ public class AdapterCardStrategy implements ICardStrategy {
 
         Set<com.mgs.rbsnov.domain.Card> cards = cardsAdaptor.extractMyHand(gameStatus);
         LOGGER.info("Passing cards from: " + cards);
-        Set<com.mgs.rbsnov.domain.Card> domainDiscards = playerLogic.discard(cards);
+        Set<com.mgs.rbsnov.domain.Card> domainDiscards = playerLogic.discard(cards).getToDiscard();
         LOGGER.info("Cards to pass: " + domainDiscards);
         cardsPassed = true;
         latestRoundId = -1;
@@ -69,13 +70,15 @@ public class AdapterCardStrategy implements ICardStrategy {
         if ((inPlay.size() + myHand.size() + dealInProgress.getCardSize()) % 4 != 0) {
             throw new IllegalStateException();
         }
+        boolean shootingTheMoon = cardsAdaptor.isShootingTheMoon(gameStatus.getMyInitialHand().stream().map(cardsAdaptor::toDomainCard).collect(Collectors.toSet()));
         com.mgs.rbsnov.domain.Card card = playerLogic.playCard(
                 dealInProgress,
                 inPlay,
                 myHand,
                 cardsAdaptor.discardedCards(gameStatus),
                 cardsAdaptor.missingDeals (gameStatus.getMyGameDeals(), myInProgressDeal),
-                cardsAdaptor.currentScore (gameStatus.getMyGameDeals())
+                cardsAdaptor.currentScore (gameStatus.getMyGameDeals()),
+                shootingTheMoon
         );
 
         LOGGER.info("Playing card " + card);

@@ -15,28 +15,28 @@ public class CardsDiscarder {
 
     Map<Player, DiscardResult> discard(PlayersLogic playersLogic, Hands initialHands) {
         Map<Player, DiscardResult> discardResult = new HashMap<>();
-        Map<Player, Set<Card>> discards = discardingCards(playersLogic, initialHands);
+        Map<Player, DiscardDecision> discards = discardingCards(playersLogic, initialHands);
         PlayerRotator.PlayerRotation playerRotation = playerRotator.clockwiseIterator(Player.SOUTH);
         while (playerRotation.hasNext()){
             Player thisPlayer = playerRotation.next();
             Set<Card> initialCards = initialHands.get(thisPlayer);
-            Set<Card> receivingCards = discards.get(thisPlayer.nextClockwise());
-            Set<Card> discardingCards = discards.get(thisPlayer);
+            DiscardDecision receivingDiscardDecision = discards.get(thisPlayer.nextClockwise());
+            DiscardDecision discardingDecision = discards.get(thisPlayer);
 
-            discardResult.put(thisPlayer, new DiscardResult(initialCards, receivingCards, discardingCards));
+            discardResult.put(thisPlayer, new DiscardResult(initialCards, receivingDiscardDecision.getToDiscard(), discardingDecision.getToDiscard(), discardingDecision.isShootingTheMoon()));
         }
         return discardResult;
     }
 
-    Map<Player, Set<Card>> discardingCards(PlayersLogic playersLogic, Hands initialHands) {
-        Map<Player, Set<Card>> passingCards = new HashMap<>();
+    Map<Player, DiscardDecision> discardingCards(PlayersLogic playersLogic, Hands initialHands) {
+        Map<Player, DiscardDecision> passingCards = new HashMap<>();
         PlayerRotator.PlayerRotation playerRotation = playerRotator.clockwiseIterator(Player.SOUTH);
         while (playerRotation.hasNext()){
             Player discardingPlayer = playerRotation.next();
             Set<Card> discardingPlayerCards = initialHands.get(discardingPlayer);
-            Set<Card> discardedCards = playersLogic.get(discardingPlayer).discard(discardingPlayerCards);
-            if (discardedCards.size() != 3) throw new IllegalStateException();
-            passingCards.put(discardingPlayer, discardedCards);
+            DiscardDecision discardDecision = playersLogic.get(discardingPlayer).discard(discardingPlayerCards);
+            if (discardDecision.getToDiscard().size() != 3) throw new IllegalStateException();
+            passingCards.put(discardingPlayer, discardDecision);
         }
         return passingCards;
     }

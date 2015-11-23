@@ -1,5 +1,6 @@
 package com.mgs.rbsnov.logic;
 
+import com.mgs.rbsnov.adapter.CardsAdaptor;
 import com.mgs.rbsnov.domain.*;
 import org.apache.log4j.Logger;
 
@@ -12,19 +13,40 @@ public class GameSimulator {
     private final CardsDiscarder cardsDiscarder;
     private final RoundDeveloperFactory roundDeveloperFactory;
     private final HandsFactory handsFactory;
+    private final GameScorer gameScorer;
+    private final CardsSetBuilder cardsSetBuilder;
 
-    public GameSimulator(CardsDiscarder cardsDiscarder, RoundDeveloperFactory roundDeveloperFactory, HandsFactory handsFactory) {
+    public GameSimulator(CardsDiscarder cardsDiscarder, RoundDeveloperFactory roundDeveloperFactory, HandsFactory handsFactory, GameScorer gameScorer, CardsSetBuilder cardsSetBuilder) {
         this.cardsDiscarder = cardsDiscarder;
         this.roundDeveloperFactory = roundDeveloperFactory;
         this.handsFactory = handsFactory;
+        this.gameScorer = gameScorer;
+        this.cardsSetBuilder = cardsSetBuilder;
+    }
+
+    public GameResult start(Set<Card> initialHand, PlayersLogic playersLogic) {
+        Set<Card> inPlay = cardsSetBuilder.newSet(cardsSetBuilder.allCards()).remove(initialHand).build();
+        Hands beforeDescarding = handsFactory.dealCards(Player.SOUTH, initialHand, inPlay, new HashMap<>(), new HashMap<>());
+        return playHands(playersLogic, beforeDescarding);
     }
 
     public GameResult start(PlayersLogic playersLogic) {
         Hands beforeDescarding = handsFactory.fromAllCardsShuffled(Player.SOUTH, new HashMap<>(), new HashMap<>());
+        return playHands(playersLogic, beforeDescarding);
+    }
+
+    private GameResult playHands(PlayersLogic playersLogic, Hands beforeDescarding) {
         Map<Player, DiscardResult> discards = cardsDiscarder.discard(playersLogic, beforeDescarding);
         LOG.info("DISCARDS");
         discards.entrySet().stream().forEach(it->{
             LOG.info(it.getKey());
+            if (it.getValue().isShootingTheMoon()){
+                LOG.warn("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                LOG.warn("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                LOG.warn("SHOOTING THE MOON!");
+                LOG.warn("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+                LOG.warn("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            }
             List<Card> initialCards = sortBy(it.getValue().getInitialCards(), bySuitAndNumeration());
             List<Card> discardCards = sortBy(it.getValue().getDiscardingCards(), bySuitAndNumeration());
 
@@ -38,18 +60,11 @@ public class GameSimulator {
 
         LOG.warn("========================================================================================");
         LOG.warn("GAME FINISHED");
-        Map<Player, Integer> finalScores = new HashMap<>();
-        Player.all(Player.SOUTH).stream().forEach(player -> finalScores.put(player, 0));
-
-        for (RoundResult roundResult : roundResults) {
-            PlayersScore score = roundResult.getFinishedDeal().getCardsScore();
-            Player.all(Player.SOUTH).stream().forEach(player -> {
-                Integer accumulated = finalScores.get(player) + score.get(player).intValue();
-                finalScores.put(player, accumulated);
-            });
-        }
-        LOG.warn("scores:");
-        Player.all(Player.SOUTH).stream().forEach(player -> LOG.warn(player + " " + finalScores.get(player)));
+        GameScore finalScores = gameScorer.finalScores(roundResults);
+        LOG.warn("Card scores:");
+        Player.all(Player.SOUTH).stream().forEach(player -> LOG.warn(player + " " + finalScores.getPlayersScore().get(player)));
+        LOG.warn("Heart scores:");
+        Player.all(Player.SOUTH).stream().forEach(player -> LOG.warn(player + " " + finalScores.getHeartsScore().get(player)));
         LOG.warn("========================================================================================");
 
         return new GameResult(roundResults);

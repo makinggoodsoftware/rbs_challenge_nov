@@ -5,8 +5,7 @@ import com.mgs.rbsnov.client.entities.Deal;
 import com.mgs.rbsnov.client.enums.SuitType;
 import com.mgs.rbsnov.domain.*;
 import com.mgs.rbsnov.domain.Card;
-import com.mgs.rbsnov.logic.CardsSetBuilder;
-import com.mgs.rbsnov.logic.DealInProgressFactory;
+import com.mgs.rbsnov.logic.*;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -19,10 +18,14 @@ public class CardsAdaptor {
 
     private final DealInProgressFactory dealInProgressFactory;
     private final CardsSetBuilder cardsSetBuilder;
+    private final CardRiskEvaluator cardRiskEvaluator;
+    private final CardScorer cardScorer;
 
-    public CardsAdaptor(DealInProgressFactory dealInProgressFactory, CardsSetBuilder cardsSetBuilder) {
+    public CardsAdaptor(DealInProgressFactory dealInProgressFactory, CardsSetBuilder cardsSetBuilder, CardRiskEvaluator cardRiskEvaluator, CardScorer cardScorer) {
         this.dealInProgressFactory = dealInProgressFactory;
         this.cardsSetBuilder = cardsSetBuilder;
+        this.cardRiskEvaluator = cardRiskEvaluator;
+        this.cardScorer = cardScorer;
     }
 
     public Set<Card> extractMyHand(GameStatus gameStatus) {
@@ -206,7 +209,27 @@ public class CardsAdaptor {
 
 
     public GameScore currentScore(List<Deal> myGameDeals) {
-        return GameScore.zeros();
+        GameScore current = GameScore.zeros();
+        for (Deal myGameDeal : myGameDeals) {
+            Player player = toPlayer(myGameDeal.getDealWinner(), myGameDeal);
+
+            int cardsScore = 0;
+            int heartsScore = 0;
+            for (DealCard dealCard : myGameDeal.getDealCards()) {
+                Card card = toDomainCard(dealCard.getCard());
+                Integer score = cardScorer.score(card);
+                cardsScore += score;
+                if (card.getSuit() == Suit.HEARTS || card == Card.QUEEN_OF_SPADES){
+                    heartsScore += score;
+                }
+            }
+
+            current = new GameScore(
+                    current.getPlayersScore().add(player, cardsScore),
+                    current.getHeartsScore().add(player, heartsScore)
+            );
+        }
+        return current;
     }
 
     public Set<Card> discardedCards(GameStatus gameStatus) {
@@ -222,4 +245,10 @@ public class CardsAdaptor {
 
         return discarded;
     }
+
+    public boolean isShootingTheMoon(Set<Card> myInitialHand) {
+        return cardRiskEvaluator.shouldShootTheMoon(myInitialHand);
+    }
+
+
 }

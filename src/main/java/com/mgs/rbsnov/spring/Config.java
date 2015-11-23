@@ -96,7 +96,7 @@ public class Config {
 
     @Bean
     public CardsAdaptor cardsAdaptor() {
-        return new CardsAdaptor(dealInProgressFactory(), cardsSetBuilder());
+        return new CardsAdaptor(dealInProgressFactory(), cardsSetBuilder(), cardsRiskEvaluator(), cardScorer());
     }
 
     @Bean
@@ -155,8 +155,14 @@ public class Config {
         return new GameSimulator(
                 cardsDiscarded(),
                 roundDeveloperFactory(),
-                handsFactory()
-        );
+                handsFactory(),
+                gameScorer(),
+                cardsSetBuilder());
+    }
+
+    @Bean
+    public GameScorer gameScorer() {
+        return new GameScorer();
     }
 
     @Bean
@@ -192,7 +198,7 @@ public class Config {
 
     @Bean
     public CardRiskEvaluator cardsRiskEvaluator() {
-        return new CardRiskEvaluator(cardScorer(), cardRiskConfiguration());
+        return new CardRiskEvaluator(cardScorer(), cardRiskConfiguration(), 180);
     }
 
     @Bean

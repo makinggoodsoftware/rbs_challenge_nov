@@ -44,7 +44,7 @@ public class FinishedDealScorer {
         return new FinishedDeal(deal, score, heartsScore, winningPlayer, startingPlayer);
     }
 
-    private PlayersScore addHearts(PlayersScore currentScore, Player winningPlayer, Deal deal) {
+    public PlayersScore addHearts(PlayersScore currentScore, Player winningPlayer, Deal deal) {
         int totalScore = 0;
         for (int i=0; i<4; i++){
             Card card = deal.getCard(i);

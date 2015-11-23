@@ -13,6 +13,13 @@ public class GameScore {
         this.heartsScore = heartsScore;
     }
 
+    public GameScore add(PlayersScore cardsScore, PlayersScore heartsScore) {
+        return new GameScore(
+                this.playersScore.add(cardsScore),
+                heartsScore
+        );
+    }
+
     public PlayersScore getPlayersScore() {
         return playersScore;
     }

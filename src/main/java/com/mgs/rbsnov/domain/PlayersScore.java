@@ -52,6 +52,16 @@ public class PlayersScore {
         return westScore;
     }
 
+    public PlayersScore add(Player player, int score) {
+        BigDecimal scoreBD = BigDecimal.valueOf(score);
+        return new PlayersScore(
+                player == Player.SOUTH ? southScore.add(scoreBD) : southScore,
+                player == Player.EAST ? eastScore.add(scoreBD) : eastScore,
+                player == Player.NORTH ? northScore.add(scoreBD) : northScore,
+                player == Player.WEST ? westScore.add(scoreBD) : westScore
+        );
+    }
+
     public BigDecimal get(Player forPlayer) {
         switch (forPlayer){
             case EAST:
@@ -64,6 +74,15 @@ public class PlayersScore {
                 return getSouthScore();
         }
         throw new IllegalStateException();
+    }
+
+    public PlayersScore add(PlayersScore toAdd) {
+        return new PlayersScore(
+                this.getSouthScore().add(toAdd.getSouthScore()),
+                this.getEastScore().add(toAdd.getEastScore()),
+                this.getNorthScore().add(toAdd.getNorthScore()),
+                this.getWestScore().add(toAdd.getWestScore())
+        );
     }
 
     @Override

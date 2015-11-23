@@ -35,7 +35,7 @@ class CardRiskEvaluatorSpecification extends Specification {
         cardScorer.score(TEN_OF_HEARTS) >> 1
         cardScorer.score(TEN_OF_CLUBS) >> -1
 
-        cardRiskEvaluator = new CardRiskEvaluator(cardScorer, cardRiskConfiguration)
+        cardRiskEvaluator = new CardRiskEvaluator(cardScorer, cardRiskConfiguration, shootTheMoonThreshold)
     }
 
     //BASE RISK

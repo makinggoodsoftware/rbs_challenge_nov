@@ -83,7 +83,7 @@ public class RoundDeveloper {
         boolean inPlayNotUnique = inPlay.stream().anyMatch(thisHand::contains);
         if (inPlayNotUnique) throw new IllegalStateException();
         PlayerLogic playerLogic = playerLogicMap.get(thisPlayer);
-        Card card = playerLogic.playCard (dealInProgress, inPlay, thisHand, discards.get(thisPlayer).getDiscardingCards(), missingSuits, currentScore);
+        Card card = playerLogic.playCard (dealInProgress, inPlay, thisHand, discards.get(thisPlayer).getDiscardingCards(), missingSuits, currentScore, discards.get(thisPlayer).isShootingTheMoon());
         if (card == null){
             throw new IllegalStateException();
         }

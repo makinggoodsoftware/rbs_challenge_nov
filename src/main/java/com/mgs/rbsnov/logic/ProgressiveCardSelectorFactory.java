@@ -41,7 +41,8 @@ public class ProgressiveCardSelectorFactory {
                     input.getMyCards(),
                     input.getKnownCards(),
                     input.getMissingSuits(),
-                    input.getCurrentScore());
+                    input.getCurrentScore()
+            );
         };
     }
 

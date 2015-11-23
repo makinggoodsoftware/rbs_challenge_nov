@@ -62,5 +62,6 @@ public class ProgressiveCardSelector implements CardSelector {
         public GameScore getCurrentScore() {
             return currentScore;
         }
+
     }
 }
