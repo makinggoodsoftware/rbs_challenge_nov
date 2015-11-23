@@ -28,8 +28,8 @@ public class Config {
     public CardRiskConfiguration cardRiskConfiguration() {
         return new CardRiskConfiguration(
                 25,
-                40,
-                40,
+                30,
+                30,
                 2,
                 30,
                 20,
@@ -38,7 +38,7 @@ public class Config {
 
     @Bean
     public CardSelector cardSelector (){
-        return progressiveCardSelectorFactory().create(500);
+        return progressiveCardSelectorFactory().create(3500);
     }
 
     @Bean
@@ -59,20 +59,27 @@ public class Config {
                                 predictedScorer())
                 ).
                 put(2, new SimpleCardSelector(
-                        new RunningConfiguration(3, 8),
+                        new RunningConfiguration(7, 4),
                         gameAnalyserII(),
                         cardScorer(),
                         handsFactory(),
                         predictedScorer())
                 ).
                 put(3, new SimpleCardSelector(
-                        new RunningConfiguration(15, 8),
+                        new RunningConfiguration(3, 8),
                         gameAnalyserII(),
                         cardScorer(),
                         handsFactory(),
                         predictedScorer())
                 ).
                 put(4, new SimpleCardSelector(
+                        new RunningConfiguration(15, 8),
+                        gameAnalyserII(),
+                        cardScorer(),
+                        handsFactory(),
+                        predictedScorer())
+                ).
+                put(5, new SimpleCardSelector(
                         new RunningConfiguration(50, 6),
                         gameAnalyserII(),
                         cardScorer(),

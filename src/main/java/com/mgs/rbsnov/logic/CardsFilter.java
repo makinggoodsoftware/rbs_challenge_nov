@@ -62,7 +62,14 @@ public class CardsFilter {
 
         List<Card> sortedSuitCards = sortAsc(playableCards);
         if (cantKill(highestCard, sortedSuitCards)) {
-            return singletonSet(sortedSuitCards.get(0));
+            if (cardScorer.score(highestCard) >= 0){
+                return singletonSet(sortedSuitCards.get(0));
+            } else {
+                return asSet(Arrays.asList(
+                        sortedSuitCards.get(0),
+                        sortedSuitCards.get(sortedSuitCards.size() - 1)
+                ));
+            }
         }
         return canKillFollowingSuit(highestCard, sortedSuitCards);
     }

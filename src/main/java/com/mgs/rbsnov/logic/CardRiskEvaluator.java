@@ -17,9 +17,11 @@ public class CardRiskEvaluator {
     }
 
     public Integer evaluate(Card toCompare, Map<Suit, ? extends Collection<Card>> cards) {
-        if (cardScorer.score(toCompare)<0) return basicRisk(toCompare);
+        Integer basicRisk = basicRisk(toCompare);
+        if (cardScorer.score(toCompare)<0) return basicRisk;
+        if (toCompare.getSuit() == Suit.HEARTS || toCompare.getSuit() == Suit.SPADES) return basicRisk;
 
-        return basicRisk(toCompare) + suitScore(cards.get(toCompare.getSuit()).size());
+        return basicRisk + suitScore(cards.get(toCompare.getSuit()).size());
     }
 
     public Integer basicRisk(Card toCompare) {

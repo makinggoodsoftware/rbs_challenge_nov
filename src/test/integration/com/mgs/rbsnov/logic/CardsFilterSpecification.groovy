@@ -72,7 +72,7 @@ class CardsFilterSpecification extends Specification {
         bestCards == [Card.SIX_OF_DIAMONDS] as Set
     }
 
-    def "following suit: if it can't kill should return highest value" (){
+    def "following suit: if it can't kill should return highest value on a non negative points suit" (){
         when:
         Set<Card> bestCards = cardsFilter.bestCards(
                 dealInProgressFactory.oneCardDeal(Player.SOUTH, Card.EIGHT_OF_CLUBS),
@@ -81,6 +81,20 @@ class CardsFilterSpecification extends Specification {
 
         then:
         bestCards == [Card.SIX_OF_CLUBS] as Set
+    }
+
+    def "following suit: if it can't kill should return lowest and highest value on a non negative points suit" (){
+        given:
+        cardScorer.addTempScore (Card.EIGHT_OF_CLUBS, -1)
+
+        when:
+        Set<Card> bestCards = cardsFilter.bestCards(
+                dealInProgressFactory.oneCardDeal(Player.SOUTH, Card.EIGHT_OF_CLUBS),
+                [Card.SIX_OF_CLUBS, Card.FOUR_OF_CLUBS, Card.TWO_OF_CLUBS] as Set
+        )
+
+        then:
+        bestCards == [Card.SIX_OF_CLUBS, Card.TWO_OF_CLUBS] as Set
     }
 
     def "following suit: should process the max killing one, the lowest killing one and the highest non killing one. IF NOT HEARTS" (){

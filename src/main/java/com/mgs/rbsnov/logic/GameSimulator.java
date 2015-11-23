@@ -3,9 +3,8 @@ package com.mgs.rbsnov.logic;
 import com.mgs.rbsnov.domain.*;
 import org.apache.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class GameSimulator {
     private final Logger LOG = Logger.getLogger(GameSimulator.class);
@@ -23,6 +22,15 @@ public class GameSimulator {
     public GameResult start(PlayersLogic playersLogic) {
         Hands beforeDescarding = handsFactory.fromAllCardsShuffled(Player.SOUTH, new HashMap<>(), new HashMap<>());
         Map<Player, DiscardResult> discards = cardsDiscarder.discard(playersLogic, beforeDescarding);
+        LOG.info("DISCARDS");
+        discards.entrySet().stream().forEach(it->{
+            LOG.info(it.getKey());
+            List<Card> initialCards = sortBy(it.getValue().getInitialCards(), bySuitAndNumeration());
+            List<Card> discardCards = sortBy(it.getValue().getDiscardingCards(), bySuitAndNumeration());
+
+            LOG.info("Initial cards: " + initialCards);
+            LOG.info("Discards: " + discardCards);
+        });
 
         RoundDeveloper roundDeveloper = roundDeveloperFactory.newRoundDeveloper(playersLogic, discards);
         Hands initialHands = handsFactory.fromDiscards(discards);
@@ -45,5 +53,16 @@ public class GameSimulator {
         LOG.warn("========================================================================================");
 
         return new GameResult(roundResults);
+    }
+
+    private List<Card> sortBy(Set<Card> initialCards, Comparator<Card> comparator) {
+        return initialCards.stream().sorted(comparator).collect(Collectors.toList());
+    }
+
+    private Comparator<Card> bySuitAndNumeration() {
+        return (left, right) -> {
+            int suitOrder = left.getSuit().compareTo(right.getSuit());
+            return suitOrder == 0 ? right.getNumeration().compareTo(left.getNumeration()) : suitOrder;
+        };
     }
 }
