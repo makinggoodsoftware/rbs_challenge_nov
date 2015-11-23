@@ -21,7 +21,6 @@ public class AdapterCardStrategy implements ICardStrategy {
 
     private int latestRoundId = -1;
     private boolean cardsPassed = false;
-    private Set<com.mgs.rbsnov.domain.Card> discardedCards;
 
     public AdapterCardStrategy(PlayerLogic playerLogic, CardsAdaptor cardsAdaptor, CardScorer cardScorer) {
         this.playerLogic = playerLogic;
@@ -48,7 +47,6 @@ public class AdapterCardStrategy implements ICardStrategy {
         Set<com.mgs.rbsnov.domain.Card> cards = cardsAdaptor.extractMyHand(gameStatus);
         LOGGER.info("Passing cards from: " + cards);
         Set<com.mgs.rbsnov.domain.Card> domainDiscards = playerLogic.discard(cards);
-        discardedCards = domainDiscards;
         LOGGER.info("Cards to pass: " + domainDiscards);
         cardsPassed = true;
         latestRoundId = -1;
@@ -75,7 +73,7 @@ public class AdapterCardStrategy implements ICardStrategy {
                 dealInProgress,
                 inPlay,
                 myHand,
-                discardedCards,
+                cardsAdaptor.discardedCards(gameStatus),
                 cardsAdaptor.missingDeals (gameStatus.getMyGameDeals(), myInProgressDeal),
                 cardsAdaptor.currentScore (gameStatus.getMyGameDeals())
         );

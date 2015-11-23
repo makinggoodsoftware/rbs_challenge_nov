@@ -1,22 +1,22 @@
 package com.mgs.rbsnov.adapter;
 
+import com.mgs.rbsnov.client.entities.*;
 import com.mgs.rbsnov.client.entities.Deal;
-import com.mgs.rbsnov.client.entities.DealCard;
-import com.mgs.rbsnov.client.entities.GameStatus;
 import com.mgs.rbsnov.client.enums.SuitType;
 import com.mgs.rbsnov.domain.*;
+import com.mgs.rbsnov.domain.Card;
 import com.mgs.rbsnov.logic.CardsSetBuilder;
 import com.mgs.rbsnov.logic.DealInProgressFactory;
+import org.apache.log4j.Logger;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
 public class CardsAdaptor {
+    private static final Logger LOG = Logger.getLogger(CardsAdaptor.class);
+
     private final DealInProgressFactory dealInProgressFactory;
     private final CardsSetBuilder cardsSetBuilder;
 
@@ -142,10 +142,84 @@ public class CardsAdaptor {
     }
 
     public Map<Player, Set<Suit>> missingDeals(List<Deal> myGameDeals, Deal myInProgressDeal) {
-        throw new IllegalStateException();
+        Map<Player, Set<Suit>> missingSuits = new HashMap<>();
+        Player.all(Player.SOUTH).forEach(it -> missingSuits.put(it, new HashSet<>()));
+
+        for (Deal myGameDeal : myGameDeals) {
+            processDeal(missingSuits, myGameDeal);
+        }
+        processDeal(missingSuits, myInProgressDeal);
+
+        LOG.info("Missing suits: " + missingSuits);
+        return missingSuits;
     }
 
+    private void processDeal(Map<Player, Set<Suit>> missingDeals, Deal myGameDeal) {
+        List<DealCard> dealCards = myGameDeal.getDealCards();
+        if (dealCards.size() == 0) return;
+
+        DealCard dealCard = dealCards.get(0);
+
+        Card leadingCard = toDomainCard(dealCard.getCard());
+        Suit leadingCardSuit = leadingCard.getSuit();
+        for (int i=1; i<myGameDeal.getDealCards().size(); i++){
+            DealCard followingDealCard = dealCards.get(i);
+            Card followingCard = toDomainCard(followingDealCard.getCard());
+            if (followingCard.getSuit() != leadingCardSuit){
+                String teamName = followingDealCard.getTeamName();
+                Player player = toPlayer(teamName, myGameDeal);
+                LOG.info("new missing suit " + teamName + " -> " + player + ": " + leadingCardSuit);
+                missingDeals.get(player).add(leadingCardSuit);
+            }
+        }
+    }
+
+    private Player toPlayer(String teamName, Deal myGameDeal) {
+        if (teamName.equals("Yogis")) return Player.SOUTH;
+
+        Map<Integer, String> positionsInDeal = new HashMap<>();
+        int i = 0;
+        Integer myPosition = - 1;
+        for (DealCard dealCard : myGameDeal.getDealCards()) {
+            positionsInDeal.put(i, dealCard.getTeamName());
+            if (dealCard.getTeamName().equals("Yogis")) {
+                myPosition = i;
+            }
+            i++;
+        }
+
+        int dealSize = myGameDeal.getDealCards().size();
+        if (myPosition == -1) {
+            myPosition = dealSize;
+        }
+
+        Player next = Player.SOUTH.nextClockwise();
+        for (int j=1; j < 4; j++){
+            int nextPos = (myPosition + j) % 4;
+            if (nextPos + 1 > dealSize) continue;
+
+            if (positionsInDeal.get(nextPos).equals(teamName)) return next;
+            next = next.nextClockwise();
+        }
+        throw new IllegalStateException("Can't find the player for the team name " + teamName);
+    }
+
+
     public GameScore currentScore(List<Deal> myGameDeals) {
-        throw new IllegalStateException();
+        return GameScore.zeros();
+    }
+
+    public Set<Card> discardedCards(GameStatus gameStatus) {
+        Set<Card> discarded = new HashSet<>();
+        List<Card> initialHand = gameStatus.getMyInitialHand().stream().map(this::toDomainCard).collect(toList());
+        List<Card> finalHand = gameStatus.getMyFinalHand().stream().map(this::toDomainCard).collect(toList());
+
+        for (Card card : initialHand) {
+            if (! finalHand.contains(card)) discarded.add(card);
+        }
+
+        if (discarded.size() != 3) throw new IllegalStateException();
+
+        return discarded;
     }
 }
